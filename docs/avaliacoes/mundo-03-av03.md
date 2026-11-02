@@ -1,7 +1,7 @@
 # AV03 — Avaliação de domínio do Mundo 3 (Primeira impressão)
 
 **Código:** BOBI-M03-AV03 · **Data da proposta:** 02/11/2026  
-**Situação:** **PROPOSTA PARA HOMOLOGAÇÃO**. PD003 já aprovou a regra de avaliações de domínio; as questões abaixo ainda precisam de aprovação pelo responsável.  
+**Situação:** **HOMOLOGADA EM 02/11/2026** — questões e gabaritos aprovados pelo responsável, mantendo a regra de domínio PD003. Implementação e revisão final ainda pendentes.  
 **Pré-requisito:** L17–L24 concluídas ou avanço via diagnóstico homologado.  
 **Objetivo:** demonstrar capacidade de reconhecer informações de arquivos, preparar e inspecionar uma impressão virtual simples de chaveiro.
 
@@ -16,7 +16,7 @@
 - Registrar tentativas, erros e `content_version`, sem exigir fatiamento real ou operação de hardware.
 - Aprovação de AV03 conclui a verificação de domínio dos três mundos iniciais; não inventar certificado, atividade social ou prêmio adicional.
 
-## Cinco desafios propostos
+## Cinco desafios homologados
 
 | Questão/tipo | Enunciado e opções | Gabarito | Feedback para revisão |
 |---|---|---|---|
@@ -53,6 +53,6 @@
 
 **Fontes:** [Base técnica](../knowledge/bobi_base_de_conhecimento_impressao_3d.md) (`STD-01`, `ULT-02`, `BAM-03`, `ORC-01`, `PRU-06`). **L17** ainda exige fonte complementar específica para diferença entre STL e G-code, como já registrado no catálogo.
 
-**Pendente:** aprovação deste roteiro, revisão técnica das questões, validação de segurança, produção de artes e teste pedagógico.
+**Pendente:** revisão técnica das questões, validação de segurança, produção de artes e teste pedagógico. A aprovação pedagógica do roteiro foi registrada em 02/11/2026.
 
 **Não cria novos requisitos RF/RNF; não altera a homologação do currículo PD004.**
