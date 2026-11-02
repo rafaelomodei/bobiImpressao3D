@@ -1,11 +1,11 @@
 # Mundo 2 — Oficina: L09–L16
 
 **Projeto:** bobi. · **Data da proposta:** 02/11/2026  
-**Situação:** **PROPOSTA PARA HOMOLOGAÇÃO** — títulos e objetivos curriculares do Mundo 2 já aprovados em PD004; **os roteiros, desafios e gabaritos abaixo ainda não estão homologados**.  
+**Situação:** **HOMOLOGADA EM 02/11/2026** — L09–L16, incluindo roteiros, desafios e gabaritos, aprovadas pelo responsável. A implementação e a revisão técnica/pedagógica para publicação permanecem pendentes.  
 **Mascote:** Caramelo, cachorro caramelo brasileiro.  
 **Padrão:** aprendizagem híbrida, 2–4 minutos por lição, quatro interações frequentes, explicações breves e feedback contextual.
 
-Fontes de verdade: [Termo de Abertura](../termo-de-abertura.md) · [Mundo 1 homologado](mundo-01.md) · [Catálogo técnico](../knowledge/bobi_base_de_conhecimento_impressao_3d.md) · [Avaliação AV02 (proposta)](../avaliacoes/mundo-02-av02.md).
+Fontes de verdade: [Termo de Abertura](../termo-de-abertura.md) · [Mundo 1 homologado](mundo-01.md) · [Catálogo técnico](../knowledge/bobi_base_de_conhecimento_impressao_3d.md) · [Avaliação AV02 homologada](../avaliacoes/mundo-02-av02.md).
 
 ## Regras comuns herdadas (sem novos RF/RNF)
 
@@ -17,7 +17,7 @@ Fontes de verdade: [Termo de Abertura](../termo-de-abertura.md) · [Mundo 1 homo
 - Segurança: as atividades são **exclusivamente virtuais**; não mandar crianças operar, tocar, corrigir ou inspecionar partes energizadas/quentes, nem manusear produtos químicos.
 - Não assumir que arquiteturas cartesianas, perfis e parâmetros de uma marca valem para todos os equipamentos.
 
-## Lições propostas
+## Lições homologadas
 
 ### L09 — Conheça sua impressora
 
@@ -243,4 +243,4 @@ Fontes de verdade: [Termo de Abertura](../termo-de-abertura.md) · [Mundo 1 homo
 - **SAF-01** — NIOSH/CDC, segurança em impressão 3D: https://www.cdc.gov/niosh/bulletin/2024/safe-3d-printing.html
 - **SAF-02** — NIOSH, ambientes educacionais e makerspaces: https://www.cdc.gov/niosh/publications/numbered/2024-103.html
 
-**Pendências:** revisão de segurança de L12–L16, validação de mensagens e imagens técnicas, produção de sprites originais e testes de aprendizagem. **Status atual: proposta de detalhamento; NÃO homologar sem decisão do responsável.**
+**Pendências:** revisão de segurança de L12–L16, validação de mensagens e imagens técnicas, produção de sprites originais e testes de aprendizagem. **Status atual: homologado pelo responsável em 02/11/2026; ainda não implementado nem liberado para publicação.**
