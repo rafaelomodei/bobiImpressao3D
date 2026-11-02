@@ -1,7 +1,7 @@
 # Arquitetura inicial do bobi. — decisão técnica e recorte de implementação
 
 **Data:** 02/11/2026  
-**Status:** stack **confirmada** pelo responsável nesta conversa; arquitetura detalhada **proposta**, a revisar no bootstrap.  
+**Status:** stack **confirmada** pelo responsável; arquitetura detalhada **proposta**, a revisar no bootstrap. Decisões que destravam a implementação estão em [decisões de desenvolvimento](decisoes-de-desenvolvimento.md).  
 **Referência de requisitos:** [Termo de Abertura](../termo-de-abertura.md).  
 **Importante:** documentação, não implementação. Não altera RF/RNF nem os PDs homologados.
 
@@ -15,7 +15,7 @@
 | Plataforma de dados | **Supabase** | **PostgreSQL**, autenticação, persistência, arquivos e, se útil, Realtime |
 | Provedor explicitamente excluído | **Firebase** | Não usar Firebase para dados, auth nem hosting |
 
-A biblioteca de UI, testes, versão do Next.js, gerenciador de pacotes e estratégia de acesso ao banco serão decididos na implementação. Não fixar versões sem inspecionar compatibilidade atual.
+Ferramentas de apoio têm padrão proposto em [DD010](decisoes-de-desenvolvimento.md#dd010--ferramentas-de-desenvolvimento) (pnpm, Tailwind CSS, Zod, Vitest, Playwright, Supabase CLI). Não fixar versões sem inspecionar compatibilidade atual.
 
 **Referências técnicas oficiais (consultar na implementação):**
 - Supabase + Next.js: https://supabase.com/docs/guides/auth/server-side
@@ -24,8 +24,8 @@ A biblioteca de UI, testes, versão do Next.js, gerenciador de pacotes e estrat�
 
 ## 2. Princípios de arquitetura
 
-1. **Conteúdo separado da interface:** atividades e lições versionadas (JSON/TS ou tabelas editoriais), renderizadas pelo mesmo motor.
-2. **Quatro componentes de exercício** homologados: múltipla escolha, associação, ordenação e diagnóstico/seleção visual. Não codificar uma tela específica por lição.
+1. **Conteúdo separado da interface:** lições, atividades e avaliações em **tabelas do Supabase**, versionadas e carregadas por seed revisado em PR; gabaritos em esquema privado e correção no servidor ([DD001](decisoes-de-desenvolvimento.md#dd001--conteúdo-no-supabase-e-correção-no-servidor)).
+2. **Quatro componentes de exercício** homologados: múltipla escolha, associação, ordenação e diagnóstico visual. Rótulos como "aplicação" ou "configuração" são mapeados conforme o [mapa de tipos](mapa-de-tipos-de-atividade.md) (DD002). Não codificar uma tela específica por lição.
 3. **Progressão validada no servidor:** conclusão de atividades, XP, Fios, inventário, fabricação e pontuação de ranking não são concedidos apenas a partir de estado do navegador.
 4. **Postgres como fonte de verdade** de perfis, sessões, progresso, carteira e fabricação; transações e chaves idempotentes para recompensas.
 5. **Supabase Auth** como candidato natural a código de acesso por e-mail já aprovado no PD002. Verificar fluxo OTP e integração com sessões SSR do Next.js.
@@ -50,10 +50,16 @@ A biblioteca de UI, testes, versão do Next.js, gerenciador de pacotes e estrat�
 | `inventory_entries` | `user_id`, `item_definition_id`, `quantity` | Materiais e itens virtuais |
 | `virtual_prints` | `user_id`, `project_id`, `machine_id`, `started_at`, `ready_at`, `state` | Fabricação independente da conexão |
 | `weekly_rank_scores` | `user_id`, `week_start`, `eligible_xp`, `opt_in` | Ranking global semanal |
+| `lessons` / `activities` / `activity_options` | `lesson_id`, `activity_id`, `type`, `pedagogical_label`, `content_version` | Conteúdo público de leitura (DD001) |
+| `private.answer_keys` | `activity_id`, `content_version`, `answer_key`, `feedback_by_option`, `hint` | Gabarito e feedback, nunca expostos ao navegador |
+| `assessment_attempts` | `user_id`, `assessment_id`, `variant_id`, `score`, `passed`, `finished_at` | Avaliações de domínio e variações (RF044) |
+| `daily_activity` | `user_id`, `day` (`America/Sao_Paulo`), `goal_met`, `streak_count` | Meta diária, sequência e revisão válida do dia (DD005) |
 
 *Estrutura conceitual*: tabelas, nomes e tipos definitivos serão definidos com migrações, constraints, índices, RLS e testes. Não armazenar respostas/gabaritos de uma forma que comprometa a verificação servidor; o conteúdo publicado precisa ser assinado/versionado ou protegido por regras de acesso adequadas.
 
 ## 4. Fases técnicas
+
+**Ordem de execução decidida (DD004): A → B → D → C.** O conteúdo homologado (D) vem antes da oficina (C), cujas regras ainda dependem da homologação de PD007. Os rótulos A–D foram mantidos para não quebrar referências.
 
 ### Incremento A — Fundação
 Next.js/PWA, layout responsivo, rotas `/trilha`, `/licao/[id]`, `/oficina`, `/perfil`, `/ranking`; tokens de interface bobi., Supabase configurado, variáveis de ambiente de desenvolvimento e preview. **Nenhuma credencial real deve ser commitada**.

@@ -20,10 +20,23 @@ Plataforma educacional gamificada para aprender impressão 3D com microlições,
 - [Direção de arte provisória](docs/design/direcao-de-arte.md) — identidade confirmada do cachorro Caramelo e tarefas visuais ainda abertas.
 - [Skill de produção de sprites](.agents/skills/bobi-sprite-studio/SKILL.md) — fluxo operacional de criação e QA visual, adaptado à identidade atual.
 - [Base técnica e arquitetura](docs/arquitetura/base-tecnica.md) — stack confirmada: Next.js/PWA + Supabase + Vercel; arquitetura inicial proposta.
+- [Decisões de desenvolvimento](docs/arquitetura/decisoes-de-desenvolvimento.md) — DD001–DD010: conteúdo no Supabase, tipos de atividade, desbloqueio, ordem dos incrementos e padrões técnicos.
+- [Mapa de tipos de atividade](docs/arquitetura/mapa-de-tipos-de-atividade.md) — componente do motor para cada atividade com rótulo não canônico.
 - [PD007 — Oficina e progressão](docs/gameplay/pd007-oficina-e-progressao.md) — proposta de minijogo, máquinas, upgrades, inventário e ranking global.
 - [Sistema visual, narrativa e animação](docs/design/sistema-visual-narrativa-e-animacao.md) — diretrizes candidatas para UX, sprites e falas do Caramelo.
 - [Skill de gameplay e narrativa](.agents/skills/bobi-game-director/SKILL.md) — regras de consistência e criação de mecânicas e diálogos.
 
 **Responsável:** Rafael Geovani Omodei. **Levantamento iniciado:** 19/10/2026. **Última homologação pedagógica:** 02/11/2026. **MVP curricular:** 24/24 lições e 3/3 avaliações homologadas; implementação e revisões finais pendentes.
+
+## Situação atual
+
+| Frente | Status |
+|---|---|
+| Currículo M1–M3 (24 lições, 3 avaliações) | Homologado |
+| Stack e decisões de desenvolvimento (DD001–DD004) | Decidido |
+| Padrões técnicos (DD005–DD010) | Padrão proposto |
+| Oficina, máquinas e upgrades (PD007) | Proposta |
+| Arte do Caramelo e sistema visual | Proposta |
+| Código | Não iniciado; próximo passo: incremento A |
 
 > Projeto em definição. Os conteúdos técnicos e recursos visuais devem ser revisados antes da publicação. A proteção de dados e os mecanismos apropriados a contas de menores permanecem uma pendência técnica obrigatória para o lançamento ao público correspondente.

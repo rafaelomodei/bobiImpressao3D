@@ -5,7 +5,8 @@
 ## Precedência entre documentos
 
 1. **Decisões explícitas mais recentes homologadas** pelo responsável, refletidas no [Termo de Abertura](../termo-de-abertura.md) e nas [Lições M1](../licoes/mundo-01.md).
-2. **Especificações de lições aprovadas**: L01, L02, L03 e L04.
+2. **Especificações de lições e avaliações aprovadas**: L01–L24 e AV01–AV03 (atualizado em 02/11/2026).
+   - **Decisões de desenvolvimento** ([DD001–DD010](../arquitetura/decisoes-de-desenvolvimento.md)) definem como implementar, sem alterar o conteúdo homologado.
 3. **Base técnica**: [catálogo de fontes de impressão 3D](../knowledge/bobi_base_de_conhecimento_impressao_3d.md), suporte para pesquisa e redação; não significa revisão técnica automática de cada atividade.
 4. **Documentos de exploração histórica**: [questionário de 19/10/2026](questionario-mestre-2026-10-19.md), contendo decisões de contexto da época, hipóteses e perguntas abertas.
 5. **Guia operacional de arte**: [direção visual provisória](../design/direcao-de-arte.md) e [skill de sprites](../../.agents/skills/bobi-sprite-studio/SKILL.md); não equivalem a aprovação da arte final.

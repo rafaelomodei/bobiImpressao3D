@@ -4,7 +4,7 @@
 **Responsável:** Rafael Geovani Omodei  
 **Início do levantamento:** 19/10/2026  
 **Consolidação:** 01/11/2026  
-**Versão documental:** 0.4 (em evolução)  
+**Versão documental:** 0.5 (em evolução)  
 **Status:** Homologações parciais; projeto ainda na fase de definição. Nenhuma funcionalidade é declarada implementada.
 
 > Fonte de verdade dos requisitos funcionais e decisões. Diagramas, matrizes finais e protótipos ficam para depois. Os requisitos aprovados não devem ser modificados sem decisão registrada.
@@ -40,6 +40,9 @@ O aprendizado inicial de impressão 3D exige compreender equipamentos, materiais
 | 01/11/2026 | Modelo pedagógico híbrido; lições L01–L04 | **Homologados** |
 | 01/11/2026 | L05–L08 e avaliação de domínio AV01 do Mundo 1 | **Homologados** |
 | 02/11/2026 | L09–L16, L17–L24 e avaliações de domínio AV02 e AV03 | **Homologados formalmente pelo responsável** |
+| 02/11/2026 | Stack: Next.js + React + TypeScript, PWA, Supabase e Vercel; Firebase excluído ([base técnica](arquitetura/base-tecnica.md)) | **Decidido** |
+| 02/11/2026 | Oficina como núcleo jogável e ranking **global único** (sem ligas), mantendo ciclo semanal e opt-in de PD008 | **Decidido**; detalhamento de PD007 em proposta |
+| 02/11/2026 | DD001–DD004: conteúdo em tabelas Supabase com correção no servidor, mapeamento para os quatro tipos de atividade, avanço por domínio fora do MVP e ordem de incrementos A → B → D → C ([decisões de desenvolvimento](arquitetura/decisoes-de-desenvolvimento.md)) | **Decidido** (DD004 por delegação) |
 
 ## 4. Currículo aprovado (PD004)
 
@@ -241,7 +244,7 @@ XP é experiência, Fios são moeda, PLA/PETG são materiais de ensino. Vidas s�
 Uma lição ou revisão válida cumpre a meta diária; perda de sequência não apaga progresso. Evitar duplicação de recompensas e XP competitivo ilimitado por repetição.
 
 ### PD008 — Ranking e perfis
-Ranking semanal, opcional, usando XP competitivo elegível. Cartões com apelido e avatar; não mostrar dados sensíveis; sem chat, comentários livres nem busca aberta. Menores ficam fora de rankings até homologação dos controles aplicáveis.
+Ranking semanal, opcional, **global e único** (sem ligas ou grupos, decisão de 02/11/2026), usando XP competitivo elegível. Cartões com apelido e avatar; não mostrar dados sensíveis; sem chat, comentários livres nem busca aberta. Menores ficam fora de rankings até homologação dos controles aplicáveis.
 
 ### PD009 — Monetização
 Conteúdo educacional fundamental acessível gratuitamente; assinatura **remove anúncios**, sem vantagem curricular. Não mostrar anúncios durante perguntas ou avaliações. Menores e usuários sem idade confirmada não recebem anúncios até validação dos controles. Anúncios recompensados fora do MVP. Preço e periodicidade pendentes.
@@ -273,14 +276,24 @@ Cadastro por e-mail/apelido, autenticação por código temporário, sincroniza�
 | ID | Tema | Estado |
 |---|---|---|
 | PT001 | Aferição de idade, proteção de dados e salvaguardas para **lançar contas reais de menores** | Pendente técnico/jurídico; não bloqueia protótipo interno sem dados pessoais |
-| PD007 | Catálogo da oficina, máquinas e upgrades | Pendente |
+| PD007 | Catálogo da oficina, máquinas e upgrades | Proposta em [PD007](gameplay/pd007-oficina-e-progressao.md); aguarda homologação antes do incremento C |
 | PD010 | Gestão editorial, revisão técnica e publicação | Pendente |
 | PD011 | Metas mensuráveis de desempenho/recuperação | Pendente |
 | PD012 | Avaliação de efetividade pedagógica e aceite do MVP | Pendente |
+| RF003 | Avaliação inicial e "avanço por domínio" citado nos pré-requisitos das lições | Fora do MVP (DD003); exige especificação própria |
+| RF044 | Variações das avaliações AV01–AV03 | Banco-base homologado; variações a escrever e revisar até o fim do incremento D |
 
 **Conteúdos ainda a validar antes de publicar:** L05 (comparação de processos), L06 (resinas e segurança) e parte de L17 (STL/3MF/G-code), conforme base técnica de 01/11/2026.
 
-## 11. Documentação futura
+## 11. Base técnica e decisões de desenvolvimento
+
+- [Base técnica e arquitetura](arquitetura/base-tecnica.md): stack confirmada, princípios e modelo de dados proposto.
+- [Decisões de desenvolvimento](arquitetura/decisoes-de-desenvolvimento.md): DD001–DD010, com status decidido ou padrão proposto.
+- [Mapa de tipos de atividade](arquitetura/mapa-de-tipos-de-atividade.md): componente do motor usado por cada atividade de rótulo não canônico.
+
+Essas decisões **não criam nem alteram RF/RNF**; definem como implementá-los.
+
+## 12. Documentação futura
 
 - Descrições detalhadas dos CDU, após fechar o comportamento funcional.
 - Diagramas gerais e individuais de caso de uso.
