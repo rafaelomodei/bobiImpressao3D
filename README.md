@@ -2,7 +2,7 @@
 
 **O jeito divertido de aprender impressão 3D.**
 
-Plataforma educacional gamificada para aprender impressão 3D com microlições, desafios visuais, simulações didáticas e progressão autônoma. Mascote: **Caramelo**, uma tartaruga com carretel de filamento nas costas.
+Plataforma educacional gamificada para aprender impressão 3D com microlições, desafios visuais, simulações didáticas e progressão autônoma. Mascote: **Caramelo**, um cachorro caramelo brasileiro. Acessórios relacionados à impressão 3D serão definidos na direção de arte.
 
 ## Documentação
 
