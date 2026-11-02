@@ -17,7 +17,7 @@ O aprendizado inicial de impressão 3D exige compreender equipamentos, materiais
 
 **Público de produto:** iniciantes a partir de 10 anos, com foco inicial em 10–14 anos, também contemplando jovens e adultos. O cadastro e lançamento efetivo para menores dependerão de resolver **PT001**, abaixo.
 
-**Identidade:** bobi. (minúsculas com ponto final). Slogan: *O jeito divertido de aprender impressão 3D.* Mascote principal: **Caramelo**, tartaruga com carretel de filamento nas costas.
+**Identidade:** bobi. (minúsculas com ponto final). Slogan: *O jeito divertido de aprender impressão 3D.* Mascote principal: **Caramelo**, um cachorro caramelo brasileiro. Acessórios e características visuais definitivas ainda serão definidos.
 
 ## 2. Stakeholders
 
