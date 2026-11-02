@@ -4,7 +4,7 @@
 **Responsável:** Rafael Geovani Omodei  
 **Data da consolidação:** 01/11/2026  
 **Padrão pedagógico:** híbrido — homologado  
-**Mascote:** **Caramelo, um cachorro caramelo brasileiro** (não tartaruga). Visual e acessórios específicos ainda sujeitos à direção de arte.
+**Mascote:** **Caramelo, um cachorro caramelo brasileiro**. Visual e acessórios específicos ainda sujeitos à direção de arte.
 
 > **L01–L04: homologadas pelo responsável.** Descrições abaixo são especificações, não implementação; artes, animações e revisão técnica/pedagógica final permanecem pendentes.
 
