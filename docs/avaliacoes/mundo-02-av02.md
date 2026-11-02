@@ -1,7 +1,7 @@
 # AV02 — Avaliação de domínio do Mundo 2 (Oficina)
 
 **Código:** BOBI-M02-AV02 · **Data da proposta:** 02/11/2026  
-**Status:** **PROPOSTA PARA HOMOLOGAÇÃO** — regra geral de domínio já homologada em PD003; conteúdo e gabaritos desta avaliação ainda sujeitos a aprovação.  
+**Status:** **HOMOLOGADA EM 02/11/2026** — conteúdo, cinco questões e gabaritos aprovados pelo responsável, seguindo a regra de domínio PD003; implementação e revisão final pendentes.  
 **Pré-requisito:** L09–L16 concluídas ou acesso por avaliação/avanço por domínio homologado.  
 **Próximo mundo:** M3 — Primeira impressão (após aprovação).
 
@@ -15,7 +15,7 @@
 - Primeira aprovação elegível: **30 XP + 15 Fios**, uma única vez e com concessão idempotente.
 - Não exigir controle real de impressora. Registrar respostas/erros para revisão pedagógica e liberar M3 após aprovação.
 
-## Cinco desafios propostos
+## Cinco desafios homologados
 
 | ID / Tipo | Pergunta ou tarefa | Gabarito | Feedback de revisão |
 |---|---|---|---|
