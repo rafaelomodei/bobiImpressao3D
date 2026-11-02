@@ -1,0 +1,84 @@
+# Arquitetura inicial do bobi. — decisão técnica e recorte de implementação
+
+**Data:** 02/11/2026  
+**Status:** stack **confirmada** pelo responsável nesta conversa; arquitetura detalhada **proposta**, a revisar no bootstrap.  
+**Referência de requisitos:** [Termo de Abertura](../termo-de-abertura.md).  
+**Importante:** documentação, não implementação. Não altera RF/RNF nem os PDs homologados.
+
+## 1. Stack confirmada
+
+| Camada | Escolha | Uso |
+|---|---|---|
+| Aplicação | **Next.js + React + TypeScript** | Interface, roteamento, renderização, servidor de aplicação |
+| Experiência instalável | **PWA** | App web responsivo instalável, com suporte progressivo |
+| Hospedagem/deploy | **Vercel** | Builds, previews por PR e ambiente de produção |
+| Plataforma de dados | **Supabase** | **PostgreSQL**, autenticação, persistência, arquivos e, se útil, Realtime |
+| Provedor explicitamente excluído | **Firebase** | Não usar Firebase para dados, auth nem hosting |
+
+A biblioteca de UI, testes, versão do Next.js, gerenciador de pacotes e estratégia de acesso ao banco serão decididos na implementação. Não fixar versões sem inspecionar compatibilidade atual.
+
+**Referências técnicas oficiais (consultar na implementação):**
+- Supabase + Next.js: https://supabase.com/docs/guides/auth/server-side
+- Supabase + Vercel: https://supabase.com/kb/faqs/database/nextjs-on-vercel
+- Integração Vercel/Supabase: https://vercel.com/integrations/supabase
+
+## 2. Princípios de arquitetura
+
+1. **Conteúdo separado da interface:** atividades e lições versionadas (JSON/TS ou tabelas editoriais), renderizadas pelo mesmo motor.
+2. **Quatro componentes de exercício** homologados: múltipla escolha, associação, ordenação e diagnóstico/seleção visual. Não codificar uma tela específica por lição.
+3. **Progressão validada no servidor:** conclusão de atividades, XP, Fios, inventário, fabricação e pontuação de ranking não são concedidos apenas a partir de estado do navegador.
+4. **Postgres como fonte de verdade** de perfis, sessões, progresso, carteira e fabricação; transações e chaves idempotentes para recompensas.
+5. **Supabase Auth** como candidato natural a código de acesso por e-mail já aprovado no PD002. Verificar fluxo OTP e integração com sessões SSR do Next.js.
+6. **Políticas de acesso** no Supabase por usuário (RLS) para objetos de jogador; ações administrativas/privilegiadas somente em backend autenticado e autorizado.
+7. **Uma atividade educacional ativa por conta** (PD001), com transferência confirmada entre dispositivos, expiração de lease e preservação de passos já confirmados.
+8. **Uma fabricação virtual ativa por conta** (PD005), avançando por timestamps validados no servidor inclusive com o navegador fechado; janela fictícia entre **2 e 15 minutos**, definida por catálogo e upgrades depois da homologação de PD007.
+9. **Ranking único global**, sem ligas/grupos, mantendo o conceito homologado de ciclo **semanal opt-in** e XP competitivo elegível (PD008). Preservar restrições de privacidade já definidas.
+10. **Sem integração com impressora real, CAD ou fatiamento STL/3MF operacional** no MVP.
+
+## 3. Modelo inicial de dados (proposta, não migração criada)
+
+| Entidade | Campos-chave sugeridos | Uso |
+|---|---|---|
+| `profiles` | `user_id`, `nickname`, `avatar_id`, `privacy_settings` | Perfil e preferências de exibição |
+| `content_versions` | `content_id`, `version`, `published_at`, `checksum` | Conteúdo imutável publicado |
+| `lesson_progress` | `user_id`, `lesson_id`, `content_version`, `status`, `completed_at` | Progresso e desbloqueios |
+| `activity_attempts` | `user_id`, `activity_id`, `attempt_no`, `is_correct`, `hint_used`, `confirmed_at` | Retomada e análise pedagógica |
+| `activity_leases` | `user_id`, `lesson_id`, `device_session_id`, `expires_at` | Controle de simultaneidade |
+| `wallet_ledger` | `user_id`, `event_key`, `currency`, `delta`, `created_at` | XP/Fios auditáveis e idempotência |
+| `machine_definitions` | `id`, `tier`, `capabilities_json`, `content_version` | Catálogo versionado de máquinas |
+| `player_machines` | `user_id`, `machine_id`, `upgrade_state`, `unlocked_at` | Equipamentos do jogador |
+| `inventory_entries` | `user_id`, `item_definition_id`, `quantity` | Materiais e itens virtuais |
+| `virtual_prints` | `user_id`, `project_id`, `machine_id`, `started_at`, `ready_at`, `state` | Fabricação independente da conexão |
+| `weekly_rank_scores` | `user_id`, `week_start`, `eligible_xp`, `opt_in` | Ranking global semanal |
+
+*Estrutura conceitual*: tabelas, nomes e tipos definitivos serão definidos com migrações, constraints, índices, RLS e testes. Não armazenar respostas/gabaritos de uma forma que comprometa a verificação servidor; o conteúdo publicado precisa ser assinado/versionado ou protegido por regras de acesso adequadas.
+
+## 4. Fases técnicas
+
+### Incremento A — Fundação
+Next.js/PWA, layout responsivo, rotas `/trilha`, `/licao/[id]`, `/oficina`, `/perfil`, `/ranking`; tokens de interface bobi., Supabase configurado, variáveis de ambiente de desenvolvimento e preview. **Nenhuma credencial real deve ser commitada**.
+
+### Incremento B — Primeira lição vertical
+L01 funcionando do início ao fim: quatro atividades, feedback, persistência, primeira recompensa elegível de 20 XP/10 Fios, retomada e desbloqueio L02. Testes de sessão duplicada, refresh, reenvio de conclusão e idempotência.
+
+### Incremento C — Oficina vertical
+Uma máquina inicial fictícia, um item imprimível, minigame de nivelamento virtual, iniciar/acompanhar/finalizar fabricação com base no horário do servidor e persistir inventário. Usar valores de teste no catálogo, não preços/regras econômicas aprovadas antes de PD007.
+
+### Incremento D — Escala educacional
+Incorporar 24 lições e AV01–AV03, parametrizar o catálogo, evoluir animações, progresso, ranking semanal global opt-in e validação de ponta a ponta. Expandir catálogo conforme PD007 homologado.
+
+## 5. Condição de privacidade antes do lançamento
+
+**Decisão operacional para protótipos internos:** não exigir campo de idade nas telas iniciais da demo. Isso **não autoriza** abrir cadastro real a menores sem concluir PT001, nem remover controles de acesso/segurança.
+
+O produto foi concebido também para usuários a partir de 10 anos. A Lei 15.211/2025 (ECA Digital, em vigor em março de 2026) e a LGPD exigem análise de obrigações pertinentes à faixa etária, publicidade, perfis e jogos. **Não presumir que omitir uma pergunta de idade elimina as obrigações legais.** Aferição proporcional de idade, controles de menores e lançamento público permanecem condicionados à avaliação técnica/jurídica PT001.
+
+Fontes oficiais de contexto legal:
+- ANPD: https://www.gov.br/anpd/pt-br/assuntos/eca-digital/
+- Ministério da Justiça: https://www.gov.br/mj/pt-br/assuntos/sua-protecao/sedigi/eca-digital/eca-digital-1
+
+**Não implementar anúncios ou expor menores em ranking público enquanto os controles aplicáveis não estiverem homologados.**
+
+## 6. Fora do escopo deste documento
+
+Não define valores finais de upgrades, preços, custos virtuais, catálogo completo de modelos, algoritmo de calibragem, política de publicação ou metas de desempenho. Esses pontos pertencem a PD007, PD010, PD011 e PD012, a detalhar e homologar em documentos próprios.
