@@ -39,6 +39,7 @@ O aprendizado inicial de impressão 3D exige compreender equipamentos, materiais
 | 01/11/2026 | PD004: M1–M3, 24 microlições, 3 avaliações e chaveiro virtual final | **Homologado** |
 | 01/11/2026 | Modelo pedagógico híbrido; lições L01–L04 | **Homologados** |
 | 01/11/2026 | L05–L08 e avaliação de domínio AV01 do Mundo 1 | **Homologados** |
+| 02/11/2026 | L09–L16, L17–L24 e avaliações de domínio AV02 e AV03 | **Homologados formalmente pelo responsável** |
 
 ## 4. Currículo aprovado (PD004)
 
@@ -64,6 +65,42 @@ O MVP pedagógico contempla **24 lições (oito por mundo)** e uma **avaliação
 | L08 | Primeira missão do Caramelo | Homologada |
 
 Especificações homologadas: [L01–L04](licoes/mundo-01.md), [L05–L08](licoes/mundo-01-l05-l08.md) e [avaliação de domínio AV01](avaliacoes/mundo-01-av01.md). **Mundo 1: oito lições e uma avaliação especificadas e aprovadas**; implementação e revisão técnica final ainda pendentes.
+
+### 4.2 Mundo 2 — Oficina
+
+**Especificações pedagógicas homologadas em 02/11/2026:** [L09–L16](licoes/mundo-02.md) e [avaliação de domínio AV02](avaliacoes/mundo-02-av02.md).
+
+| Lição | Título | Estado da especificação |
+|---|---|---|
+| L09 | Conheça sua impressora | Homologada |
+| L10 | A máquina ganha movimento | Homologada |
+| L11 | O caminho do filamento | Homologada |
+| L12 | Por que o bico esquenta? | Homologada |
+| L13 | O que é PLA? | Homologada |
+| L14 | A mesa de impressão | Homologada |
+| L15 | Atenção à segurança! | Homologada |
+| L16 | Prepare a oficina | Homologada |
+
+**AV02:** homologada; cinco questões e aprovação a partir de quatro acertos (80%).
+
+### 4.3 Mundo 3 — Primeira impressão
+
+**Especificações pedagógicas homologadas em 02/11/2026:** [L17–L24](licoes/mundo-03.md) e [avaliação de domínio AV03](avaliacoes/mundo-03-av03.md).
+
+| Lição | Título | Estado da especificação |
+|---|---|---|
+| L17 | O arquivo do objeto | Homologada |
+| L18 | Conheça o fatiador | Homologada |
+| L19 | Tamanho e posição | Homologada |
+| L20 | Escolhendo a máquina | Homologada |
+| L21 | Escolhendo o filamento | Homologada |
+| L22 | A altura das camadas | Homologada |
+| L23 | Olhe antes de imprimir | Homologada |
+| L24 | Imprima seu primeiro chaveiro | Homologada |
+
+**AV03:** homologada; cinco questões e aprovação a partir de quatro acertos (80%).
+
+**Situação consolidada do MVP pedagógico:** 24/24 lições e 3/3 avaliações de domínio **especificadas e homologadas**. A homologação pedagógica não significa que o software esteja implementado nem que as fontes técnicas, artes, segurança e testes finais estejam liberados para publicação.
 
 ## 5. Padrão pedagógico homologado
 

@@ -1,11 +1,11 @@
 # Mundo 3 — Primeira impressão: L17–L24
 
 **Projeto:** bobi. · **Proposta:** 02/11/2026  
-**Situação:** **PROPOSTA PARA HOMOLOGAÇÃO**. PD004 já aprovou os temas e a missão final, mas **estas atividades e gabaritos ainda precisam de aprovação**.  
+**Situação:** **HOMOLOGADA EM 02/11/2026** — L17–L24, incluindo atividades e gabaritos, aprovadas pelo responsável. Implementação e revisão técnica/pedagógica antes da publicação permanecem pendentes.  
 **Mascote:** Caramelo, cachorro caramelo brasileiro.  
 **Padrão:** híbrido, 2–4 minutos por lição, quatro interações, explicações curtas.
 
-Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1](mundo-01.md), [Base técnica](../knowledge/bobi_base_de_conhecimento_impressao_3d.md) e [AV03 proposta](../avaliacoes/mundo-03-av03.md).
+Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1](mundo-01.md), [Base técnica](../knowledge/bobi_base_de_conhecimento_impressao_3d.md) e [AV03 homologada](../avaliacoes/mundo-03-av03.md).
 
 ## Regras comuns herdadas
 
@@ -17,7 +17,7 @@ Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1]
 - Todos os fatiadores, perfis e prévias serão **ilustrações originais**, não cópias de interfaces de fabricantes. Nenhum fatiamento ou G-code real e nenhuma impressora física são necessários.
 - **L24:** a impressão guiada ocorre numa animação curta e didática, sem fila. A oficina virtual de PD005 (**tempo fictício de 2–15 minutos**) é um mecanismo distinto e **não pode bloquear** a L24.
 
-## Especificações de lições
+## Especificações de lições homologadas
 
 ### L17 — O arquivo do objeto
 
@@ -243,4 +243,4 @@ Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1]
 - **PRU-06** — Materiais: https://help.prusa3d.com/filament-material-guide
 - **SAF-01** — NIOSH/CDC: https://www.cdc.gov/niosh/bulletin/2024/safe-3d-printing.html
 
-**Status:** roteiro para aprovação do responsável; não homologado, não implementado. Nenhum novo RF ou RNF foi definido.
+**Status:** roteiro homologado pelo responsável em 02/11/2026; não implementado. Nenhum novo RF ou RNF foi definido.
