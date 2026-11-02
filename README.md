@@ -19,6 +19,10 @@ Plataforma educacional gamificada para aprender impressão 3D com microlições,
 - [Questionário mestre histórico (19/10/2026)](docs/discovery/questionario-mestre-2026-10-19.md) — arquivo de referência, não normativo.
 - [Direção de arte provisória](docs/design/direcao-de-arte.md) — identidade confirmada do cachorro Caramelo e tarefas visuais ainda abertas.
 - [Skill de produção de sprites](.agents/skills/bobi-sprite-studio/SKILL.md) — fluxo operacional de criação e QA visual, adaptado à identidade atual.
+- [Base técnica e arquitetura](docs/arquitetura/base-tecnica.md) — stack confirmada: Next.js/PWA + Supabase + Vercel; arquitetura inicial proposta.
+- [PD007 — Oficina e progressão](docs/gameplay/pd007-oficina-e-progressao.md) — proposta de minijogo, máquinas, upgrades, inventário e ranking global.
+- [Sistema visual, narrativa e animação](docs/design/sistema-visual-narrativa-e-animacao.md) — diretrizes candidatas para UX, sprites e falas do Caramelo.
+- [Skill de gameplay e narrativa](.agents/skills/bobi-game-director/SKILL.md) — regras de consistência e criação de mecânicas e diálogos.
 
 **Responsável:** Rafael Geovani Omodei. **Levantamento iniciado:** 19/10/2026. **Última homologação pedagógica:** 02/11/2026. **MVP curricular:** 24/24 lições e 3/3 avaliações homologadas; implementação e revisões finais pendentes.
 
