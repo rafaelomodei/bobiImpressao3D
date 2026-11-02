@@ -1,7 +1,7 @@
 # Direção de arte e inventário de recursos — bobi.
 
-**Estado:** guia operacional provisório; **não** é uma identidade gráfica homologada.  
-**Atualização:** 01/11/2026.
+**Estado:** referência visual-base do Caramelo selecionada; guia operacional e identidade gráfica final ainda em evolução.  
+**Atualização:** 02/11/2026.
 
 ## Decisões confirmadas
 
@@ -12,7 +12,17 @@
 - O Caramelo apresenta situações, dá explicações curtas e contextualiza feedbacks, sem diálogos longos ou professor.
 - O currículo inicial contém M1–M3 e 24 lições; os recursos pedagógicos devem funcionar sem impressora física.
 
-**Não confirmado:** desenho final do cachorro, acessórios, roupas, paleta de cores, tipografia, proporções, formato das orelhas, poses finais e demais personagens (Pipo/Lia são referências de exploração histórica, não elenco homologado).
+**Ainda não homologado individualmente:** medidas e proporções finais, acessórios, roupas, códigos da paleta, tipografia, formato definitivo das orelhas, poses/frames e demais personagens (Pipo/Lia permanecem referências de exploração histórica, não elenco homologado).
+
+## Referência visual selecionada — Caramelo v0.1 (02/11/2026)
+
+![Ficha-mãe do Caramelo, cachorro caramelo brasileiro, com vistas, expressões, acessórios e paleta indicativa](referencias/caramelo/ficha-mae-v01.webp)
+
+- **Arquivo:** [ficha-mae-v01.webp](referencias/caramelo/ficha-mae-v01.webp) · [orientações de uso](referencias/caramelo/README.md).
+- **Decisão:** a direção visual desta ficha foi aceita para orientar os novos desenhos do Caramelo: cartoon 2D expressivo, cachorro caramelo brasileiro e elementos de impressão 3D visíveis.
+- **Limite da aprovação:** a ficha é referência inicial de estilo, **não** uma homologação individual de cada cor, acessório, pose, proporção ou animação. Os tokens de UI seguem candidatos; não substituir o design system por cores inferidas da imagem.
+- **Observação de produção:** a prancha é uma **imagem RGB com fundo e legendas**, disponibilizada em WebP de alta qualidade; **não** é um conjunto de sprites transparentes, nem um atlas de animação pronto para engine. Os futuros sprites devem ser gerados e revisados individualmente.
+- **Atenção aos textos na ilustração:** o rótulo `Acessórios aprovados` está na arte gerada e não substitui a homologação formal de cada componente.
 
 ## Recomendações técnicas provisórias para sprites
 

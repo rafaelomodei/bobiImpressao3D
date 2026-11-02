@@ -9,7 +9,7 @@ Missão: manter uma linguagem visual consistente para **bobi. — O jeito divert
 
 ## Fontes de verdade e modo de atuação
 
-1. Primeiro procure no projeto um guia de arte já aprovado (`design/art-direction.md`, `assets/art-direction.md` ou equivalente) e referências fornecidas pelo usuário. A versão aprovada prevalece sobre o **guia provisório** em [docs/design/direcao-de-arte.md](../../../docs/design/direcao-de-arte.md).
+1. Primeiro consulte a [ficha visual de referência do Caramelo v0.1](../../../docs/design/referencias/caramelo/README.md), depois procure no projeto um guia de arte já aprovado (`design/art-direction.md`, `assets/art-direction.md` ou equivalente) e referências fornecidas pelo usuário. A versão aprovada prevalece sobre o **guia provisório** em [docs/design/direcao-de-arte.md](../../../docs/design/direcao-de-arte.md).
 2. Escolha o modo correto:
    - **`direcao`**: explorar 2–3 variantes visuais coerentes; comparar características, silhuetas, complexidade, vantagens e limitações. Não declarar nenhuma aprovada sem confirmação. Sugerir uma candidata principal.
    - **`referencia`**: criar uma ficha-mãe de personagem/objeto, com vistas e expressões. Preservar detalhes e proporções aprovados.

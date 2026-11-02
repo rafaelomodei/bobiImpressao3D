@@ -3,6 +3,7 @@
 **Data:** 02/11/2026  
 **Status:** objetivos de consistência, referência de UX e mascote **definidos pelo responsável**; tokens, animações e roteiros abaixo são **diretrizes candidatas**, ainda sem aprovação de arte final.  
 **Mascote oficial:** Caramelo, **cachorro caramelo brasileiro**.  
+**Referência visual-base selecionada (02/11/2026):** [ficha-mãe v0.1](referencias/caramelo/README.md); arte final, tokens e sprites de produção ainda dependem de validação específica.  
 **Fontes internas:** [guia de arte existente](direcao-de-arte.md) · [skill de sprites](../../.agents/skills/bobi-sprite-studio/SKILL.md) · [oficina](../gameplay/pd007-oficina-e-progressao.md).
 
 ## 1. Referência de UX, sem clonagem de identidade
@@ -38,7 +39,7 @@ Tokens abaixo são uma **hipótese de implementação**, não aprovação de ide
 **Regra do responsável:** depois de aprovado um elemento, todos os sprites, poses, ícones e itens dessa família devem seguir **exatamente a mesma direção visual**.
 
 **Processo de aprovação e controle:**
-1. Criar **ficha-mãe** do cachorro Caramelo: silhouette, proporções, olhos, orelhas, focinho, cores, perspectiva, contornos e acessórios.
+1. Partir da [referência visual v0.1 selecionada](referencias/caramelo/README.md) e homologar a **ficha-mãe definitiva** do cachorro Caramelo: silhueta, proporções, olhos, orelhas, focinho, cores, perspectiva, contornos e acessórios.
 2. Fazer referência-mestra em vistas (frente, 3/4, perfil, costas), expressões e pose neutra.
 3. Registrar versão aprovada da ficha e IDs no catálogo.
 4. Gerar **um sprite por arquivo** ou frames de animação; exportar RGBA real quando necessário.
