@@ -28,7 +28,7 @@ Ferramentas de apoio têm padrão proposto em [DD010](decisoes-de-desenvolviment
 2. **Quatro componentes de exercício** homologados: múltipla escolha, associação, ordenação e diagnóstico visual. Rótulos como "aplicação" ou "configuração" são mapeados conforme o [mapa de tipos](mapa-de-tipos-de-atividade.md) (DD002). Não codificar uma tela específica por lição.
 3. **Progressão validada no servidor:** conclusão de atividades, XP, Fios, inventário, fabricação e pontuação de ranking não são concedidos apenas a partir de estado do navegador.
 4. **Postgres como fonte de verdade** de perfis, sessões, progresso, carteira e fabricação; transações e chaves idempotentes para recompensas.
-5. **Supabase Auth** como candidato natural a código de acesso por e-mail já aprovado no PD002. Verificar fluxo OTP e integração com sessões SSR do Next.js.
+5. **Supabase Auth com provedor Google** como único método de acesso ([DD011](decisoes-de-desenvolvimento.md#dd011--login-somente-com-google)), integrado às sessões SSR do Next.js; nome e foto do Google não são copiados para `profiles` (DD014).
 6. **Políticas de acesso** no Supabase por usuário (RLS) para objetos de jogador; ações administrativas/privilegiadas somente em backend autenticado e autorizado.
 7. **Uma atividade educacional ativa por conta** (PD001), com transferência confirmada entre dispositivos, expiração de lease e preservação de passos já confirmados.
 8. **Uma fabricação virtual ativa por conta** (PD005), avançando por timestamps validados no servidor inclusive com o navegador fechado; janela fictícia entre **2 e 15 minutos**, definida por catálogo e upgrades depois da homologação de PD007.
@@ -39,7 +39,7 @@ Ferramentas de apoio têm padrão proposto em [DD010](decisoes-de-desenvolviment
 
 | Entidade | Campos-chave sugeridos | Uso |
 |---|---|---|
-| `profiles` | `user_id`, `nickname`, `avatar_id`, `privacy_settings` | Perfil e preferências de exibição |
+| `profiles` | `user_id`, `nickname`, `avatar_id`, `birth_date` (DD015), `privacy_settings` | Perfil e preferências de exibição |
 | `content_versions` | `content_id`, `version`, `published_at`, `checksum` | Conteúdo imutável publicado |
 | `lesson_progress` | `user_id`, `lesson_id`, `content_version`, `status`, `completed_at` | Progresso e desbloqueios |
 | `activity_attempts` | `user_id`, `activity_id`, `attempt_no`, `is_correct`, `hint_used`, `confirmed_at` | Retomada e análise pedagógica |
