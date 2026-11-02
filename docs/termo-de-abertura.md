@@ -38,6 +38,7 @@ O aprendizado inicial de impressão 3D exige compreender equipamentos, materiais
 | 01/11/2026 | PD002 simplificado: cadastro mínimo e proteção de menores registrada como PT001 | **Parcialmente definido** |
 | 01/11/2026 | PD004: M1–M3, 24 microlições, 3 avaliações e chaveiro virtual final | **Homologado** |
 | 01/11/2026 | Modelo pedagógico híbrido; lições L01–L04 | **Homologados** |
+| 01/11/2026 | L05–L08 e avaliação de domínio AV01 do Mundo 1 | **Homologados** |
 
 ## 4. Currículo aprovado (PD004)
 
@@ -57,12 +58,12 @@ O MVP pedagógico contempla **24 lições (oito por mundo)** e uma **avaliação
 | L02 | Criando camada por camada | Homologada |
 | L03 | Da ideia ao objeto | Homologada |
 | L04 | Onde usamos impressão 3D? | Homologada |
-| L05 | Impressão ou fabricação tradicional? | Currículo aprovado; especificação pendente |
-| L06 | Filamento ou resina? | Currículo aprovado; especificação pendente |
-| L07 | O que pode dar errado? | Currículo aprovado; especificação pendente |
-| L08 | Primeira missão do Caramelo | Currículo aprovado; especificação pendente |
+| L05 | Impressão ou fabricação tradicional? | Homologada |
+| L06 | Filamento ou resina? | Homologada |
+| L07 | O que pode dar errado? | Homologada |
+| L08 | Primeira missão do Caramelo | Homologada |
 
-Detalhes das quatro primeiras lições: [Mundo 1](licoes/mundo-01.md).
+Especificações homologadas: [L01–L04](licoes/mundo-01.md), [L05–L08](licoes/mundo-01-l05-l08.md) e [avaliação de domínio AV01](avaliacoes/mundo-01-av01.md). **Mundo 1: oito lições e uma avaliação especificadas e aprovadas**; implementação e revisão técnica final ainda pendentes.
 
 ## 5. Padrão pedagógico homologado
 
