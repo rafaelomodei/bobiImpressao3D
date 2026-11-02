@@ -293,4 +293,4 @@ Consultar e registrar evidências **antes de publicar**. A existência de um lin
 - Prusa, impressão 3D introdutória — https://www.prusa3d.com/p/3d-printing/3d-printing-101/
 - Base de fontes existente no projeto: `bobi_base_de_conhecimento_impressao_3d.md` (material de referência; ainda não incorporado a este repositório).
 
-**Pendências editoriais:** produzir ilustrações/sprites e conteúdo de L05–L08; depois revisar tecnicamente cada questão, licenças e usabilidade. A L04 foi aprovada no chat, mas ainda não foi implementada.
+**Continuidade:** [L05–L08 homologadas](mundo-01-l05-l08.md) e [avaliação AV01 homologada](../avaliacoes/mundo-01-av01.md). **Pendências editoriais:** produzir ilustrações/sprites, revisar tecnicamente as questões, licenças e usabilidade. As lições estão especificadas, mas ainda não foram implementadas.
