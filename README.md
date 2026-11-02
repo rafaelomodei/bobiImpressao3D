@@ -17,7 +17,8 @@ Plataforma educacional gamificada para aprender impressão 3D com microlições,
 - [Base técnica de impressão 3D](docs/knowledge/bobi_base_de_conhecimento_impressao_3d.md) — catálogo de fontes e proposta curricular completa (M4–M10 ainda não homologados).
 - [Mapa de consolidação de materiais anteriores](docs/discovery/consolidacao-2026-11-01.md) — critérios para separar homologações atuais de hipóteses antigas.
 - [Questionário mestre histórico (19/10/2026)](docs/discovery/questionario-mestre-2026-10-19.md) — arquivo de referência, não normativo.
-- [Direção de arte provisória](docs/design/direcao-de-arte.md) — identidade confirmada do cachorro Caramelo e tarefas visuais ainda abertas.
+- [Ficha-mãe visual do Caramelo v0.1](docs/design/referencias/caramelo/README.md) — prancha de referência selecionada para a produção dos sprites.
+- [Direção de arte](docs/design/direcao-de-arte.md) — identidade confirmada do cachorro Caramelo e tarefas visuais ainda abertas.
 - [Skill de produção de sprites](.agents/skills/bobi-sprite-studio/SKILL.md) — fluxo operacional de criação e QA visual, adaptado à identidade atual.
 - [Base técnica e arquitetura](docs/arquitetura/base-tecnica.md) — stack confirmada: Next.js/PWA + Supabase + Vercel; arquitetura inicial proposta.
 - [PD007 — Oficina e progressão](docs/gameplay/pd007-oficina-e-progressao.md) — proposta de minijogo, máquinas, upgrades, inventário e ranking global.
