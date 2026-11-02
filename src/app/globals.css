@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* Tokens candidatos v0.2 — docs/design/sistema-visual-narrativa-e-animacao.md (DD013). */
+@theme {
+  --color-brand-primary: #fd7301;
+  --color-brand-primary-pressed: #c2410c;
+  --color-brand-caramel: #f29507;
+  --color-brand-cream: #fdd182;
+  --color-structure-purple: #523568;
+  --color-structure-deep: #241241;
+  --color-structure-soft: #8d71a7;
+  --color-structure-soft-text: #5b4a6e;
+  --color-feedback-success: #1f8a4c;
+  --color-feedback-error: #c63d3d;
+  --color-background: #fff8ee;
+  --color-surface: #ffffff;
+
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-structure-deep);
+}
+
+@layer components {
+  .btn-primary {
+    @apply flex min-h-14 w-full items-center justify-center rounded-2xl bg-brand-primary px-6 text-lg font-extrabold text-structure-deep shadow-[0_4px_0_var(--color-brand-primary-pressed)] transition active:translate-y-1 active:shadow-none disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-google {
+    @apply flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl border-2 border-structure-soft/40 bg-surface px-6 text-lg font-extrabold text-structure-deep shadow-[0_4px_0_var(--color-structure-soft)] transition active:translate-y-1 active:shadow-none;
+  }
+  .field {
+    @apply min-h-12 w-full rounded-xl border-2 border-structure-soft/50 bg-surface px-4 text-lg outline-none focus:border-brand-primary aria-invalid:border-feedback-error;
+  }
+  .avatar-option {
+    @apply flex cursor-pointer flex-col items-center gap-2 rounded-2xl border-2 border-transparent bg-surface p-3 has-checked:border-brand-primary has-checked:bg-brand-cream/50 has-focus-visible:outline-3 has-focus-visible:outline-brand-primary;
+  }
+  .card {
+    @apply rounded-2xl border-2 border-structure-soft/30 bg-surface p-5;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

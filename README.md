@@ -38,6 +38,25 @@ Plataforma educacional gamificada para aprender impressão 3D com microlições,
 | Padrões técnicos (DD005–DD010) | Padrão proposto |
 | Oficina, máquinas e upgrades (PD007) | Proposta |
 | Arte do Caramelo e sistema visual | Proposta |
-| Código | Não iniciado; próximo passo: incremento A |
+| Código | Incremento A (fundação) em andamento |
+
+## Como rodar
+
+Requisitos: Node 24+, pnpm, acesso ao projeto Supabase.
+
+```bash
+pnpm install
+cp .env.example .env.local   # preencha os valores (ver docs/arquitetura/base-tecnica.md §1.1)
+pnpm dev                     # http://localhost:3000
+```
+
+| Comando | O que faz |
+|---|---|
+| `pnpm dev` | Servidor de desenvolvimento |
+| `pnpm build` | Build de produção |
+| `pnpm lint` / `pnpm typecheck` | Lint e checagem de tipos |
+| `pnpm db:push` | Aplica `supabase/migrations` no projeto remoto (`--dry-run` para simular) |
+
+Login: somente Google (DD011). Para testar localmente, `http://localhost:3000/**` precisa estar nas *Redirect URLs* do Supabase Auth.
 
 > Projeto em definição. Os conteúdos técnicos e recursos visuais devem ser revisados antes da publicação. A proteção de dados e os mecanismos apropriados a contas de menores permanecem uma pendência técnica obrigatória para o lançamento ao público correspondente.
