@@ -22,6 +22,20 @@ Ferramentas de apoio têm padrão proposto em [DD010](decisoes-de-desenvolviment
 - Supabase + Vercel: https://supabase.com/kb/faqs/database/nextjs-on-vercel
 - Integração Vercel/Supabase: https://vercel.com/integrations/supabase
 
+### 1.1 Variáveis de ambiente
+
+Modelo versionado em [`.env.example`](../../.env.example); valores reais ficam em `.env.local` (ignorado pelo Git) e, nos ambientes da Vercel, nas variáveis do projeto.
+
+| Variável | Exposição | Uso |
+|---|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Navegador | URL do projeto Supabase |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Navegador | Chave publicável (`sb_publishable_…`), sujeita às políticas RLS |
+| `SUPABASE_SECRET_KEY` | **Somente servidor** | Chave secreta (`sb_secret_…`), ignora RLS; usar só em correção, recompensas e seeds |
+| `SUPABASE_PROJECT_NAME` / `SUPABASE_PROJECT_REF` | Ferramentas | Identificação do projeto para a Supabase CLI |
+| `SUPABASE_DB_PASSWORD` | Ferramentas | Senha do Postgres para `supabase link` e migrações |
+
+Regras: nunca commitar `.env`/`.env.local`; nunca prefixar a chave secreta com `NEXT_PUBLIC_`; trocar a chave secreta no painel do Supabase se ela vazar.
+
 ## 2. Princípios de arquitetura
 
 1. **Conteúdo separado da interface:** lições, atividades e avaliações em **tabelas do Supabase**, versionadas e carregadas por seed revisado em PR; gabaritos em esquema privado e correção no servidor ([DD001](decisoes-de-desenvolvimento.md#dd001--conteúdo-no-supabase-e-correção-no-servidor)).

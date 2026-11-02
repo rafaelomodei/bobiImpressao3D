@@ -1,0 +1,32 @@
+# Variáveis de ambiente: nunca versionar valores reais
+.env
+.env.*
+!.env.example
+
+# Dependências e builds
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel
+.vercel/
+
+# Supabase CLI (local)
+supabase/.branches/
+supabase/.temp/
+
+# Testes
+playwright-report/
+test-results/
+
+# Sistema e editores
+.DS_Store
+*.log
+.idea/
+.vscode/*
+!.vscode/extensions.json
