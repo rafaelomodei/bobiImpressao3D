@@ -10,12 +10,16 @@ Plataforma educacional gamificada para aprender impressão 3D com microlições,
 - [Lições L01–L04](docs/licoes/mundo-01.md) — especificações homologadas da primeira metade do Mundo 1.
 - [Lições L05–L08](docs/licoes/mundo-01-l05-l08.md) — especificações homologadas da segunda metade do Mundo 1.
 - [Avaliação de domínio AV01](docs/avaliacoes/mundo-01-av01.md) — cinco questões, aprovação com quatro acertos, desbloqueio do Mundo 2.
+- [Mundo 2 — L09–L16](docs/licoes/mundo-02.md) — oito lições com especificações homologadas.
+- [Avaliação AV02](docs/avaliacoes/mundo-02-av02.md) — avaliação de domínio homologada do Mundo 2.
+- [Mundo 3 — L17–L24](docs/licoes/mundo-03.md) — oito lições com especificações homologadas.
+- [Avaliação AV03](docs/avaliacoes/mundo-03-av03.md) — avaliação de domínio homologada do Mundo 3.
 - [Base técnica de impressão 3D](docs/knowledge/bobi_base_de_conhecimento_impressao_3d.md) — catálogo de fontes e proposta curricular completa (M4–M10 ainda não homologados).
 - [Mapa de consolidação de materiais anteriores](docs/discovery/consolidacao-2026-11-01.md) — critérios para separar homologações atuais de hipóteses antigas.
 - [Questionário mestre histórico (19/10/2026)](docs/discovery/questionario-mestre-2026-10-19.md) — arquivo de referência, não normativo.
 - [Direção de arte provisória](docs/design/direcao-de-arte.md) — identidade confirmada do cachorro Caramelo e tarefas visuais ainda abertas.
 - [Skill de produção de sprites](.agents/skills/bobi-sprite-studio/SKILL.md) — fluxo operacional de criação e QA visual, adaptado à identidade atual.
 
-**Responsável:** Rafael Geovani Omodei. **Levantamento iniciado:** 19/10/2026. **Última consolidação:** 01/11/2026.
+**Responsável:** Rafael Geovani Omodei. **Levantamento iniciado:** 19/10/2026. **Última homologação pedagógica:** 02/11/2026. **MVP curricular:** 24/24 lições e 3/3 avaliações homologadas; implementação e revisões finais pendentes.
 
 > Projeto em definição. Os conteúdos técnicos e recursos visuais devem ser revisados antes da publicação. A proteção de dados e os mecanismos apropriados a contas de menores permanecem uma pendência técnica obrigatória para o lançamento ao público correspondente.
