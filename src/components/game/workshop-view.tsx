@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { buyUpgrade, collectPrint, startPrint } from "@/app/(app)/oficina/actions";
 import type { WorkshopState } from "@/lib/game/workshop";
 import Image from "next/image";
-import { ITEMS, UPGRADES, machineSprite, machineTier } from "@/lib/game/workshop-catalog";
+import { ITEMS, UPGRADES, itemSprite, machineSprite, machineTier } from "@/lib/game/workshop-catalog";
 import { playSound, usePreloadSounds, type SoundName } from "@/lib/sound";
 
 export function WorkshopView({ state }: { state: WorkshopState }) {
@@ -49,11 +49,12 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
             const blocked = !info.unlocked;
             const cantAfford = state.fios < item.costFios;
             const busy = Boolean(state.activePrint) || !state.leveled;
+            const sprite = itemSprite(item);
             return (
               <li key={item.id} className={`card flex flex-col gap-3 p-4 ${blocked ? "opacity-70" : ""}`}>
                 <div className="flex items-center gap-3">
                   <span aria-hidden className="grid size-14 place-items-center rounded-2xl bg-brand-cream-soft text-3xl">
-                    {blocked ? "🔒" : item.emoji}
+                    {blocked ? "🔒" : sprite ? <Image src={sprite} alt="" width={56} height={56} className="size-14 object-contain" /> : item.emoji}
                   </span>
                   <div>
                     <p className="font-black">{item.name}</p>
@@ -123,9 +124,12 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
         <ul className="grid grid-cols-5 gap-2 rounded-2xl border-b-8 border-brand-caramel-pressed bg-brand-cream-soft p-3">
           {ITEMS.map((item) => {
             const n = state.inventory[item.id] ?? 0;
+            const sprite = itemSprite(item);
             return (
               <li key={item.id} className="flex flex-col items-center gap-1" title={item.name}>
-                <span aria-hidden className={`text-3xl ${n ? "" : "opacity-20 grayscale"}`}>{item.emoji}</span>
+                <span aria-hidden className={`grid size-10 place-items-center ${n ? "" : "opacity-20 grayscale"}`}>
+                  {sprite ? <Image src={sprite} alt="" width={40} height={40} className="size-10 object-contain" /> : <span className="text-3xl">{item.emoji}</span>}
+                </span>
                 <span className="text-xs font-black">{n ? `×${n}` : "—"}</span>
                 <span className="sr-only">{item.name}: {n}</span>
               </li>
@@ -145,6 +149,7 @@ function MachineCard({ state, pending, onCollect }: { state: WorkshopState; pend
   const ready = print && remaining <= 0;
   const progress = print ? Math.min(1, 1 - remaining / total) : 0;
   const sprite = machineSprite(machineTier(state.upgrades), print ? (ready ? "finished" : "printing") : "idle");
+  const printedItemSprite = item ? itemSprite(item) : null;
 
   // Bipes de "pronto" quando a fabricação termina com a oficina aberta.
   const wasPrinting = useRef(false);
@@ -175,13 +180,23 @@ function MachineCard({ state, pending, onCollect }: { state: WorkshopState; pend
               width={280}
               height={280}
               priority
-              className={`relative z-10 h-[88%] w-auto object-contain ${print && !ready ? "animate-[float_2.4s_ease-in-out_infinite]" : ""}`}
+              className={`absolute inset-x-0 bottom-[3%] z-10 mx-auto h-[92%] w-auto object-contain ${print && !ready ? "animate-[float_2.4s_ease-in-out_infinite]" : ""}`}
             />
-            {item && (
+            {printedItemSprite ? (
+              <Image
+                src={printedItemSprite}
+                alt=""
+                aria-hidden
+                width={88}
+                height={88}
+                className="absolute bottom-[31%] left-1/2 z-20 size-[88px] -translate-x-1/2 object-contain"
+                style={print && !ready ? { clipPath: `inset(${(1 - progress) * 100}% 0 0 0)` } : undefined}
+              />
+            ) : item ? (
               <span aria-hidden className="absolute top-3 right-3 z-10 grid size-12 place-items-center rounded-full border-2 border-structure-line bg-surface text-2xl">
                 {item.emoji}
               </span>
-            )}
+            ) : null}
           </div>
         ) : (
           <div className="relative grid h-36 w-full place-items-center rounded-2xl border-2 border-dashed border-brand-caramel/50 bg-brand-cream-soft">
