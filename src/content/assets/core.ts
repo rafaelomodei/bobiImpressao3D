@@ -166,6 +166,8 @@ export const ASSETS: AssetInput[] = [
     ["ranking", "Ranking", "🏆", "troféu laranja com estrela creme, alças e base roxas"],
     ["perfil", "Perfil", "🐶", "retrato do Caramelo com óculos de oficina laranja e lentes azuis"],
     ["cadeado", "Bloqueado", "🔒", "cadeado roxo arredondado, arco creme, chaveiro laranja e patinha em relevo"],
+    ["exercicio-concluido", "Exercício concluído", "✅", "selo laranja com marca de certo creme, aro dourado, linhas de camada e uma faísca"],
+    ["inicio-exercicio", "Iniciar exercício", "🐾", "medalhão roxo e laranja com patinha creme e quatro almofadas douradas"],
     ["trofeu-avaliacao", "Avaliação de domínio", "🏅", "medalha dourada com estrela creme, fita roxa e linhas de camada no aro"],
   ].map(
     ([id, label, emoji, desc]): AssetInput => ({

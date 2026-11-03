@@ -154,8 +154,8 @@ export function FeedbackFooter({
     <footer className={`fixed inset-x-0 bottom-0 z-20 pb-[env(safe-area-inset-bottom)] ${tone} ${state.kind === "idle" ? "" : "animate-slide-up"}`}>
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center">
         {state.kind === "correct" && (
-          <div role="status" className="flex flex-1 items-start gap-3 text-feedback-success-pressed">
-            <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-full bg-surface text-2xl">✔</span>
+          <div role="status" className="flex flex-1 items-center gap-3 text-feedback-success-pressed">
+            <Caramelo pose="celebrate" size={76} className="-my-3 shrink-0" />
             <div>
               <p className="text-lg font-black">Mandou bem!</p>
               <p className="font-bold">{state.feedback}</p>
@@ -164,8 +164,9 @@ export function FeedbackFooter({
         )}
         {state.kind === "wrong" && (
           <div role="alert" className="flex flex-1 flex-col gap-2 text-feedback-error-pressed">
-            <div className="flex items-start gap-3">
-              <span aria-hidden className="grid size-10 shrink-0 place-items-center rounded-full bg-surface text-2xl">✖</span>
+            <div className="flex items-center gap-3">
+              {/* O Caramelo aparece junto da mensagem: no celular ele fica sempre à vista. */}
+              <Caramelo pose={state.hint ? "hint" : "concern"} size={76} className="-my-3 shrink-0" />
               <div>
                 <p className="text-lg font-black">Quase! Vamos de novo.</p>
                 <p className="font-bold">{state.feedback}</p>

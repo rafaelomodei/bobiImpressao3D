@@ -14,7 +14,7 @@ export const TABS = [
  */
 export function NavList({ activeHref, adult = false }: { activeHref: string | null; adult?: boolean }) {
   return (
-    <ul className="mx-auto flex max-w-md justify-around md:max-w-none md:flex-col md:gap-1 md:p-4">
+    <ul className="mx-auto flex max-w-md justify-around px-2 md:max-w-none md:flex-col md:gap-1 md:p-4">
       {TABS.filter((t) => adult || !t.adultsOnly).map((t) => {
         const active = activeHref === t.href;
         return (
@@ -22,11 +22,27 @@ export function NavList({ activeHref, adult = false }: { activeHref: string | nu
             <Link
               href={t.href}
               aria-current={active ? "page" : undefined}
-              className={`flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-xl px-2 py-1 text-xs font-extrabold md:flex-row md:justify-start md:gap-3 md:px-4 md:text-base ${
-                active ? "bg-brand-cream text-structure-deep" : "text-structure-soft-text hover:bg-background"
+              className={`group flex min-h-16 flex-col items-center justify-center gap-1 px-1 py-1.5 text-[11px] font-extrabold tracking-wide uppercase transition-colors md:min-h-12 md:flex-row md:justify-start md:gap-3 md:rounded-2xl md:border-2 md:px-3 md:text-sm md:normal-case ${
+                active
+                  ? "text-brand-primary-pressed md:border-brand-primary/50 md:bg-brand-cream-soft"
+                  : "text-structure-soft-text md:border-transparent md:hover:bg-background"
               }`}
             >
-              <Image src={`/sprites/bobi-ui-${t.icon}.png`} alt="" aria-hidden width={24} height={24} className="size-6" />
+              {/* Celular: o ícone ganha uma "pastilha" suave quando ativo; o rótulo muda de cor. */}
+              <span
+                className={`grid h-9 w-14 place-items-center rounded-2xl border-2 transition md:h-auto md:w-auto md:border-0 md:bg-transparent ${
+                  active ? "border-brand-primary/50 bg-brand-cream-soft" : "border-transparent group-hover:bg-background"
+                }`}
+              >
+                <Image
+                  src={`/sprites/bobi-ui-${t.icon}.png`}
+                  alt=""
+                  aria-hidden
+                  width={28}
+                  height={28}
+                  className={`size-7 transition ${active ? "scale-110" : "opacity-80 group-hover:opacity-100"}`}
+                />
+              </span>
               {t.label}
             </Link>
           </li>
