@@ -7,8 +7,10 @@
 
 ## Leitura rápida
 
-- Há **190 assets catalogados**: **60 prontos** e **130 pendentes** (atualizado em 03/11/2026; a contagem viva está em [sprites-pendentes.md](sprites-pendentes.md)).
+- Há **190 assets catalogados**: **76 prontos** e **114 pendentes** (atualizado em 03/11/2026; a contagem viva está em [sprites-pendentes.md](sprites-pendentes.md)).
 - **Entregues em 03/11/2026 (22 curriculares):** L02 `l02-torre` (5: base, metade, lacuna, completa e a animação `l02-torre-estagios`, com quadro estático para movimento reduzido); L04 (7: `l04-video-figuras`, `l04-foto-figuras`, `l04-solidos-geometricos`, `l04-organizador-lapis-cabos`, `l04-caixa-prototipo`, `l04-chaveiro-nome`, `l04-escultura-cachorro`); L09 `l09-bobi-mini-partes` (5); L14 `l14-base` (3); L19 `l19-limite` (2). Os demais pendentes continuam todos curriculares.
+- **Entregues em 03/11/2026, lote 2 (16 curriculares):** L06 (3: `l06-carretel-filamento`, `l06-recipiente-resina`, `l06-resina-alerta`); L07 (4: `l07-peca-referencia`, `l07-peca-stringing`, `l07-peca-warping`, `l07-peca-deslocamento`); L08 (6: `l08-bancada-baguncada`, `l08-bloco-plastico`, `l08-enfeite-osso`, `l08-porta-copos`, `l08-porta-lapis`, `l08-porta-lapis-stringing`); AV01 (3: `av01-organizador-compartimentos`, `av01-porta-retrato`, `av01-vaso-decorativo`).
+- **Retrabalho sugerido (L07, diagnóstico visual):** no tamanho das opções (~110 px) o defeito quase não aparece em `l07-peca-stringing` (fios finos e claros demais) e `l07-peca-warping` (cantos pouco erguidos); `l07-peca-deslocamento` usa outra escala e enquadramento (mesa maior), quebrando o grupo de consistência com a peça de referência. Basta substituir os arquivos com o mesmo nome.
 - Números abaixo descrevem o backlog original (38 prontos / 152 pendentes) e servem de plano de produção; os grupos acima já saíram da fila.
 - Distribuição: **Mundo 1: 44**, **Mundo 2: 60**, **Mundo 3: 48**.
 - Há **21 atividades de diagnóstico visual**. Elas exigem **65 assets pendentes** diretamente na interação; representam o lote mais importante para ensinar a reconhecer peças, defeitos, componentes, segurança e prévias.
