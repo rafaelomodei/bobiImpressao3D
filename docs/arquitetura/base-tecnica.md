@@ -10,7 +10,7 @@
 | Camada | Escolha | Uso |
 |---|---|---|
 | Aplicação | **Next.js + React + TypeScript** | Interface, roteamento, renderização, servidor de aplicação |
-| Experiência instalável | **PWA** | App web responsivo instalável, com suporte progressivo |
+| Experiência instalável | **PWA** | App web responsivo instalável; **sempre on-line**, sem modo offline (DD007) |
 | Hospedagem/deploy | **Vercel** | Builds, previews por PR e ambiente de produção |
 | Plataforma de dados | **Supabase** | **PostgreSQL**, autenticação, persistência, arquivos e, se útil, Realtime |
 | Provedor explicitamente excluído | **Firebase** | Não usar Firebase para dados, auth nem hosting |
