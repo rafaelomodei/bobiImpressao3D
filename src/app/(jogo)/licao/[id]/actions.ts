@@ -3,9 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { after } from "next/server";
 import { z } from "zod";
-import { CONTENT_VERSION, PATH, findLesson } from "@/content";
+import { CONTENT_VERSION, PATH, explainWrongAnswer, findLesson } from "@/content";
 import { gradeActivity } from "@/content/engine";
-import type { Answer } from "@/content/public-types";
+import type { Answer, PublicTerm } from "@/content/public-types";
 import { requireUserId } from "@/lib/dal";
 import { HINT_AFTER_ERRORS, REWARDS, dayInSaoPaulo, xpAfterErrors } from "@/lib/game/rules";
 import {
@@ -83,6 +83,8 @@ export type SubmitResult =
       wrongIds?: string[];
       /** Dica após dois erros (DD006). */
       hint?: string;
+      /** Termos da pergunta explicados em frases curtas (DD027), só quando erra. */
+      terms?: PublicTerm[];
       completion?: Completion;
     }
   | { ok: false; reason: "lease-lost" | "stale" | "invalid" | "offline"; currentStep?: number };
@@ -149,6 +151,7 @@ export async function submitLessonAnswer(input: {
       feedback: grade.feedback,
       wrongIds: grade.wrongIds,
       hint: wrongs >= HINT_AFTER_ERRORS ? activity.hint : undefined,
+      terms: explainWrongAnswer(activity, answer.data, grade.feedback),
     };
   }
 

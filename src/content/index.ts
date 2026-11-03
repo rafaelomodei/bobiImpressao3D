@@ -1,8 +1,9 @@
 import "server-only";
 import { createHash } from "node:crypto";
-import { assetEntry, world, type Assessment, type AssetEntry, type Lesson, type World } from "./schema";
+import { assetEntry, world, type Activity, type Assessment, type AssetEntry, type Lesson, type World } from "./schema";
 import { activityAssetIds, toPublicActivity, toPublicAsset } from "./engine";
-import type { PublicAssessment, PublicAsset, PublicLesson } from "./public-types";
+import type { Answer, PublicAssessment, PublicAsset, PublicLesson, PublicTerm } from "./public-types";
+import { findTerms, wrongAnswerTexts } from "./explain";
 import type { PathNode } from "@/lib/game/rules";
 import m1 from "./mundos/m1";
 import m2 from "./mundos/m2";
@@ -94,4 +95,12 @@ export function lessonTitle(id: string): string {
     if (l) return `L${String(l.number).padStart(2, "0")} · ${l.title}`;
   }
   return id;
+}
+
+/** DD027: termos do glossário que ajudam a entender a pergunta depois de um erro. */
+export function explainWrongAnswer(activity: Activity, answer: Answer, feedback: string): PublicTerm[] {
+  return findTerms(wrongAnswerTexts(activity, answer, feedback)).map((t) => {
+    const image = t.assetId ? getAsset(t.assetId) : null;
+    return { term: t.term, definition: t.definition, image: image?.src ? image : null };
+  });
 }
