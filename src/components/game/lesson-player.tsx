@@ -185,7 +185,7 @@ export function LessonPlayer({ lesson }: { lesson: PublicLesson }) {
           setFooter({ kind: "correct", feedback: r.feedback });
           if (r.completion) setPendingCompletion(r.completion);
         } else {
-          setFooter({ kind: "wrong", feedback: r.feedback, hint: r.hint });
+          setFooter({ kind: "wrong", feedback: r.feedback, hint: r.hint, terms: r.terms });
         }
       } catch {
         setFooter({ kind: "offline" });

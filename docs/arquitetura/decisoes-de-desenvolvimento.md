@@ -40,6 +40,7 @@
 | DD020 | Avaliações e variações | Banco-base homologado, uma resposta por questão, resultado no final; variações (RF044) ainda pendentes | Decidido por delegação | — |
 | DD021 | Oficina jogável antes de PD007 | Catálogo com **valores de teste**: abre após L01; 5 itens; 2 melhorias; nivelamento em 4 cantos | Decidido por delegação | Homologação PD007 |
 | DD026 | Papel administrativo e painel de relatórios | Administrador só **observa**: painel `/admin` com uso, aprendizagem, tempo, saídas e retenção após erro; sem criação de conteúdo; conta de demonstração visível | Decidido | — |
+| DD027 | Ciclo de erro com glossário | Ao errar, "Entenda os termos" explica em frases curtas os termos da pergunta e da resposta marcada, com ilustração existente | Decidido | — |
 | DD022 | Assets provisórios | Cartão provisório (emoji + rótulo) até a arte existir; catálogo gera `sprites-pendentes.md` | Decidido por delegação | Arte final |
 
 ---
@@ -318,6 +319,23 @@ Telemetria nunca quebra o jogo: falhas ao gravar eventos são ignoradas.
 **Dados de demonstração:** `pnpm local:demo` cria jogadores sintéticos (`demo-XX@bobi.local`, apelidos `demo_*`) no Supabase **local** para o painel ter o que mostrar. O script se recusa a rodar contra o banco remoto.
 
 **Consequências:** RF039 passa a implementado; RF037/RF038 (versionar e publicar conteúdo pela interface) continuam fora do MVP e dependem de PD010. Os registros anteriores a esta decisão não têm `duration_ms` nem eventos de sessão, então os indicadores de tempo e saída valem a partir de 03/11/2026.
+
+## DD027 — Ciclo de erro: "Entenda os termos"
+
+**Contexto:** ao errar, a pessoa via o feedback da alternativa marcada e, a partir do 2º erro, a dica (DD006). Faltava contexto para quem não conhece o vocabulário: siglas como FDM, PLA ou STL e nomes de peças aparecem em várias lições, e quem erra por não saber o que a palavra significa não aprende só com "tente de novo".
+
+**Decisão:** quando a pessoa erra numa lição, o rodapé de erro mostra o link **📖 Entenda os termos**. Ele abre uma lista curta com os termos técnicos daquela pergunta, cada um com uma ou duas frases simples e, quando já existe, a ilustração do catálogo.
+
+- **Fonte:** glossário em `src/content/glossary.ts`, com 35 verbetes escritos a partir das lições homologadas e da base de conhecimento: processos (fabricação aditiva/subtrativa, injeção, FDM/FFF, SLA/MSLA), camadas, materiais (filamento, PLA, PETG, resina, termoplástico), partes da impressora (carretel, extrusor, hotend, bico, mesa, eixos), do arquivo à impressão (fatiador, G-code, STL, 3MF, perfil, prévia, escala, área de impressão) e defeitos (warping, stringing, deslocamento). Não é artigo: cada definição tem no máximo ~200 caracteres, em linguagem para 10–14 anos.
+- **Sem conteúdo novo de arte:** cada verbete pode apontar para um asset que já existe no catálogo; a imagem só aparece quando o sprite está pronto.
+- **Quais termos aparecem** (`src/content/explain.ts`): primeiro os da alternativa marcada e do feedback do erro, depois os do enunciado, depois os das demais alternativas ou cartões; no máximo 4. Expressões mais longas têm preferência ("primeira camada" antes de "camada"). Siglas só contam em maiúsculas. "Impressão 3D" é genérico e só entra quando a pergunta tem menos de 2 termos específicos.
+- **Só depois de errar**, só nas lições. Avaliações não dão feedback até o fim (DD020) e ficam de fora.
+- O painel fecha sozinho na próxima tentativa e tem rolagem própria para não cobrir a pergunta.
+- **Cobertura:** 86 das 96 atividades das lições (90%) têm pelo menos um termo. As que ficam sem termo são de segurança ou de escolha de projeto, sem vocabulário técnico, e seguem só com feedback e dica.
+- **Explicar pode ajudar a acertar:** às vezes a definição deixa a resposta evidente (ex.: L09 A01, "Mesa de impressão"). É intencional: o objetivo do ciclo de erro é a pessoa entender o termo e acertar na próxima tentativa. O XP já desconta os erros (DD023).
+- **Testes** (`explain.test.ts`): casamento por palavra inteira e com acentos, prioridade e limite, verbetes sem asset inexistente, nenhum verbete morto (todo termo aparece em algum conteúdo) e cobertura mínima de 70% das atividades.
+
+**Revisão pedagógica:** as definições foram redigidas pela equipe técnica e entram na mesma revisão dos textos marcados como "redigido pela equipe técnica" (DD017).
 
 ## Pendências que continuam abertas
 

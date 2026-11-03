@@ -3,7 +3,7 @@
 import { SoundButton } from "@/components/sound-toggle";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
-import type { PublicActivity, PublicAsset } from "@/content/public-types";
+import type { PublicActivity, PublicAsset, PublicTerm } from "@/content/public-types";
 import { LEASE_RENEW_MS } from "@/lib/game/rules";
 import { AssetView } from "./asset-view";
 import { Caramelo, CarameloSays } from "./caramelo";
@@ -165,7 +165,7 @@ export function ActivityHeader({ activity, assets }: { activity: PublicActivity;
 export type FooterState =
   | { kind: "idle"; canCheck: boolean; pending: boolean }
   | { kind: "correct"; feedback: string }
-  | { kind: "wrong"; feedback: string; hint?: string }
+  | { kind: "wrong"; feedback: string; hint?: string; terms?: PublicTerm[] }
   | { kind: "recorded" }
   | { kind: "offline" };
 
@@ -187,6 +187,10 @@ export function FeedbackFooter({
   hintShown?: boolean;
   continueLabel?: string;
 }) {
+  // Painel "Entenda os termos" (DD027): aberto só para o erro atual; fecha na próxima tentativa.
+  const [termsOpenFor, setTermsOpenFor] = useState<FooterState | null>(null);
+  const termsOpen = termsOpenFor === state;
+
   // Enter confirma / continua.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -233,6 +237,20 @@ export function FeedbackFooter({
                 💡 <span className="sr-only">Dica:</span> {state.hint}
               </p>
             )}
+            {state.terms && state.terms.length > 0 && (
+              <>
+                <button
+                  type="button"
+                  aria-expanded={termsOpen}
+                  aria-controls="entenda-os-termos"
+                  onClick={() => setTermsOpenFor(termsOpen ? null : state)}
+                  className="self-start rounded-lg text-sm font-black underline underline-offset-2"
+                >
+                  📖 {termsOpen ? "Esconder os termos" : "Entenda os termos"}
+                </button>
+                {termsOpen && <TermsPanel terms={state.terms} />}
+              </>
+            )}
           </div>
         )}
         {state.kind === "recorded" && (
@@ -278,6 +296,27 @@ export function FeedbackFooter({
         </div>
       </div>
     </footer>
+  );
+}
+
+/** Glossário curto do erro: termo, frase simples e a ilustração quando já existe (DD027). */
+function TermsPanel({ terms }: { terms: PublicTerm[] }) {
+  return (
+    <dl id="entenda-os-termos" className="animate-pop flex max-h-[40vh] flex-col gap-3 overflow-y-auto rounded-xl bg-surface p-3 text-structure-deep">
+      {terms.map((t) => (
+        <div key={t.term} className="flex items-start gap-3">
+          {t.image && (
+            <div className="w-16 shrink-0">
+              <AssetView asset={t.image} size="sm" />
+            </div>
+          )}
+          <div>
+            <dt className="font-black">{t.term}</dt>
+            <dd className="text-sm font-semibold text-structure-soft-text">{t.definition}</dd>
+          </div>
+        </div>
+      ))}
+    </dl>
   );
 }
 

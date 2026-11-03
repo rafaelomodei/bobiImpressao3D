@@ -69,3 +69,10 @@ export type PublicAssessment = {
   questions: PublicActivity[];
   assets: Record<string, PublicAsset>;
 };
+
+/** Termo explicado no ciclo de erro (DD027): frase curta e, se houver, ilustração já pronta. */
+export type PublicTerm = {
+  term: string;
+  definition: string;
+  image: PublicAsset | null;
+};
