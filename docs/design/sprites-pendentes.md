@@ -2,7 +2,7 @@
 
 > **Arquivo gerado** por `pnpm sprites:report` a partir de `src/content/assets/*.ts`. Não edite à mão: altere o catálogo e gere de novo.
 
-**Total catalogado:** 188 · **Pendentes:** 170 · **Prontos:** 18
+**Total catalogado:** 188 · **Pendentes:** 165 · **Prontos:** 23
 
 ## Como entregar um asset
 
@@ -17,7 +17,7 @@
 
 | Família | Pendentes |
 |---|---:|
-| Núcleo: Caramelo, oficina, itens, minijogo e ícones | 18 |
+| Núcleo: Caramelo, oficina, itens, minijogo e ícones | 13 |
 | Mundo 1 — Descoberta | 44 |
 | Mundo 2 — Oficina | 60 |
 | Mundo 3 — Primeira impressão | 48 |
@@ -61,11 +61,11 @@
 
 | Arquivo | O que desenhar | Vista / tamanho / fundo | Deve mostrar | Não pode mostrar | Uso |
 |---|---|---|---|---|---|
-| `bobi-item-chaveiro.png`<br>🔑 Chaveiro bobi. | Item fabricado na oficina, impresso em PLA laranja (#FD7301): chaveiro retangular de cantos arredondados com 'bobi.' em relevo e furo para argola. Linhas de camada sutis e visíveis. | 3/4 frontal levemente elevada, item centralizado, mesma escala relativa da família<br>256x256 · transparent | linhas de camada sutis | marcas reais; texto além de 'bobi.' no chaveiro | /oficina (catálogo, inventário e prateleira) |
-| `bobi-item-cubo-calibracao.png`<br>🧊 Cubo de calibração | Item fabricado na oficina, impresso em PLA laranja (#FD7301): cubo 20 mm com letras X, Y e Z em baixo-relevo em três faces e linhas de camada visíveis. Linhas de camada sutis e visíveis. | 3/4 frontal levemente elevada, item centralizado, mesma escala relativa da família<br>256x256 · transparent | linhas de camada sutis | marcas reais; texto além de 'bobi.' no chaveiro | /oficina (catálogo, inventário e prateleira) |
-| `bobi-item-organizador.png`<br>🗃️ Organizador de bancada | Item fabricado na oficina, impresso em PLA laranja (#FD7301): organizador com 3 compartimentos de alturas diferentes, um com lápis e outro com cabo enrolado. Linhas de camada sutis e visíveis. | 3/4 frontal levemente elevada, item centralizado, mesma escala relativa da família<br>256x256 · transparent | linhas de camada sutis | marcas reais; texto além de 'bobi.' no chaveiro | /oficina (catálogo, inventário e prateleira) |
-| `bobi-item-suporte-ferramentas.png`<br>🧰 Suporte para ferramentas | Item fabricado na oficina, impresso em PLA laranja (#FD7301): suporte de parede com ganchos segurando espátula e alicate de corte. Linhas de camada sutis e visíveis. | 3/4 frontal levemente elevada, item centralizado, mesma escala relativa da família<br>256x256 · transparent | linhas de camada sutis | marcas reais; texto além de 'bobi.' no chaveiro | /oficina (catálogo, inventário e prateleira) |
-| `bobi-item-porta-carretel.png`<br>🧵 Porta-carretel | Item fabricado na oficina, impresso em PLA laranja (#FD7301): base com dois apoios e eixo horizontal segurando um carretel de filamento laranja. Linhas de camada sutis e visíveis. | 3/4 frontal levemente elevada, item centralizado, mesma escala relativa da família<br>256x256 · transparent | linhas de camada sutis | marcas reais; texto além de 'bobi.' no chaveiro | /oficina (catálogo, inventário e prateleira) |
+| `bobi-item-chaveiro.png`<br>🔑 Chaveiro bobi. ✅ | Item fabricado na oficina, impresso em PLA laranja (#FD7301): chaveiro retangular de cantos arredondados com 'bobi.' em relevo e furo para argola. Linhas de camada sutis e visíveis. | 3/4 frontal levemente elevada, item centralizado, mesma escala relativa da família<br>256x256 · transparent | linhas de camada sutis | marcas reais; texto além de 'bobi.' no chaveiro | /oficina (catálogo, inventário e prateleira) |
+| `bobi-item-cubo-calibracao.png`<br>🧊 Cubo de calibração ✅ | Item fabricado na oficina, impresso em PLA laranja (#FD7301): cubo 20 mm com letras X, Y e Z em baixo-relevo em três faces e linhas de camada visíveis. Linhas de camada sutis e visíveis. | 3/4 frontal levemente elevada, item centralizado, mesma escala relativa da família<br>256x256 · transparent | linhas de camada sutis | marcas reais; texto além de 'bobi.' no chaveiro | /oficina (catálogo, inventário e prateleira) |
+| `bobi-item-organizador.png`<br>🗃️ Organizador de bancada ✅ | Item fabricado na oficina, impresso em PLA laranja (#FD7301): organizador com 3 compartimentos de alturas diferentes, um com lápis e outro com cabo enrolado. Linhas de camada sutis e visíveis. | 3/4 frontal levemente elevada, item centralizado, mesma escala relativa da família<br>256x256 · transparent | linhas de camada sutis | marcas reais; texto além de 'bobi.' no chaveiro | /oficina (catálogo, inventário e prateleira) |
+| `bobi-item-suporte-ferramentas.png`<br>🧰 Suporte para ferramentas ✅ | Item fabricado na oficina, impresso em PLA laranja (#FD7301): suporte de parede com ganchos segurando espátula e alicate de corte. Linhas de camada sutis e visíveis. | 3/4 frontal levemente elevada, item centralizado, mesma escala relativa da família<br>256x256 · transparent | linhas de camada sutis | marcas reais; texto além de 'bobi.' no chaveiro | /oficina (catálogo, inventário e prateleira) |
+| `bobi-item-porta-carretel.png`<br>🧵 Porta-carretel ✅ | Item fabricado na oficina, impresso em PLA laranja (#FD7301): base com dois apoios e eixo horizontal segurando um carretel de filamento laranja. Linhas de camada sutis e visíveis. | 3/4 frontal levemente elevada, item centralizado, mesma escala relativa da família<br>256x256 · transparent | linhas de camada sutis | marcas reais; texto além de 'bobi.' no chaveiro | /oficina (catálogo, inventário e prateleira) |
 
 ### Grupo `minijogo-nivelamento`
 
