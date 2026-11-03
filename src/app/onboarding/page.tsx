@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Logo } from "@/components/logo";
 import { getOwnProfile, todayInSaoPaulo } from "@/lib/dal";
 import { OnboardingForm } from "./onboarding-form";
+import { PageLoading } from "@/components/page-loading";
 
 export default function OnboardingPage() {
   return (
@@ -12,7 +13,7 @@ export default function OnboardingPage() {
         <h1 className="text-2xl font-extrabold">Bem-vindo à oficina!</h1>
         <p className="text-structure-soft-text">Só três coisinhas antes da primeira missão.</p>
       </div>
-      <Suspense fallback={<p>Carregando…</p>}>
+      <Suspense fallback={<PageLoading />}>
         <OnboardingGate />
       </Suspense>
     </main>

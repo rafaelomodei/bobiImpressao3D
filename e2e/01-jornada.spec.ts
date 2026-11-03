@@ -86,8 +86,13 @@ test("jornada: onboarding, L01 completa, oficina, perfil e ranking", async ({ pa
   // Nivelamento: cenário inicial fl=+2, fr=-3, bl=+3, br=+1
   await page.getByRole("link", { name: "Nivelar a mesa" }).click();
   await page.getByRole("button", { name: "Imprimir camada de teste" }).click();
-  await expect(page.getByText("Camada de teste")).toBeVisible();
+  // Resultado em tela cheia (visível sem rolar no celular), com volta para o ajuste.
+  const dialog = page.getByRole("dialog", { name: "A camada de teste não ficou boa" });
+  await expect(dialog).toBeInViewport();
+  await expect(dialog.getByText("0 de 4 cantos certos", { exact: false })).toBeVisible();
   await shot(page, "13-nivelamento-erro");
+  await page.getByRole("button", { name: "Ajustar o bico" }).click();
+  await expect(dialog).toHaveCount(0);
   const corner = async (name: string, dir: "Aproximar bico" | "Afastar bico", n: number) => {
     await page.getByRole("button", { name: new RegExp(`^${name}`) }).click();
     for (let i = 0; i < n; i++) await page.getByRole("button", { name: new RegExp(dir) }).click();

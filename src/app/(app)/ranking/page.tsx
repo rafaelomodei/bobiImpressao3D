@@ -8,6 +8,7 @@ import { isAdult, requireProfile } from "@/lib/dal";
 import { addDays, dayInSaoPaulo, weekStart } from "@/lib/game/rules";
 import { getPlayerSnapshot } from "@/lib/game/server";
 import { createClient } from "@/lib/supabase/server";
+import { PageLoading } from "@/components/page-loading";
 
 export const metadata: Metadata = { title: "Ranking" };
 
@@ -15,7 +16,7 @@ export const metadata: Metadata = { title: "Ranking" };
 export default function RankingPage() {
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 px-4 py-6">
-      <Suspense fallback={<div className="card animate-pulse text-structure-soft-text">Carregando…</div>}>
+      <Suspense fallback={<PageLoading />}>
         <Ranking />
       </Suspense>
     </main>

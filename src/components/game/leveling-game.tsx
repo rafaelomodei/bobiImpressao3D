@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { submitLeveling, type LevelResult } from "@/app/(app)/oficina/actions";
@@ -25,13 +26,14 @@ export function LevelingGame({ scenario, auto }: { scenario: Record<Corner, numb
   const [selected, setSelected] = useState<Corner>("fl");
   const [result, setResult] = useState<LevelResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Resultado da camada de teste em tela cheia: no celular o retorno não pode ficar escondido abaixo da dobra.
+  const [showResult, setShowResult] = useState(false);
   const [pending, startTransition] = useTransition();
   const offset = (c: Corner) => (auto ? 0 : scenario[c] + adjust[c]);
   usePreloadSounds(["tap", "click", "print-start", "correct", "wrong", "complete"]);
 
   const change = (delta: number) => {
     playSound("click");
-    setResult(null);
     setAdjust((a) => ({ ...a, [selected]: Math.max(-2 * LEVEL_RANGE, Math.min(2 * LEVEL_RANGE, a[selected] + delta)) }));
   };
 
@@ -48,13 +50,32 @@ export function LevelingGame({ scenario, auto }: { scenario: Record<Corner, numb
           setResult(r);
           setError(null);
           if (r.ok) router.refresh();
+          else {
+            // Ao voltar, o canto selecionado já é o primeiro que precisa de ajuste.
+            const firstBad = CORNERS.find((c) => r.corners[c].result !== "ok");
+            if (firstBad) setSelected(firstBad);
+          }
         }
       } catch {
         setError("Sem conexão. Tente de novo.");
       }
+      setShowResult(true);
     });
 
   const failing = result && !result.ok;
+
+  if (showResult && (result || error)) {
+    return (
+      <LevelResultScreen
+        result={error ? null : result}
+        error={error}
+        onBack={() => {
+          setShowResult(false);
+          setError(null);
+        }}
+      />
+    );
+  }
 
   return (
     <main className="mx-auto flex w-full max-w-xl flex-1 flex-col gap-6 px-4 py-6 pb-32">
@@ -65,18 +86,7 @@ export function LevelingGame({ scenario, auto }: { scenario: Record<Corner, numb
         <h1 className="text-2xl font-black">{auto ? "Conferir nivelamento" : "Nivelar a mesa"}</h1>
       </div>
 
-      {result?.ok ? (
-        <div className="flex flex-col items-center gap-4 text-center">
-          <Caramelo pose="celebrate" size={140} />
-          <p className="text-2xl font-black text-feedback-success">Primeira camada perfeita!</p>
-          <p className="font-bold">Linhas uniformes nos quatro cantos. A impressora está pronta para fabricar.</p>
-          <CornerPreview results={result.corners} />
-          <Link href="/oficina" className="btn-primary">
-            Voltar para a oficina
-          </Link>
-        </div>
-      ) : (
-        <>
+      <>
           <CarameloSays
             pose={failing ? "hint" : "explain"}
             text={
@@ -90,12 +100,17 @@ export function LevelingGame({ scenario, auto }: { scenario: Record<Corner, numb
 
           {!auto && (
             <>
-              <div className="relative mx-auto aspect-square w-full max-w-72 rounded-3xl border-4 border-structure-deep/80 bg-[repeating-linear-gradient(45deg,#ece6f1_0_6px,#f6f2f9_6px_12px)]">
-                <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xs font-black text-structure-soft-text uppercase">
-                  Mesa (vista de cima)
-                </span>
+              <div className="relative mx-auto aspect-square w-full max-w-72">
+                <Image
+                  src="/sprites/bobi-minijogo-mesa.png"
+                  alt="Mesa de impressão vista de cima, com quatro roldanas e quatro pontos de checagem"
+                  fill
+                  priority
+                  sizes="288px"
+                  className="object-contain"
+                />
                 {CORNERS.map((c) => {
-                  const pos = { fl: "bottom-3 left-3", fr: "bottom-3 right-3", bl: "top-3 left-3", br: "top-3 right-3" }[c];
+                  const pos = { fl: "bottom-[14%] left-[14%]", fr: "bottom-[14%] right-[14%]", bl: "top-[14%] left-[14%]", br: "top-[14%] right-[14%]" }[c];
                   const r = result?.corners[c].result;
                   return (
                     <button
@@ -107,7 +122,7 @@ export function LevelingGame({ scenario, auto }: { scenario: Record<Corner, numb
                       }}
                       aria-pressed={selected === c}
                       aria-label={`${CORNER_LABEL[c]}${r ? `: ${r === "ok" ? "ok" : "precisa de ajuste"}` : ""}`}
-                      className={`absolute ${pos} grid size-16 place-items-center rounded-full border-4 text-xl font-black transition ${
+                      className={`absolute z-10 ${pos} grid size-16 place-items-center rounded-full border-4 text-xl font-black transition ${
                         selected === c ? "scale-110 border-brand-primary bg-brand-cream-soft" : "border-structure-line bg-surface"
                       }`}
                     >
@@ -134,11 +149,10 @@ export function LevelingGame({ scenario, auto }: { scenario: Record<Corner, numb
             </>
           )}
 
-          {result && <CornerPreview results={result.corners} />}
-          {error && (
-            <p role="alert" className="font-bold text-feedback-error">
-              ⚠ {error}
-            </p>
+          {failing && (
+            <button type="button" className="btn-ghost" onClick={() => setShowResult(true)}>
+              Ver de novo a camada de teste
+            </button>
           )}
 
           <footer className="fixed inset-x-0 bottom-0 border-t-2 border-structure-line bg-surface pb-[env(safe-area-inset-bottom)]">
@@ -148,8 +162,7 @@ export function LevelingGame({ scenario, auto }: { scenario: Record<Corner, numb
               </button>
             </div>
           </footer>
-        </>
-      )}
+      </>
     </main>
   );
 }
@@ -173,18 +186,76 @@ function NozzleGauge({ offset }: { offset: number }) {
   );
 }
 
-const LINE_STYLE: Record<CornerResult, { icon: string; title: string }> = {
-  ok: { icon: "▬▬▬", title: "Linhas uniformes" },
-  "too-close": { icon: "▭ ▭", title: "Achatadas e falhadas" },
-  "too-far": { icon: "∿∿∿", title: "Redondas e soltas" },
+const LINE_STYLE: Record<CornerResult, { sprite: string; title: string }> = {
+  ok: { sprite: "/sprites/bobi-minijogo-linha-ok.png", title: "Linhas uniformes" },
+  "too-close": { sprite: "/sprites/bobi-minijogo-linha-too-close.png", title: "Achatadas e falhadas" },
+  "too-far": { sprite: "/sprites/bobi-minijogo-linha-too-far.png", title: "Redondas e soltas" },
 };
+
+/** Resultado da camada de teste ocupando a tela inteira, com saída clara para voltar a ajustar. */
+function LevelResultScreen({
+  result,
+  error,
+  onBack,
+}: {
+  result: LevelResult | null;
+  error: string | null;
+  onBack: () => void;
+}) {
+  const ok = result?.ok ?? false;
+  const good = result ? CORNERS.filter((c) => result.corners[c].result === "ok").length : 0;
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="resultado-camada"
+      className={`animate-slide-up fixed inset-0 z-40 overflow-y-auto ${ok ? "bg-feedback-success-soft" : error ? "bg-background" : "bg-feedback-error-soft"}`}
+    >
+      <div className="mx-auto flex min-h-full w-full max-w-xl flex-col gap-5 px-4 pt-8 pb-32 text-center">
+        <Caramelo pose={ok ? "celebrate" : "concern"} size={120} className="mx-auto" />
+        {error ? (
+          <>
+            <h2 id="resultado-camada" className="text-2xl font-black">Não deu para imprimir o teste</h2>
+            <p className="font-bold">{error}</p>
+          </>
+        ) : ok ? (
+          <>
+            <h2 id="resultado-camada" className="text-2xl font-black text-feedback-success-pressed">Primeira camada perfeita!</h2>
+            <p className="font-bold">Linhas uniformes nos quatro cantos. A impressora está pronta para fabricar.</p>
+          </>
+        ) : (
+          <>
+            <h2 id="resultado-camada" className="text-2xl font-black text-feedback-error-pressed">A camada de teste não ficou boa</h2>
+            <p className="font-bold">
+              {good} de 4 cantos certos. Veja as linhas de cada canto e ajuste o bico onde aparece ✖.
+            </p>
+          </>
+        )}
+        {result && <CornerPreview results={result.corners} />}
+      </div>
+      <footer className="fixed inset-x-0 bottom-0 border-t-2 border-structure-line bg-surface pb-[env(safe-area-inset-bottom)]">
+        <div className="mx-auto flex w-full max-w-xl px-4 py-4">
+          {ok ? (
+            <Link href="/oficina" className="btn-primary" autoFocus>
+              Voltar para a oficina
+            </Link>
+          ) : (
+            <button type="button" className={error ? "btn-primary" : "btn-danger"} autoFocus onClick={onBack}>
+              {error ? "Tentar de novo" : "Ajustar o bico"}
+            </button>
+          )}
+        </div>
+      </footer>
+    </div>
+  );
+}
 
 function CornerPreview({ results }: { results: LevelResult["corners"] }) {
   return (
-    <section aria-labelledby="camada" className="flex w-full flex-col gap-2">
-      <h2 id="camada" className="font-black">
+    <section aria-labelledby="camada" className="flex w-full flex-col gap-2 text-left">
+      <h3 id="camada" className="font-black">
         Camada de teste
-      </h2>
+      </h3>
       <ul className="grid grid-cols-2 gap-2">
         {CORNERS.map((c) => {
           const r = results[c];
@@ -196,9 +267,7 @@ function CornerPreview({ results }: { results: LevelResult["corners"] }) {
               <p className="font-black">
                 {r.result === "ok" ? "✔" : "✖"} {CORNER_LABEL[c]}
               </p>
-              <p aria-hidden className="font-mono text-lg tracking-widest">
-                {LINE_STYLE[r.result].icon}
-              </p>
+              <Image src={LINE_STYLE[r.result].sprite} alt="" aria-hidden width={384} height={192} className="mt-1 w-full" />
               <p className="font-bold">{r.feedback}</p>
             </li>
           );
