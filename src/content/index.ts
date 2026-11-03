@@ -11,6 +11,7 @@ import { ASSETS as CORE } from "./assets/core";
 import { ASSETS as A1 } from "./assets/m1";
 import { ASSETS as A2 } from "./assets/m2";
 import { ASSETS as A3 } from "./assets/m3";
+import { READY_SPRITES } from "./assets/ready.generated";
 
 /** Mundos validados na carga do módulo: conteúdo inválido derruba o build (DD001 §6). */
 export const WORLDS: World[] = [m1, m2, m3].map((w) => world.parse(w));
@@ -18,7 +19,8 @@ export const WORLDS: World[] = [m1, m2, m3].map((w) => world.parse(w));
 const ASSET_MAP = new Map<string, AssetEntry>(
   [...CORE, ...A1, ...A2, ...A3].map((a) => {
     const parsed = assetEntry.parse(a);
-    return [parsed.id, parsed];
+    // Pronto = arquivo presente em public/sprites (lista gerada por pnpm sprites:sync).
+    return [parsed.id, { ...parsed, status: READY_SPRITES.includes(parsed.file) ? "ready" : "placeholder" }];
   }),
 );
 

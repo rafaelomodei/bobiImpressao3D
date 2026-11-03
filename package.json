@@ -12,8 +12,11 @@
     "test": "vitest run",
     "e2e": "playwright test",
     "e2e:session": "node scripts/dev-session.mjs --reset",
-    "sprites:report": "node --no-warnings scripts/sprites-report.mts",
-    "sounds:gen": "node scripts/gen-sounds.mts"
+    "sprites:report": "node scripts/sprites-sync.mts && node --no-warnings scripts/sprites-report.mts",
+    "sounds:gen": "node scripts/gen-sounds.mts",
+    "sprites:sync": "node scripts/sprites-sync.mts",
+    "predev": "node scripts/sprites-sync.mts",
+    "prebuild": "node scripts/sprites-sync.mts"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",

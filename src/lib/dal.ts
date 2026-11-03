@@ -40,6 +40,13 @@ export async function requireProfile(): Promise<Profile> {
   return profile;
 }
 
+/** Idade mínima para recursos sociais/competitivos, como o ranking global (DD015). */
+export const ADULT_AGE = 18;
+
+export function isAdult(profile: Pick<Profile, "birth_date">): boolean {
+  return ageFromBirthDate(profile.birth_date) >= ADULT_AGE;
+}
+
 /** Idade completa em anos na data atual (America/Sao_Paulo, DD005). */
 export function ageFromBirthDate(birthDate: string, today = todayInSaoPaulo()): number {
   const [by, bm, bd] = birthDate.split("-").map(Number);

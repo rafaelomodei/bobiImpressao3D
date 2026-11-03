@@ -1,17 +1,20 @@
 import Link from "next/link";
 
 export const TABS = [
-  { href: "/trilha", label: "Trilha", icon: "🗺️" },
-  { href: "/oficina", label: "Oficina", icon: "🛠️" },
-  { href: "/ranking", label: "Ranking", icon: "🏆" },
-  { href: "/perfil", label: "Perfil", icon: "🐶" },
+  { href: "/trilha", label: "Trilha", icon: "🗺️", adultsOnly: false },
+  { href: "/oficina", label: "Oficina", icon: "🛠️", adultsOnly: false },
+  { href: "/ranking", label: "Ranking", icon: "🏆", adultsOnly: true },
+  { href: "/perfil", label: "Perfil", icon: "🐶", adultsOnly: false },
 ] as const;
 
-/** Lista de abas sem hooks; recebe a aba ativa (ou null no shell estático). */
-export function NavList({ activeHref }: { activeHref: string | null }) {
+/**
+ * Lista de abas sem hooks; recebe a aba ativa (ou null no shell estático).
+ * Abas só para adultos (DD025) não aparecem para menores nem no carregamento.
+ */
+export function NavList({ activeHref, adult = false }: { activeHref: string | null; adult?: boolean }) {
   return (
     <ul className="mx-auto flex max-w-md justify-around md:max-w-none md:flex-col md:gap-1 md:p-4">
-      {TABS.map((t) => {
+      {TABS.filter((t) => adult || !t.adultsOnly).map((t) => {
         const active = activeHref === t.href;
         return (
           <li key={t.href} className="flex-1 md:flex-none">

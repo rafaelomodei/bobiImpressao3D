@@ -1,20 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageShell } from "@/components/page-shell";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { AvatarBadge } from "@/components/avatar-badge";
 import { getAvatar } from "@/lib/avatars";
-import { ageFromBirthDate, requireProfile } from "@/lib/dal";
+import { isAdult, requireProfile } from "@/lib/dal";
 import { addDays, dayInSaoPaulo, weekStart } from "@/lib/game/rules";
 import { getPlayerSnapshot } from "@/lib/game/server";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = { title: "Ranking" };
 
+/** Sem título estático: até a idade ser checada, nada indica que o ranking existe (DD025). */
 export default function RankingPage() {
   return (
-    <PageShell title="Ranking semanal">
-      <Ranking />
-    </PageShell>
+    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 px-4 py-6">
+      <Suspense fallback={<div className="card animate-pulse text-structure-soft-text">Carregando…</div>}>
+        <Ranking />
+      </Suspense>
+    </main>
   );
 }
 
@@ -23,22 +27,20 @@ type Row = { pos: number; nickname: string; avatar_id: string; xp: number };
 /** PD008/DD015: ranking global único, semanal, opt-in, só 18+. Empate = mesma posição. */
 async function Ranking() {
   const profile = await requireProfile();
+  // DD025: para menores o ranking não existe — nem aba, nem página.
+  if (!isAdult(profile)) notFound();
   const snap = await getPlayerSnapshot(profile.user_id);
-  const adult = ageFromBirthDate(profile.birth_date) >= 18;
   const ws = weekStart(dayInSaoPaulo());
   const fmt = (d: string) => d.split("-").reverse().slice(0, 2).join("/");
 
-  let rows: Row[] = [];
-  let failed = false;
-  if (adult) {
-    const supabase = await createClient();
-    const { data, error } = await supabase.rpc("weekly_ranking", { week_start: ws, max_rows: 50 });
-    rows = (data as Row[] | null) ?? [];
-    failed = Boolean(error);
-  }
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("weekly_ranking", { week_start: ws, max_rows: 50 });
+  const rows = (data as Row[] | null) ?? [];
+  const failed = Boolean(error);
 
   return (
     <div className="flex flex-col gap-4">
+      <h1 className="text-2xl font-black">Ranking semanal</h1>
       <div className="card flex items-center justify-between">
         <div>
           <p className="text-sm font-bold text-structure-soft-text">Seu XP nesta semana</p>
@@ -47,9 +49,7 @@ async function Ranking() {
         <p className="badge">{fmt(ws)} a {fmt(addDays(ws, 6))}</p>
       </div>
 
-      {!adult ? (
-        <p className="card text-structure-soft-text">Por enquanto, o ranking global é só para maiores de 18 anos. Continue somando XP: seu progresso fica aqui.</p>
-      ) : !profile.ranking_opt_in ? (
+      {!profile.ranking_opt_in ? (
         <div className="card flex flex-col gap-3">
           <p className="font-bold">Você ainda não participa do ranking. Só aparecem apelido e avatar.</p>
           <Link href="/perfil" className="btn-primary">Ativar no perfil</Link>

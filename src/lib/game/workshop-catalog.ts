@@ -1,3 +1,5 @@
+import { READY_SPRITES } from "../../content/assets/ready.generated.ts";
+
 /**
  * Catálogo da oficina — VALORES DE TESTE (DD021). PD007 continua em proposta:
  * custos, tempos e desbloqueios abaixo existem para tornar a oficina jogável e
@@ -114,13 +116,10 @@ export const UPGRADES: WorkshopUpgrade[] = [
 export type MachineTier = "mini" | "ajustada" | "auto";
 export type MachineState = "idle" | "printing" | "finished";
 
-/** Sprites da impressora já entregues em public/sprites (o catálogo em core.ts marca como prontos). */
-export const MACHINE_SPRITES_READY: readonly string[] = [
-  "mini-idle",
-  "mini-printing",
-  "mini-finished",
-  "ajustada-idle",
-];
+/** Sprites da impressora presentes em public/sprites (lista gerada por pnpm sprites:sync). */
+const MACHINE_SPRITES_READY = new Set(
+  READY_SPRITES.filter((f) => f.startsWith("bobi-machine-")).map((f) => f.replace(/^bobi-machine-|\.png$/g, "")),
+);
 
 export function machineTier(upgrades: string[]): MachineTier {
   if (upgrades.includes("nivelamento-auto")) return "auto";
@@ -131,8 +130,14 @@ export function machineTier(upgrades: string[]): MachineTier {
 /** Sprite do tier e estado; sem arte desse tier, usa a Mini no mesmo estado; sem nenhuma, null. */
 export function machineSprite(tier: MachineTier, state: MachineState): string | null {
   for (const key of [`${tier}-${state}`, `mini-${state}`])
-    if (MACHINE_SPRITES_READY.includes(key)) return `/sprites/bobi-machine-${key}.png`;
+    if (MACHINE_SPRITES_READY.has(key)) return `/sprites/bobi-machine-${key}.png`;
   return null;
+}
+
+/** Sprite do projeto fabricável, quando o arquivo correspondente já estiver pronto. */
+export function itemSprite(item: WorkshopItem): string | null {
+  const file = `bobi-${item.assetId}.png`;
+  return READY_SPRITES.includes(file) ? `/sprites/${file}` : null;
 }
 
 export function machineName(upgrades: string[]): string {
