@@ -6,33 +6,22 @@ import { Logo } from "@/components/logo";
 /** DD012: boas-vindas com login Google antes de qualquer lição. */
 export default function WelcomePage({ searchParams }: PageProps<"/">) {
   return (
-    <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-between gap-8 px-4 py-10">
+    <main className="mx-auto flex min-h-dvh w-full max-w-md flex-col justify-between gap-4 px-4 py-6 [@media(min-height:700px)]:gap-6 [@media(min-height:700px)]:py-10">
       <header className="flex flex-col items-center gap-2 text-center">
-        <Logo className="text-5xl" />
-        <p className="text-lg font-bold text-structure-soft-text">
+        <Logo className="text-4xl [@media(min-height:700px)]:text-5xl" />
+        <p className="text-base font-bold text-structure-soft-text [@media(min-height:700px)]:text-lg">
           O jeito divertido de aprender impressão 3D.
         </p>
       </header>
 
-      <section className="flex flex-col items-center gap-6 text-center">
-        <Caramelo pose="talk" size={200} className="animate-pop" />
+      <section className="flex flex-col items-center gap-4 text-center">
+        <Caramelo pose="talk" size={200} className="animate-pop h-[min(200px,19dvh)] w-auto" />
         <div className="card relative w-full text-left">
           <p className="font-extrabold">Oi! Eu sou o Caramelo. 🐾</p>
           <p className="mt-1 text-structure-soft-text">
             Vou te mostrar como uma ideia vira um objeto de verdade, camada por camada.
           </p>
         </div>
-        <ul className="grid w-full gap-2 text-left text-sm font-bold">
-          <li className="card flex items-center gap-3 p-3">
-            <span aria-hidden className="text-2xl">⏱️</span> Missões de 2 a 5 minutos
-          </li>
-          <li className="card flex items-center gap-3 p-3">
-            <span aria-hidden className="text-2xl">🖨️</span> Não precisa ter impressora
-          </li>
-          <li className="card flex items-center gap-3 p-3">
-            <span aria-hidden className="text-2xl">🔑</span> Termine imprimindo um chaveiro virtual
-          </li>
-        </ul>
       </section>
 
       <footer className="flex flex-col gap-3">

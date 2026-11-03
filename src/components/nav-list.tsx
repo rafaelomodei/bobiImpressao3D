@@ -1,10 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export const TABS = [
-  { href: "/trilha", label: "Trilha", icon: "🗺️", adultsOnly: false },
-  { href: "/oficina", label: "Oficina", icon: "🛠️", adultsOnly: false },
-  { href: "/ranking", label: "Ranking", icon: "🏆", adultsOnly: true },
-  { href: "/perfil", label: "Perfil", icon: "🐶", adultsOnly: false },
+  { href: "/trilha", label: "Trilha", icon: "trilha", adultsOnly: false },
+  { href: "/oficina", label: "Oficina", icon: "oficina", adultsOnly: false },
+  { href: "/ranking", label: "Ranking", icon: "ranking", adultsOnly: true },
+  { href: "/perfil", label: "Perfil", icon: "perfil", adultsOnly: false },
 ] as const;
 
 /**
@@ -25,9 +26,7 @@ export function NavList({ activeHref, adult = false }: { activeHref: string | nu
                 active ? "bg-brand-cream text-structure-deep" : "text-structure-soft-text hover:bg-background"
               }`}
             >
-              <span aria-hidden className="text-xl">
-                {t.icon}
-              </span>
+              <Image src={`/sprites/bobi-ui-${t.icon}.svg`} alt="" aria-hidden width={24} height={24} className="size-6" />
               {t.label}
             </Link>
           </li>

@@ -2,7 +2,7 @@
 
 > **Arquivo gerado** por `pnpm sprites:report` a partir de `src/content/assets/*.ts`. Não edite à mão: altere o catálogo e gere de novo.
 
-**Total catalogado:** 188 · **Pendentes:** 165 · **Prontos:** 23
+**Total catalogado:** 188 · **Pendentes:** 152 · **Prontos:** 36
 
 ## Como entregar um asset
 
@@ -17,7 +17,7 @@
 
 | Família | Pendentes |
 |---|---:|
-| Núcleo: Caramelo, oficina, itens, minijogo e ícones | 13 |
+| Núcleo: Caramelo, oficina, itens, minijogo e ícones | 0 |
 | Mundo 1 — Descoberta | 44 |
 | Mundo 2 — Oficina | 60 |
 | Mundo 3 — Primeira impressão | 48 |
@@ -71,24 +71,24 @@
 
 | Arquivo | O que desenhar | Vista / tamanho / fundo | Deve mostrar | Não pode mostrar | Uso |
 |---|---|---|---|---|---|
-| `bobi-minijogo-mesa.png`<br>🔲 Mesa de nivelamento (vista de cima) | Mesa de impressão vista de cima, quadrada, superfície texturizada cinza-clara, 4 roldanas de ajuste nos cantos (desenhadas como círculos com ranhuras) e 4 marcadores circulares de checagem a 1/5 de cada canto. | ortográfica de cima (top-down), sem perspectiva<br>720x720 · transparent | 4 roldanas de canto; 4 pontos de checagem | bico aquecido tocando mão; valores numéricos reais | /oficina/nivelar |
-| `bobi-minijogo-linha-too-close.png`<br>〰️ Bico perto demais | Close lateral do bico quase encostado na mesa: linha transparente/falhada, raspada, com material acumulado nas laterais. | corte lateral 2D, bico à esquerda movendo para a direita<br>384x192 · transparent | bico; linha depositada; superfície da mesa | mãos; valores numéricos | /oficina/nivelar (resultado por canto) |
-| `bobi-minijogo-linha-ok.png`<br>✅ Primeira camada ideal | Close lateral (corte) do bico sobre a mesa depositando linha levemente achatada e contínua, bem grudada. | corte lateral 2D, bico à esquerda movendo para a direita<br>384x192 · transparent | bico; linha depositada; superfície da mesa | mãos; valores numéricos | /oficina/nivelar (resultado por canto) |
-| `bobi-minijogo-linha-too-far.png`<br>〰️ Bico longe demais | Close lateral do bico alto: linha redonda, solta, enrolando e sem contato com a mesa em alguns pontos. | corte lateral 2D, bico à esquerda movendo para a direita<br>384x192 · transparent | bico; linha depositada; superfície da mesa | mãos; valores numéricos | /oficina/nivelar (resultado por canto) |
+| `bobi-minijogo-mesa.png`<br>🔲 Mesa de nivelamento (vista de cima) ✅ | Mesa de impressão vista de cima, quadrada, superfície texturizada cinza-clara, 4 roldanas de ajuste nos cantos (desenhadas como círculos com ranhuras) e 4 marcadores circulares de checagem a 1/5 de cada canto. | ortográfica de cima (top-down), sem perspectiva<br>720x720 · transparent | 4 roldanas de canto; 4 pontos de checagem | bico aquecido tocando mão; valores numéricos reais | /oficina/nivelar |
+| `bobi-minijogo-linha-too-close.png`<br>〰️ Bico perto demais ✅ | Close lateral do bico quase encostado na mesa: linha transparente/falhada, raspada, com material acumulado nas laterais. | corte lateral 2D, bico à esquerda movendo para a direita<br>384x192 · transparent | bico; linha depositada; superfície da mesa | mãos; valores numéricos | /oficina/nivelar (resultado por canto) |
+| `bobi-minijogo-linha-ok.png`<br>✅ Primeira camada ideal ✅ | Close lateral (corte) do bico sobre a mesa depositando linha levemente achatada e contínua, bem grudada. | corte lateral 2D, bico à esquerda movendo para a direita<br>384x192 · transparent | bico; linha depositada; superfície da mesa | mãos; valores numéricos | /oficina/nivelar (resultado por canto) |
+| `bobi-minijogo-linha-too-far.png`<br>〰️ Bico longe demais ✅ | Close lateral do bico alto: linha redonda, solta, enrolando e sem contato com a mesa em alguns pontos. | corte lateral 2D, bico à esquerda movendo para a direita<br>384x192 · transparent | bico; linha depositada; superfície da mesa | mãos; valores numéricos | /oficina/nivelar (resultado por canto) |
 
 ### Grupo `ui-icons`
 
 | Arquivo | O que desenhar | Vista / tamanho / fundo | Deve mostrar | Não pode mostrar | Uso |
 |---|---|---|---|---|---|
-| `bobi-ui-xp.svg`<br>⭐ XP | Ícone de interface: estrela de 5 pontas em caramelo (#F29507) com contorno roxo-escuro. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
-| `bobi-ui-fios.svg`<br>🧵 Fios | Ícone de interface: mini carretel de filamento laranja (#FD7301) com fio solto em espiral — moeda do jogo. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
-| `bobi-ui-streak.svg`<br>🔥 Sequência | Ícone de interface: chama estilizada laranja/caramelo com miolo creme. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
-| `bobi-ui-trilha.svg`<br>🗺️ Trilha | Ícone de interface: caminho sinuoso com 3 nós circulares. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
-| `bobi-ui-oficina.svg`<br>🛠️ Oficina | Ícone de interface: mini impressora frontal simplificada. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
-| `bobi-ui-ranking.svg`<br>🏆 Ranking | Ícone de interface: troféu simples com base. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
-| `bobi-ui-perfil.svg`<br>🐶 Perfil | Ícone de interface: cabeça do Caramelo de frente, simplificada. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
-| `bobi-ui-cadeado.svg`<br>🔒 Bloqueado | Ícone de interface: cadeado fechado arredondado. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
-| `bobi-ui-trofeu-avaliacao.svg`<br>🏅 Avaliação de domínio | Ícone de interface: medalha com fita roxa e camadas empilhadas no centro. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-xp.svg`<br>⭐ XP ✅ | Ícone de interface: estrela de 5 pontas em caramelo (#F29507) com contorno roxo-escuro. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-fios.svg`<br>🧵 Fios ✅ | Ícone de interface: mini carretel de filamento laranja (#FD7301) com fio solto em espiral — moeda do jogo. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-streak.svg`<br>🔥 Sequência ✅ | Ícone de interface: chama estilizada laranja/caramelo com miolo creme. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-trilha.svg`<br>🗺️ Trilha ✅ | Ícone de interface: caminho sinuoso com 3 nós circulares. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-oficina.svg`<br>🛠️ Oficina ✅ | Ícone de interface: mini impressora frontal simplificada. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-ranking.svg`<br>🏆 Ranking ✅ | Ícone de interface: troféu simples com base. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-perfil.svg`<br>🐶 Perfil ✅ | Ícone de interface: cabeça do Caramelo de frente, simplificada. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-cadeado.svg`<br>🔒 Bloqueado ✅ | Ícone de interface: cadeado fechado arredondado. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-trofeu-avaliacao.svg`<br>🏅 Avaliação de domínio ✅ | Ícone de interface: medalha com fita roxa e camadas empilhadas no centro. Formas chapadas, contorno #241241 de 2px a 48px. | frontal, ícone<br>96x96 (exportar também SVG) · transparent | — | texto; ícones de terceiros | interface |
 
 ## Mundo 1 — Descoberta
 

@@ -50,3 +50,9 @@ Fonte: Nunito (Google Fonts, aberta), pesos 400–900. Escala de espaçamento 4/
 ## Acessibilidade
 
 Foco visível roxo; alternativas com `role="radio"`; atalhos 1–5 e Enter; feedback sempre com ícone + texto; `prefers-reduced-motion` desliga animações; alvos de toque ≥ 44 px; mensagens de erro/conexão com `role="alert"`.
+
+## Carregamento e retorno de ações
+
+- **Carregamento de tela:** sempre `PageLoading` (`src/components/page-loading.tsx`) — Caramelo e texto centralizados no espaço livre da tela, nunca um cartão no topo.
+- **Resultado que o jogador precisa ver:** se a ação muda o que ele deve fazer em seguida (ex.: camada de teste do nivelamento), o retorno abre em **tela cheia** com o botão de próxima ação fixo no rodapé. Nada de resultado surgindo abaixo da dobra, onde no celular ele só aparece rolando.
+- **Tela de login:** só marca, Caramelo, uma fala e o botão Google; cabe sem rolagem a partir de 360×640.

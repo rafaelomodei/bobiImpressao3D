@@ -7,20 +7,14 @@ import { WorkshopView } from "@/components/game/workshop-view";
 import { requireProfile } from "@/lib/dal";
 import { getPlayerSnapshot } from "@/lib/game/server";
 import { getWorkshopState } from "@/lib/game/workshop";
+import { PageLoading } from "@/components/page-loading";
 
 export const metadata: Metadata = { title: "Oficina" };
 
 export default function OficinaPage() {
   return (
     <main className="mx-auto flex w-full max-w-xl flex-1 flex-col">
-      <Suspense
-        fallback={
-          <div className="flex flex-col items-center gap-4 py-16">
-            <Caramelo pose="idle" size={96} className="animate-float" />
-            <p className="font-black text-structure-soft-text">Abrindo a oficina…</p>
-          </div>
-        }
-      >
+      <Suspense fallback={<PageLoading label="Abrindo a oficina…" />}>
         <Oficina />
       </Suspense>
     </main>

@@ -2,29 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { WORLDS } from "@/content";
-import { Caramelo } from "@/components/game/caramelo";
 import { StatsBar } from "@/components/game/stats-bar";
 import { requireProfile } from "@/lib/dal";
 import { getPlayerSnapshot, type PlayerSnapshot } from "@/lib/game/server";
+import { PageLoading } from "@/components/page-loading";
 
 export const metadata: Metadata = { title: "Trilha" };
 
 export default function TrilhaPage() {
   return (
     <main className="mx-auto flex w-full max-w-xl flex-1 flex-col">
-      <Suspense fallback={<TrilhaSkeleton />}>
+      <Suspense fallback={<PageLoading label="Carregando sua trilha…" />}>
         <Trilha />
       </Suspense>
     </main>
-  );
-}
-
-function TrilhaSkeleton() {
-  return (
-    <div className="flex flex-col items-center gap-6 px-4 py-10">
-      <Caramelo pose="idle" size={96} className="animate-float" />
-      <p className="font-black text-structure-soft-text">Carregando sua trilha…</p>
-    </div>
   );
 }
 

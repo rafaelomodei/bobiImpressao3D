@@ -22,5 +22,18 @@ export const READY_SPRITES: readonly string[] = [
   "bobi-machine-mini-finished.png",
   "bobi-machine-mini-idle.png",
   "bobi-machine-mini-printing.png",
-  "bobi-oficina-bancada.png"
+  "bobi-minijogo-linha-ok.png",
+  "bobi-minijogo-linha-too-close.png",
+  "bobi-minijogo-linha-too-far.png",
+  "bobi-minijogo-mesa.png",
+  "bobi-oficina-bancada.png",
+  "bobi-ui-cadeado.svg",
+  "bobi-ui-fios.svg",
+  "bobi-ui-oficina.svg",
+  "bobi-ui-perfil.svg",
+  "bobi-ui-ranking.svg",
+  "bobi-ui-streak.svg",
+  "bobi-ui-trilha.svg",
+  "bobi-ui-trofeu-avaliacao.svg",
+  "bobi-ui-xp.svg"
 ];
