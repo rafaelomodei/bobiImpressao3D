@@ -2,6 +2,7 @@
 
 **Data:** 02/11/2026  
 **Responsável:** Rafael Geovani Omodei  
+**Atualização:** 02/11/2026 — DD011–DD016 (login Google, onboarding, paleta, perfil, idade/ranking e padrões de interface).  
 **Finalidade:** registrar as decisões que destravam a implementação, separando o que foi **decidido pelo responsável** do que é **padrão proposto** (vale até objeção). Complementa a [base técnica](base-tecnica.md) e não altera RF/RNF nem o conteúdo das lições homologadas.
 
 ## Legenda de status
@@ -25,8 +26,14 @@
 | DD006 | Quando oferecer dica | Após **dois erros** na mesma atividade | Padrão proposto | Incremento B |
 | DD007 | Comportamento sem conexão | Respostas e recompensas só são confirmadas on-line; PWA guarda interface e imagens | Padrão proposto | Incremento A/B |
 | DD008 | Atividade única por conta | Reserva da atividade (lease) com renovação periódica e transferência confirmada | Padrão proposto | Incremento B |
-| DD009 | E-mail do código de acesso | Supabase Auth com código (OTP); SMTP próprio antes de qualquer usuário externo | Padrão proposto | Teste com usuários |
+| DD009 | ~~E-mail do código de acesso~~ | **Substituída por DD011** | Substituída | — |
 | DD010 | Ferramentas de desenvolvimento | pnpm, Tailwind CSS, Zod, Vitest, Playwright, Supabase CLI | Padrão proposto | Incremento A |
+| DD011 | Método de login | **Somente Google** (OAuth via Supabase Auth) | **Decidido** | Incremento A |
+| DD012 | Primeiro acesso | Tela de boas-vindas com Caramelo e "Entrar com Google" antes de qualquer lição | **Decidido** | Incremento A |
+| DD013 | Paleta da interface | Laranja e roxo da ficha do Caramelo; verde só para "correto" | **Decidido** | Incremento A |
+| DD014 | Identidade exibida | Apelido + avatar bobi.; nome e foto do Google nunca exibidos | **Decidido** | Incremento A/B |
+| DD015 | Idade e ranking | Data de nascimento no onboarding; ranking global só para 18+ | **Decidido** | Ranking |
+| DD016 | Padrões de interface | Mobile-first, abas inferiores, uma atividade por tela, tema claro | Padrão proposto | Incremento A |
 
 ---
 
@@ -98,9 +105,11 @@ As fichas homologadas **não são reescritas**; o pré-requisito alternativo sim
 
 **Padrão proposto:** ao abrir uma lição ou avaliação, o servidor cria uma reserva (`activity_leases`) para o dispositivo. O cliente renova a reserva a cada 30 segundos; ela expira após **2 minutos** sem renovação. Se outro dispositivo tentar abrir uma atividade, aparece a pergunta de transferência (RF043): ao confirmar, a reserva anterior é invalidada e respostas não confirmadas daquele aparelho são descartadas; o que já foi confirmado é preservado. Valores ajustáveis após testes.
 
-## DD009 — E-mail do código de acesso
+## DD009 — E-mail do código de acesso (substituída)
 
-**Padrão proposto:** login por **código de uso único (OTP) do Supabase Auth**, configurado para enviar código (não link mágico). O envio de e-mail padrão do Supabase é limitado e serve só para desenvolvimento; **antes de testar com qualquer usuário externo**, configurar SMTP próprio (provedor a escolher, por exemplo Resend ou Amazon SES).
+> **Substituída por [DD011](#dd011--login-somente-com-google) em 02/11/2026.** Texto original mantido para histórico.
+
+**Padrão proposto (original):** login por **código de uso único (OTP) do Supabase Auth**, configurado para enviar código (não link mágico). O envio de e-mail padrão do Supabase é limitado e serve só para desenvolvimento; **antes de testar com qualquer usuário externo**, configurar SMTP próprio (provedor a escolher, por exemplo Resend ou Amazon SES).
 
 ## DD010 — Ferramentas de desenvolvimento
 
@@ -115,6 +124,62 @@ As fichas homologadas **não são reescritas**; o pré-requisito alternativo sim
 | Testes de ponta a ponta | Playwright |
 | Banco e migrações | Supabase CLI (ambiente local + projeto de desenvolvimento na nuvem) |
 
+## DD011 — Login somente com Google
+
+**Decisão do responsável:** o único método de acesso é **"Entrar com Google"**, via provedor Google do Supabase Auth. Não há código por e-mail, senha nem link mágico. Substitui DD009 e altera a forma de autenticação de RF001/RF002 (registrado no Termo).
+
+**Por quê:** elimina envio de e-mail, SMTP próprio e tela de código; o fluxo vira um clique.
+
+**Configuração necessária (uma vez):**
+1. Google Cloud Console: criar tela de consentimento OAuth e um *OAuth Client ID* do tipo "Web application".
+2. Em *Authorized redirect URIs*, cadastrar `https://<project-ref>.supabase.co/auth/v1/callback`.
+3. Supabase > Authentication > Sign In / Providers > Google: ativar e colar *Client ID* e *Client Secret*.
+4. Supabase > Authentication > URL Configuration: *Site URL* de produção e *Redirect URLs* para `http://localhost:3000/**` e os domínios de preview da Vercel.
+
+**Atenção (vai para PT001):** contas Google de crianças abaixo de 13 anos no Brasil são supervisionadas pelo Family Link, e o acesso a apps de terceiros pode depender de aprovação dos responsáveis. Isso precisa ser verificado antes de abrir o produto ao público de 10–12 anos.
+
+## DD012 — Primeiro acesso com login
+
+**Decisão do responsável:** a primeira tela é de **boas-vindas**: Caramelo, logo, slogan, até três frases do que o aluno vai aprender e o botão "Entrar com Google". Nenhuma lição é acessível sem conta.
+
+**Fluxo:** boas-vindas → Google → (primeira vez) apelido → avatar → data de nascimento (DD015) → trilha com a L01 destacada. Quem já tem conta vai direto para a trilha, retomando a atividade pendente.
+
+**Recomendação de UX para compensar a barreira:** a tela de boas-vindas deve mostrar o produto (ilustração da trilha e do chaveiro virtual), não só o logo, e o onboarding inteiro deve caber em menos de 1 minuto.
+
+## DD013 — Paleta laranja e roxo
+
+**Decisão do responsável:** a interface segue as cores da [ficha do Caramelo v0.1](../design/referencias/caramelo/README.md): **laranja** para ações e marca, **roxo profundo** para estrutura. O verde deixa de ser cor principal (evita aproximação com a identidade do Duolingo) e fica restrito ao feedback "correto". Tokens candidatos v0.2 em [sistema visual](../design/sistema-visual-narrativa-e-animacao.md#2-sistema-visual-candidato-tokens-iniciais).
+
+## DD014 — Apelido e avatar; dados do Google ocultos
+
+**Decisão do responsável:** no primeiro acesso o aluno escolhe um **apelido** e um **avatar pronto** do bobi. (temas do Caramelo e da oficina). **Nome real e foto do Google nunca aparecem** no app, em perfis ou no ranking, e não são copiados para a tabela `profiles` (RNF015). O e-mail fica apenas na autenticação.
+
+**Regras do apelido (padrão proposto):** 3 a 20 caracteres, letras, números e `_`; único; filtro de palavras impróprias; pode ser trocado no perfil. Avatares iniciais: 6 a 8 opções sem custo; avatares extras ficam para conquistas/cosméticos (RF028).
+
+## DD015 — Data de nascimento e ranking global
+
+**Decisão do responsável:** o onboarding pede **data de nascimento**. O ranking global semanal mostra somente contas com **18 anos ou mais** que fizeram opt-in. Menores veem o próprio XP semanal, sem aparecer nem ver a lista global.
+
+**Consequências:**
+- A data é dado pessoal: guardar só a data (ou ano e mês, se bastar), com acesso restrito ao próprio usuário e ao servidor; não exibir.
+- A data autodeclarada **não resolve PT001**: idade declarada é uma salvaguarda mínima, não aferição. Contas reais de menores, anúncios e regras do ECA Digital continuam dependentes de PT001.
+- A mesma faixa etária será usada para elegibilidade de anúncios (PD009) quando eles existirem.
+
+## DD016 — Padrões de interface
+
+**Padrão proposto** (valem até objeção):
+
+| Tema | Padrão |
+|---|---|
+| Formato | **Mobile-first**, em retrato; no desktop, coluna central de até ~480 px na lição e layout com barra lateral na navegação. |
+| Navegação | **Abas inferiores** no celular: Trilha, Oficina, Ranking, Perfil. Oficina aparece como "em breve" até o incremento C. |
+| Trilha | Caminho vertical por mundo, nós com estados bloqueado / disponível / concluído; avaliação de domínio como nó especial ao fim do mundo; Caramelo acompanha o nó atual. |
+| Lição | **Uma atividade por tela**, barra de progresso no topo, botão "Verificar" fixo embaixo, feedback em painel inferior (correto em verde, erro com dica e "Tentar de novo"), "Continuar" após acerto, confirmação ao sair. |
+| Avaliação | Mesmo layout, sem feedback por questão; resultado e revisão só ao final (PD003). |
+| Tema | Somente **tema claro** no MVP; tema escuro depois. |
+| Som e animação | Sons curtos opcionais, desligados por padrão; respeitar "reduzir movimento" do sistema. |
+| Acessibilidade | Alvos de toque ≥ 44 px, foco visível, feedback com ícone + texto, contraste AA. |
+
 ## Pendências que continuam abertas
 
 | ID | Tema | Precisa estar decidido antes de |
@@ -123,7 +188,8 @@ As fichas homologadas **não são reescritas**; o pré-requisito alternativo sim
 | — | Variações das avaliações AV01–AV03 (RF044): escrever e revisar | Fim do incremento D |
 | — | Personagem-mestre do Caramelo | Arte definitiva (placeholders até lá) |
 | — | Regra de empate do ranking global | Ranking |
-| PT001 | Idade, privacidade e menores | Qualquer conta real de menor; anúncios; ranking público |
+| PT001 | Idade, privacidade e menores (inclui Family Link no login Google, DD011) | Qualquer conta real de menor; anúncios |
+| — | Credenciais OAuth do Google configuradas no Supabase | Primeiro login |
 | PD010 | Gestão editorial e painel administrativo | Edição de conteúdo fora do Git |
 | PD011 | Metas de desempenho e recuperação | Lançamento |
 | PD012 | Aceite do MVP e avaliação pedagógica | Lançamento |

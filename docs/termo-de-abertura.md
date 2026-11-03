@@ -4,7 +4,7 @@
 **Responsável:** Rafael Geovani Omodei  
 **Início do levantamento:** 19/10/2026  
 **Consolidação:** 01/11/2026  
-**Versão documental:** 0.5 (em evolução)  
+**Versão documental:** 0.6 (em evolução)  
 **Status:** Homologações parciais; projeto ainda na fase de definição. Nenhuma funcionalidade é declarada implementada.
 
 > Fonte de verdade dos requisitos funcionais e decisões. Diagramas, matrizes finais e protótipos ficam para depois. Os requisitos aprovados não devem ser modificados sem decisão registrada.
@@ -43,6 +43,7 @@ O aprendizado inicial de impressão 3D exige compreender equipamentos, materiais
 | 02/11/2026 | Stack: Next.js + React + TypeScript, PWA, Supabase e Vercel; Firebase excluído ([base técnica](arquitetura/base-tecnica.md)) | **Decidido** |
 | 02/11/2026 | Oficina como núcleo jogável e ranking **global único** (sem ligas), mantendo ciclo semanal e opt-in de PD008 | **Decidido**; detalhamento de PD007 em proposta |
 | 02/11/2026 | DD001–DD004: conteúdo em tabelas Supabase com correção no servidor, mapeamento para os quatro tipos de atividade, avanço por domínio fora do MVP e ordem de incrementos A → B → D → C ([decisões de desenvolvimento](arquitetura/decisoes-de-desenvolvimento.md)) | **Decidido** (DD004 por delegação) |
+| 02/11/2026 | DD011–DD015: login **somente com Google** (substitui código por e-mail de PD002), boas-vindas com login antes das lições, paleta laranja/roxo do Caramelo, apelido + avatar sem dados do Google, data de nascimento no onboarding e ranking global só para 18+ | **Decidido** |
 
 ## 4. Currículo aprovado (PD004)
 
@@ -121,8 +122,8 @@ Especificações homologadas: [L01–L04](licoes/mundo-01.md), [L05–L08](licoe
 
 | Código | Descrição | Status geral |
 |---|---|---|
-| RF001 | Criar conta por e-mail e apelido, condicionado a PT001 para menores | Parcial |
-| RF002 | Autenticação com código temporário por e-mail | Parcial |
+| RF001 | Criar conta com Google e apelido, condicionado a PT001 para menores (método alterado por DD011) | Parcial |
+| RF002 | Autenticação com conta Google (substitui código temporário por e-mail, DD011) | Decidido |
 | RF003 | Avaliação inicial de conhecimentos | Definido em conceito |
 | RF004 | Avatar personalizável | Definido em conceito |
 | RF005 | Sincronizar progresso entre dispositivos | Homologado |
@@ -244,13 +245,13 @@ XP é experiência, Fios são moeda, PLA/PETG são materiais de ensino. Vidas s�
 Uma lição ou revisão válida cumpre a meta diária; perda de sequência não apaga progresso. Evitar duplicação de recompensas e XP competitivo ilimitado por repetição.
 
 ### PD008 — Ranking e perfis
-Ranking semanal, opcional, **global e único** (sem ligas ou grupos, decisão de 02/11/2026), usando XP competitivo elegível. Cartões com apelido e avatar; não mostrar dados sensíveis; sem chat, comentários livres nem busca aberta. Menores ficam fora de rankings até homologação dos controles aplicáveis.
+Ranking semanal, opcional, **global e único** (sem ligas ou grupos, decisão de 02/11/2026), usando XP competitivo elegível. Cartões com apelido e avatar; não mostrar dados sensíveis; sem chat, comentários livres nem busca aberta. Menores ficam fora de rankings até homologação dos controles aplicáveis; no MVP, o ranking global mostra somente contas 18+ por data de nascimento declarada (DD015).
 
 ### PD009 — Monetização
 Conteúdo educacional fundamental acessível gratuitamente; assinatura **remove anúncios**, sem vantagem curricular. Não mostrar anúncios durante perguntas ou avaliações. Menores e usuários sem idade confirmada não recebem anúncios até validação dos controles. Anúncios recompensados fora do MVP. Preço e periodicidade pendentes.
 
 ### PD002 — Simplificado
-Cadastro por e-mail/apelido, autenticação por código temporário, sincronização e exclusão de conta. Não construir agora sistema completo de perfis parentais. **PT001 obrigatória antes de contas reais de menores.**
+Cadastro com conta Google e apelido, sincronização e exclusão de conta. *(Autenticação por código temporário substituída por login Google em 02/11/2026, DD011.)* Não construir agora sistema completo de perfis parentais. **PT001 obrigatória antes de contas reais de menores.**
 
 ## 9. Casos de uso identificados — sem diagramas
 
