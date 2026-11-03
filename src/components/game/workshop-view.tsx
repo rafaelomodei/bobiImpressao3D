@@ -161,17 +161,24 @@ function MachineCard({ state, pending, onCollect }: { state: WorkshopState; pend
       </div>
       <div className="flex flex-col items-center gap-4 p-5 text-center">
         {sprite ? (
-          <div className="relative grid w-full place-items-center rounded-2xl bg-brand-cream-soft py-2">
+          <div className="relative grid aspect-[3/2] w-full place-items-center overflow-hidden rounded-2xl">
+            <Image
+              src="/sprites/bobi-oficina-bancada.png"
+              alt="Bancada da oficina do Caramelo"
+              fill
+              sizes="(min-width: 640px) 640px, 100vw"
+              className="object-cover"
+            />
             <Image
               src={sprite}
               alt={`${state.machineName} ${print ? (ready ? "com a peça pronta" : "imprimindo") : "parada"}`}
-              width={200}
-              height={200}
+              width={280}
+              height={280}
               priority
-              className={`object-contain ${print && !ready ? "animate-[float_2.4s_ease-in-out_infinite]" : ""}`}
+              className={`relative z-10 h-[88%] w-auto object-contain ${print && !ready ? "animate-[float_2.4s_ease-in-out_infinite]" : ""}`}
             />
             {item && (
-              <span aria-hidden className="absolute top-3 right-3 grid size-12 place-items-center rounded-full border-2 border-structure-line bg-surface text-2xl">
+              <span aria-hidden className="absolute top-3 right-3 z-10 grid size-12 place-items-center rounded-full border-2 border-structure-line bg-surface text-2xl">
                 {item.emoji}
               </span>
             )}

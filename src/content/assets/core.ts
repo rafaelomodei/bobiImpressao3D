@@ -1,4 +1,3 @@
-import { MACHINE_SPRITES_READY } from "../../lib/game/workshop-catalog.ts";
 import type { AssetInput } from "../types";
 
 /**
@@ -42,14 +41,14 @@ const pose = (
 };
 
 export const ASSETS: AssetInput[] = [
-  pose("idle", "Caramelo parado", "🐶", "Pose neutra, respirando, rabo parado.", { mustShow: ["olhos abertos", "boca fechada sorrindo"], frames: 4, fps: 4, loop: true, status: "ready" }, ["trilha", "oficina", "avatar"]),
-  pose("talk", "Caramelo falando", "🐶", "Boca abrindo e fechando, uma pata levemente levantada.", { mustShow: ["boca em 2 estados (aberta/fechada)"], frames: 4, fps: 8, loop: true, status: "ready" }, ["abertura das lições", "balões de fala"]),
-  pose("explain", "Caramelo explicando", "🐶", "Aponta com a pata para o lado direito (onde fica a imagem/pergunta), expressão atenta.", { mustShow: ["pata apontando para a direita"], frames: 4, fps: 6, loop: true, status: "ready" }, ["preBlocks de explicação", "abertura"]),
-  pose("hint", "Caramelo dando dica", "💡", "Cabeça inclinada, uma pata no queixo, lâmpada pequena desenhada acima da cabeça.", { mustShow: ["cabeça inclinada", "pata no queixo"], frames: 3, fps: 6, loop: true, status: "ready" }, ["dica após dois erros"]),
-  pose("celebrate", "Caramelo comemorando", "🎉", "Pulando com as quatro patas fora do chão, língua para fora, rabo abanando.", { mustShow: ["patas no ar", "rabo abanando"], frames: 6, fps: 12, loop: false, status: "ready" }, ["acerto", "conclusão da lição", "aprovação"]),
-  pose("concern", "Caramelo preocupado", "🐶", "Orelhas baixas, sobrancelhas levantadas no meio, expressão de 'quase!' — acolhedora, nunca triste demais.", { mustShow: ["orelhas baixas"], frames: 3, fps: 6, loop: false, status: "ready" }, ["erro", "reprovação na avaliação"]),
-  pose("alert", "Caramelo em alerta de segurança", "⚠️", "Em pé, postura firme, uma pata levantada em sinal de 'pare', expressão séria mas calma.", { mustShow: ["pata em sinal de pare", "óculos de proteção nos olhos"], status: "ready" }, ["falas de segurança (M2 L15, L06)"]),
-  pose("unlocked", "Caramelo mostrando desbloqueio", "🔓", "Segurando com as duas patas um item brilhando à frente do peito (o item é desenhado à parte).", { mustShow: ["patas segurando à frente"], frames: 4, fps: 8, loop: false, status: "ready" }, ["desbloqueio de mundo", "item fabricado", "upgrade"]),
+  pose("idle", "Caramelo parado", "🐶", "Pose neutra, respirando, rabo parado.", { mustShow: ["olhos abertos", "boca fechada sorrindo"], frames: 4, fps: 4, loop: true }, ["trilha", "oficina", "avatar"]),
+  pose("talk", "Caramelo falando", "🐶", "Boca abrindo e fechando, uma pata levemente levantada.", { mustShow: ["boca em 2 estados (aberta/fechada)"], frames: 4, fps: 8, loop: true }, ["abertura das lições", "balões de fala"]),
+  pose("explain", "Caramelo explicando", "🐶", "Aponta com a pata para o lado direito (onde fica a imagem/pergunta), expressão atenta.", { mustShow: ["pata apontando para a direita"], frames: 4, fps: 6, loop: true }, ["preBlocks de explicação", "abertura"]),
+  pose("hint", "Caramelo dando dica", "💡", "Cabeça inclinada, uma pata no queixo, lâmpada pequena desenhada acima da cabeça.", { mustShow: ["cabeça inclinada", "pata no queixo"], frames: 3, fps: 6, loop: true }, ["dica após dois erros"]),
+  pose("celebrate", "Caramelo comemorando", "🎉", "Pulando com as quatro patas fora do chão, língua para fora, rabo abanando.", { mustShow: ["patas no ar", "rabo abanando"], frames: 6, fps: 12, loop: false }, ["acerto", "conclusão da lição", "aprovação"]),
+  pose("concern", "Caramelo preocupado", "🐶", "Orelhas baixas, sobrancelhas levantadas no meio, expressão de 'quase!' — acolhedora, nunca triste demais.", { mustShow: ["orelhas baixas"], frames: 3, fps: 6, loop: false }, ["erro", "reprovação na avaliação"]),
+  pose("alert", "Caramelo em alerta de segurança", "⚠️", "Em pé, postura firme, uma pata levantada em sinal de 'pare', expressão séria mas calma.", { mustShow: ["pata em sinal de pare", "óculos de proteção nos olhos"] }, ["falas de segurança (M2 L15, L06)"]),
+  pose("unlocked", "Caramelo mostrando desbloqueio", "🔓", "Segurando com as duas patas um item brilhando à frente do peito (o item é desenhado à parte).", { mustShow: ["patas segurando à frente"], frames: 4, fps: 8, loop: false }, ["desbloqueio de mundo", "item fabricado", "upgrade"]),
 
   {
     id: "oficina-bancada",
@@ -88,7 +87,6 @@ export const ASSETS: AssetInput[] = [
         },
         usedIn: ["/oficina"],
         file: `bobi-machine-${tier}-${state}.png`,
-        status: MACHINE_SPRITES_READY.includes(`${tier}-${state}`) ? "ready" : "placeholder",
       }),
     ),
   ),
