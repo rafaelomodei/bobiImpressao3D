@@ -45,7 +45,7 @@ export const l17: LessonInput = {
         },
         { id: "p3", left: "G-code", leftAssetId: "l17-cartao-gcode", right: "Instruções da máquina." },
       ],
-      errorFeedback: "Geometria e instruções de fabricação não são a mesma coisa.",
+      errorFeedback: "Geometria e instruções de impressão não são a mesma coisa.",
       // redigido pela equipe técnica
       successFeedback:
         "Isso! O STL descreve a forma, o 3MF pode reunir geometria e outros dados, e o G-code instrui a máquina.",
@@ -100,12 +100,12 @@ export const l17: LessonInput = {
           text: "Cartão G-code (trajetórias) da máquina do cenário",
           assetId: "l17-cartao-gcode",
           // redigido pela equipe técnica (texto de acerto)
-          feedback: "Exato! O G-code compatível com a máquina do cenário traz as instruções de fabricação.",
+          feedback: "Exato! O G-code compatível com a máquina do cenário traz as instruções de impressão.",
         },
       ],
       correctOptionId: "c",
       // redigido pela equipe técnica
-      successFeedback: "Exato! O G-code compatível com a máquina do cenário traz as instruções de fabricação.",
+      successFeedback: "Exato! O G-code compatível com a máquina do cenário traz as instruções de impressão.",
       // redigido pela equipe técnica
       hint: "Procure o cartão que mostra caminhos para o bico, e não só a forma.",
     },
@@ -142,7 +142,7 @@ export const l17: LessonInput = {
     },
   ],
   outro: {
-    line: "Você descobriu a diferença entre representar a peça e instruir a fabricação!",
+    line: "Você descobriu a diferença entre representar a peça e instruir a impressão!",
     // redigido pela equipe técnica
     summary: ["O que o STL representa", "O que um 3MF pode conter", "G-code como instruções da máquina"],
   },

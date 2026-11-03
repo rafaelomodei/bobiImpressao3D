@@ -99,7 +99,7 @@ export const l13: LessonInput = {
       // redigido pela equipe técnica
       successFeedback: "Perfeito! PLA é o material, FDM é o processo e o modelo 3D é a peça no computador.",
       // redigido pela equipe técnica
-      hint: "Pense no que vem no rolo, no jeito de fabricar e no que fica no computador.",
+      hint: "Pense no que vem no rolo, no jeito de imprimir e no que fica no computador.",
     },
     {
       // Mapa de tipos: aplicação → multiple_choice.

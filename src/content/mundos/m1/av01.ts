@@ -67,24 +67,24 @@ export const av01: AssessmentInput = {
       id: "Q02",
       type: "ordering",
       // redigido pela equipe técnica (título)
-      title: "Sequência de fabricação",
+      title: "Sequência de impressão",
       pedagogicalLabel: "ordenação",
       competency: "Organizar o fluxo digital básico.",
-      statement: "Organize a sequência necessária para fabricar um objeto a partir de um modelo digital.",
+      statement: "Organize a sequência necessária para imprimir um objeto a partir de um modelo digital.",
       items: [
         { id: "i1", text: "Modelo digital" },
         { id: "i2", text: "Preparação das instruções no fatiador" },
-        { id: "i3", text: "Impressora/fabricação da peça" },
+        { id: "i3", text: "Impressão da peça na impressora" },
       ],
       // redigido pela equipe técnica
-      errorFeedback: "A impressora precisa receber as instruções antes de fabricar. Onde entra a preparação?",
+      errorFeedback: "A impressora precisa receber as instruções antes de imprimir. Onde entra a preparação?",
       // redigido pela equipe técnica
-      successFeedback: "Isso! Modelo, preparação no fatiador e, por fim, a fabricação.",
+      successFeedback: "Isso! Modelo, preparação no fatiador e, por fim, a impressão.",
       // redigido pela equipe técnica
-      hint: "A fabricação é sempre a última etapa.",
+      hint: "A impressão é sempre a última etapa.",
       // redigido pela equipe técnica (objetivo da ficha: impressora precisa de instruções antes)
       reviewExplanation:
-        "A impressora não fabrica direto do modelo digital: ela precisa de instruções adequadas. Por isso o modelo passa primeiro pelo fatiador, que prepara essas instruções, e só então a impressora fabrica a peça.",
+        "A impressora não imprime direto do modelo digital: ela precisa de instruções adequadas. Por isso o modelo passa primeiro pelo fatiador, que prepara essas instruções, e só então a impressora imprime a peça.",
       reviewLessonIds: ["BOBI-M01-L01", "BOBI-M01-L03", "BOBI-M01-L08"],
       sourceIds: ["ULT-02", "BAM-03"],
     },

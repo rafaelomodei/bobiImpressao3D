@@ -46,7 +46,7 @@ test("jornada: onboarding, L01 completa, oficina, perfil e ranking", async ({ pa
   // A02 — associação
   for (const [l, r] of [
     ["Modelo 3D", "Representação digital do objeto."],
-    ["Impressora 3D", "Máquina responsável pela fabricação."],
+    ["Impressora 3D", "Máquina que imprime a peça."],
     ["Peça impressa", "Objeto físico produzido."],
   ]) {
     await page.getByRole("button", { name: l, exact: true }).click();
@@ -106,8 +106,8 @@ test("jornada: onboarding, L01 completa, oficina, perfil e ranking", async ({ pa
   await shot(page, "14-nivelamento-ok");
   await page.getByRole("link", { name: "Voltar para a oficina" }).click();
 
-  // Fabricação (BOBI_FAST_PRINTS=1: minutos viram segundos)
-  await page.getByRole("button", { name: "Fabricar" }).first().click();
+  // Impressão (BOBI_FAST_PRINTS=1: minutos viram segundos)
+  await page.getByRole("button", { name: "Imprimir" }).first().click();
   await expect(page.getByText(/Imprimindo: Chaveiro/)).toBeVisible();
   await shot(page, "15-imprimindo");
   await page.waitForTimeout(2500);

@@ -229,7 +229,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   {
     id: "area-impressao",
     term: "Área de impressão",
-    definition: "O espaço máximo em que a impressora consegue fabricar. Se a peça passar desse limite em alguma direção, ela não cabe.",
+    definition: "O espaço máximo em que a impressora consegue imprimir. Se a peça passar desse limite em alguma direção, ela não cabe.",
     match: { words: ["área de impressão", "área útil", "área válida", "volume de impressão"] },
     assetId: "l19-limite-peca-120mm",
   },

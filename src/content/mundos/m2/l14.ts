@@ -71,12 +71,12 @@ export const l14: LessonInput = {
         {
           id: "b",
           text: "Muda a cor do plástico.",
-          feedback: "Uma base que se solta pode comprometer a fabricação.",
+          feedback: "Uma base que se solta pode comprometer a impressão.",
         },
         {
           id: "c",
           text: "Substitui o modelo digital.",
-          feedback: "Uma base que se solta pode comprometer a fabricação.",
+          feedback: "Uma base que se solta pode comprometer a impressão.",
         },
       ],
       correctOptionId: "a",

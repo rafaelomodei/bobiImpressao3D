@@ -34,7 +34,7 @@ export const l04: LessonInput = {
           pose: "explain",
         },
       ],
-      statement: "Qual destes recursos poderia ser fabricado em uma impressora 3D para ajudar nessa aula?",
+      statement: "Qual destes recursos poderia ser impresso em uma impressora 3D para ajudar nessa aula?",
       options: [
         {
           id: "a",
@@ -48,7 +48,7 @@ export const l04: LessonInput = {
           text: "Vídeo digital de figuras geométricas",
           assetId: "l04-video-figuras",
           feedback:
-            "O vídeo também pode ajudar na aula, mas é um recurso digital. Aqui queremos fabricar objetos físicos.",
+            "O vídeo também pode ajudar na aula, mas é um recurso digital. Aqui queremos imprimir objetos físicos.",
         },
         {
           id: "c",
@@ -62,7 +62,7 @@ export const l04: LessonInput = {
       successFeedback:
         "Isso! A impressão 3D pode criar sólidos que os alunos conseguem segurar e observar de vários lados.",
       // redigido pela equipe técnica
-      hint: "A impressora 3D fabrica objetos com volume. Qual deles dá para pegar na mão?",
+      hint: "A impressora 3D imprime objetos com volume. Qual deles dá para pegar na mão?",
     },
     {
       id: "A02",

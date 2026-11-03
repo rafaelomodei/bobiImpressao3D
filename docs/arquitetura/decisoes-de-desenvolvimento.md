@@ -41,6 +41,7 @@
 | DD021 | Oficina jogável antes de PD007 | Catálogo com **valores de teste**: abre após L01; 5 itens; 2 melhorias; nivelamento em 4 cantos | Decidido por delegação | Homologação PD007 |
 | DD026 | Papel administrativo e painel de relatórios | Administrador só **observa**: painel `/admin` com uso, aprendizagem, tempo, saídas e retenção após erro; sem criação de conteúdo; conta de demonstração visível | Decidido | — |
 | DD027 | Ciclo de erro com glossário | Ao errar, "Entenda os termos" explica em frases curtas os termos da pergunta e da resposta marcada, com ilustração existente | Decidido | — |
+| DD028 | "Imprimir" em vez de "fabricar" | Quando a impressora 3D produz a peça, os textos dizem imprimir/impressão; "fabricação" fica só para os conceitos de processo e produção em série | Decidido | — |
 | DD029 | Conta de teste para avaliação | Jogador comum com todo o progresso gravado no banco (sem regra especial), entrada por e-mail em `/teste`; credencial visível | Decidido | — |
 | DD022 | Assets provisórios | Cartão provisório (emoji + rótulo) até a arte existir; catálogo gera `sprites-pendentes.md` | Decidido por delegação | Arte final |
 
@@ -337,6 +338,22 @@ Telemetria nunca quebra o jogo: falhas ao gravar eventos são ignoradas.
 - **Testes** (`explain.test.ts`): casamento por palavra inteira e com acentos, prioridade e limite, verbetes sem asset inexistente, nenhum verbete morto (todo termo aparece em algum conteúdo) e cobertura mínima de 70% das atividades.
 
 **Revisão pedagógica:** as definições foram redigidas pela equipe técnica e entram na mesma revisão dos textos marcados como "redigido pela equipe técnica" (DD017).
+
+## DD028 — "Imprimir" em vez de "fabricar"
+
+**Contexto:** várias atividades diziam "fabricar a peça", "fabricação" ou "a impressora fabrica". Para quem está começando, "fabricar" é ambíguo: pode soar como criar o modelo 3D no computador. No contexto do bobi., o que acontece é a impressora **imprimir** o objeto.
+
+**Decisão:** quando o texto fala da impressora 3D produzindo a peça, usa **imprimir / impressão / imprimindo / impresso**. Exemplos: "Imprimir a peça", "por fim, a impressão", "instruções de impressão", "a impressora imprime o chaveiro" e, na oficina, o botão **Imprimir**, "impressão em andamento" e "peças impressas".
+
+**Continua "fabricação" (de propósito):**
+
+- Conceitos de processo ensinados no Mundo 1: fabricação aditiva, subtrativa, por moldagem e tradicional (L05, L06, AV01 Q01 e glossário). Ali a palavra compara a impressão 3D com outros jeitos de fabricar.
+- Produção em série na L04 ("antes de fabricar em quantidade", "fabricação definitiva"), que é fabricação industrial, não impressão.
+- Nomes de requisito já homologados ("fabricação virtual", PD005/RF029): na interface, a fabricação virtual aparece como **impressão**.
+
+**Aplicação (03/11/2026):** 125 trocas de frases exatas nas lições L01, L03, L04, L08, L09, L10, L13, L14, L17, L18, L20, L21, L23 e L24, na AV01 Q02, na AV02, no glossário, na oficina, no perfil e no e2e. As fichas homologadas em `docs/licoes` e `docs/avaliacoes` receberam as mesmas trocas, para continuarem iguais ao código. Só mudou a palavra; o sentido pedagógico de cada frase é o mesmo. A versão do conteúdo (`CONTENT_VERSION`) muda, e as tentativas antigas continuam apontando para a versão em que foram feitas (RNF012).
+
+**Para textos novos:** "fabricar/fabricação" só para os conceitos acima; para a impressora 3D em ação, "imprimir/impressão".
 
 ## DD029 — Conta de teste para avaliação
 

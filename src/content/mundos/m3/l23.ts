@@ -9,7 +9,7 @@ export const l23: LessonInput = {
   slug: "l23",
   number: 23,
   title: "Olhe antes de imprimir",
-  objective: "Inspecionar prévias simples e identificar anomalias claras antes da fabricação virtual.",
+  objective: "Inspecionar prévias simples e identificar anomalias claras antes da impressão virtual.",
   intro: {
     lines: [
       { text: "O fatiador mostrou a prévia.", pose: "talk" },
@@ -47,7 +47,7 @@ export const l23: LessonInput = {
       // redigido pela equipe técnica
       successFeedback: "Isso! A prévia mostra as camadas e trajetórias previstas para você conferir.",
       // redigido pela equipe técnica
-      hint: "A prévia é algo para olhar antes de fabricar.",
+      hint: "A prévia é algo para olhar antes de imprimir.",
     },
     {
       id: "A02",

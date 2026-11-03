@@ -21,7 +21,7 @@ export const l24: LessonInput = {
   intro: {
     lines: [
       { text: "Chegou a missão final!", pose: "celebrate" },
-      { text: "Vamos fabricar um chaveiro virtual usando tudo que aprendemos.", pose: "explain" },
+      { text: "Vamos imprimir um chaveiro virtual usando tudo que aprendemos.", pose: "explain" },
     ],
     visualAssetId: "l24-missao-final",
     cta: "Começar a missão!", // redigido pela equipe técnica
@@ -149,8 +149,8 @@ export const l24: LessonInput = {
         },
         {
           id: "b",
-          text: "Uma impressora real fabricando o chaveiro agora.", // redigido pela equipe técnica
-          feedback: "Esta é uma simulação ilustrativa, não fabricação física.",
+          text: "Uma impressora real imprimindo o chaveiro agora.", // redigido pela equipe técnica
+          feedback: "Esta é uma simulação ilustrativa, não uma impressão física.",
         },
         {
           id: "c",
