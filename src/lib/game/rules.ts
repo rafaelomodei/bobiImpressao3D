@@ -10,6 +10,20 @@ export const REWARDS = {
   dailyGoal: { xp: 10, fios: 5 },
 } as const;
 
+/**
+ * DD023: o XP da conclusão diminui com os erros da rodada. Cada resposta errada
+ * tira 10% do XP base; o jogador sempre recebe pelo menos 25% (quem termina, aprende).
+ * Fios e meta diária não mudam.
+ */
+export const XP_PENALTY_PER_ERROR = 0.1;
+export const XP_MIN_SHARE = 0.25;
+
+export function xpAfterErrors(baseXp: number, errors: number): number {
+  const floor = Math.ceil(baseXp * XP_MIN_SHARE);
+  const earned = Math.round(baseXp * (1 - XP_PENALTY_PER_ERROR * Math.max(0, errors)));
+  return Math.min(baseXp, Math.max(floor, earned));
+}
+
 /** DD006: dica após dois erros. */
 export const HINT_AFTER_ERRORS = 2;
 

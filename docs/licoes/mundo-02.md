@@ -13,7 +13,7 @@ Fontes de verdade: [Termo de Abertura](../termo-de-abertura.md) · [Mundo 1 homo
 - Nas lições comuns, erro mostra explicação e permite novas tentativas/dicas; **sem vidas**, sem cronômetro eliminatório, sem 80% exigido na primeira tentativa.
 - Concluir quando todas as atividades obrigatórias estiverem corretas, inclusive após ajuda.
 - Persistir respostas confirmadas, registrar primeira tentativa e dicas e retomar da próxima atividade pendente; respeitar uma execução ativa por conta.
-- Na primeira conclusão elegível: **20 XP + 10 Fios**; primeira revisão válida por dia: **5 XP**; operações idempotentes. Atualizar meta diária e desbloqueio conforme regras existentes.
+- Na primeira conclusão elegível: **20 XP + 10 Fios**; primeira revisão válida por dia: **5 XP**; operações idempotentes. O XP é descontado em 10% do valor por erro na rodada, com mínimo de 25% (DD023); os Fios não mudam. Atualizar meta diária e desbloqueio conforme regras existentes.
 - Segurança: as atividades são **exclusivamente virtuais**; não mandar crianças operar, tocar, corrigir ou inspecionar partes energizadas/quentes, nem manusear produtos químicos.
 - Não assumir que arquiteturas cartesianas, perfis e parâmetros de uma marca valem para todos os equipamentos.
 

@@ -241,6 +241,12 @@ function LessonDone({ lesson, completion, isReview }: { lesson: PublicLesson; co
         <Reward label="XP" icon="⭐" value={totalXp} color="bg-brand-caramel" />
         <Reward label="Fios" icon="🧵" value={totalFios} color="bg-structure-purple" />
       </div>
+      {completion.baseXp > completion.xp && (
+        <p className="text-sm font-bold text-structure-soft-text">
+          {completion.errors} erro{completion.errors === 1 ? "" : "s"} nesta lição: {completion.xp} de {completion.baseXp} XP.
+          Acertar de primeira rende o XP completo.
+        </p>
+      )}
       {completion.dailyGoal && <p className="badge text-sm">🔥 Meta do dia cumprida: +{completion.dailyGoal.xp} XP e +{completion.dailyGoal.fios} Fios</p>}
       {!completion.firstTime && totalXp === 0 && (
         <p className="text-sm text-structure-soft-text">Revisões extras no mesmo dia não somam XP, mas fixam o conteúdo.</p>

@@ -206,9 +206,9 @@ As fichas homologadas **não são reescritas**; o pré-requisito alternativo sim
 
 | Evento | Chave | XP / Fios |
 |---|---|---|
-| Primeira conclusão | `lesson:<id>:first` | 20 / 10 |
-| Revisão válida do dia | `review:<id>:<dia>` | 5 / 0 |
-| Primeira aprovação | `assessment:<id>:first` | 30 / 15 |
+| Primeira conclusão | `lesson:<id>:first` | 20 / 10 (XP descontado por erros, DD023) |
+| Revisão válida do dia | `review:<id>:<dia>` | 5 / 0 (XP descontado por erros, DD023) |
+| Primeira aprovação | `assessment:<id>:first` | 30 / 15 (XP descontado por questão errada, DD023) |
 | Meta diária | `daily:<dia>` | 10 / 5 |
 
 A meta diária é cumprida com **uma lição ou revisão concluída** no dia (`America/Sao_Paulo`). Sequência = dias consecutivos com meta até hoje (ou ontem). XP competitivo = XP dos eventos acima (já limitados por dia), somado por semana de segunda a domingo. Gastos de Fios na oficina são lançamentos negativos sem XP.
@@ -231,6 +231,25 @@ A meta diária é cumprida com **uma lição ou revisão concluída** no dia (`A
 ## DD022 — Assets provisórios e catálogo de sprites
 
 **Decisão:** cada imagem citada no conteúdo tem entrada no catálogo (`src/content/assets/*.ts`) com descrição, câmera, tamanho, fundo, o que deve e não pode aparecer, grupo de consistência e arquivo. Enquanto `status` for `placeholder`, a interface mostra um cartão provisório com emoji e rótulo. `pnpm sprites:report` gera [sprites-pendentes.md](../design/sprites-pendentes.md), a lista de produção. O Caramelo usa um SVG provisório com variação por pose (`src/components/game/caramelo.tsx`).
+
+## DD023 — XP proporcional aos erros
+
+**Contexto:** com DD019, quem errava várias vezes e terminava a lição recebia o mesmo XP de quem acertou de primeira. O XP deixava de medir domínio e o ranking semanal premiava só a quantidade de lições.
+
+**Decisão:** o XP da conclusão é descontado pelos erros da rodada.
+
+- Cada resposta errada tira **10% do XP base**. O jogador sempre recebe **pelo menos 25%** do XP base, para que terminar a lição continue valendo a pena.
+- Fórmula (`xpAfterErrors` em `src/lib/game/rules.ts`): `max(teto(base × 0,25), arred(base × (1 − 0,1 × erros)))`.
+- **Lição (primeira conclusão, base 20):** 0 erro = 20 · 1 = 18 · 2 = 16 · 3 = 14 · 5 = 10 · 8 ou mais = 5.
+- **Revisão do dia (base 5):** 0 = 5 · 1 = 5 (arredonda) · 2 = 4 · 3 = 4 · 5 ou mais = 2.
+- **Avaliação (primeira aprovação, base 30):** cada questão errada conta como erro. 5/5 = 30 · 4/5 = 27.
+- "Erro" = tentativa errada registrada em `activity_attempts` desde o início da rodada (`run_started_at`): várias tentativas erradas na mesma atividade contam várias vezes. Retomar a lição em outro dia não zera os erros da rodada.
+- **Fios e meta diária não mudam**: Fios continuam fixos por conclusão (são a moeda da oficina, não medida de domínio), e a meta diária vale 10 XP / 5 Fios independentemente dos erros.
+- O desconto vale também para o XP competitivo do ranking (o lançamento já sai descontado).
+- A tela de conclusão mostra quantos erros houve e quanto do XP base foi ganho ("3 erros nesta lição: 14 de 20 XP").
+- Recompensa continua idempotente: a chave do evento não muda, então refazer a lição não recupera o XP perdido na primeira conclusão. Revisões dos dias seguintes podem render XP de revisão normalmente.
+
+**Por quê 10% e piso de 25%:** o erro tem custo visível, mas pequeno; a lição tem 4 a 6 atividades e a dica só aparece no 2º erro, então um aluno que precisa da dica em uma atividade ainda leva 80%. O piso evita que o jogador desista no meio por achar que não vai ganhar nada. Valores ficam em `XP_PENALTY_PER_ERROR` e `XP_MIN_SHARE` e podem ser ajustados na homologação.
 
 ## Pendências que continuam abertas
 

@@ -6,7 +6,7 @@ import { CONTENT_VERSION, WORLDS, findAssessment } from "@/content";
 import { gradeActivity } from "@/content/engine";
 import type { Answer } from "@/content/public-types";
 import { requireUserId } from "@/lib/dal";
-import { REWARDS } from "@/lib/game/rules";
+import { REWARDS, xpAfterErrors } from "@/lib/game/rules";
 import { checkLease, claimLease, getPlayerSnapshot, grantReward, nodeState, releaseLease } from "@/lib/game/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -25,6 +25,7 @@ export type AssessmentResult = {
   passed: boolean;
   firstPass: boolean;
   xp: number;
+  baseXp: number;
   fios: number;
   unlockedWorld: string | null;
   questions: {
@@ -130,17 +131,23 @@ export async function submitAssessmentAnswer(input: {
   let xp = 0,
     fios = 0,
     firstPass = false;
+  const errors = assessment.questions.length - score;
   if (passed) {
+    // Cada questão errada desconta XP, como nas lições (DD023).
+    const earned = {
+      xp: xpAfterErrors(REWARDS.assessmentFirstPass.xp, errors),
+      fios: REWARDS.assessmentFirstPass.fios,
+    };
     firstPass = await grantReward(
       db,
       userId,
       `assessment:${assessment.id}:first`,
-      REWARDS.assessmentFirstPass,
-      `Primeira aprovação ${assessment.id}`,
+      earned,
+      `Primeira aprovação ${assessment.id} (${score}/${assessment.questions.length})`,
     );
     if (firstPass) {
-      xp = REWARDS.assessmentFirstPass.xp;
-      fios = REWARDS.assessmentFirstPass.fios;
+      xp = earned.xp;
+      fios = earned.fios;
     }
   }
   await releaseLease(db, userId, input.deviceId);
@@ -159,6 +166,7 @@ export async function submitAssessmentAnswer(input: {
       passed,
       firstPass,
       xp,
+      baseXp: firstPass ? REWARDS.assessmentFirstPass.xp : 0,
       fios,
       unlockedWorld: passed && firstPass && nextWorld ? `Mundo ${nextWorld.number} · ${nextWorld.title}` : null,
       questions: assessment.questions.map((q) => ({

@@ -12,7 +12,7 @@ Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1]
 - Quatro atividades por lição; concluir após resolvê-las corretamente, inclusive após erros e dicas. **Sem vidas** em microlições.
 - Duração-alvo 1–5 minutos; sem cronômetro eliminatório. Exibir feedback explicativo e permitir novas tentativas.
 - Persistir atividades confirmadas, permitir retomar e registrar primeira tentativa/dicas; uma execução ativa por conta.
-- Primeira conclusão: **20 XP e 10 Fios**; primeira revisão válida por dia: **5 XP**, sem Fios; sem duplicações.
+- Primeira conclusão: **20 XP e 10 Fios**; primeira revisão válida por dia: **5 XP**, sem Fios; sem duplicações. O XP é descontado em 10% do valor por erro na rodada, com mínimo de 25% (DD023); os Fios não mudam.
 - Quatro tipos de atividades já homologados: múltipla escolha, ordenação, associação e diagnóstico visual.
 - Todos os fatiadores, perfis e prévias serão **ilustrações originais**, não cópias de interfaces de fabricantes. Nenhum fatiamento ou G-code real e nenhuma impressora física são necessários.
 - **L24:** a impressão guiada ocorre numa animação curta e didática, sem fila. A oficina virtual de PD005 (**tempo fictício de 2–15 minutos**) é um mecanismo distinto e **não pode bloquear** a L24.
