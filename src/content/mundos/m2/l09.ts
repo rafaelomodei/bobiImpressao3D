@@ -35,14 +35,14 @@ export const l09: LessonInput = {
           text: "Bico",
           assetId: "l09-destaque-bico",
           feedback:
-            "Essas peças ajudam a conduzir ou depositar material; a mesa sustenta a peça durante a fabricação.",
+            "Essas peças ajudam a conduzir ou depositar material; a mesa sustenta a peça durante a impressão.",
         },
         {
           id: "b",
           text: "Extrusor",
           assetId: "l09-destaque-extrusor",
           feedback:
-            "Essas peças ajudam a conduzir ou depositar material; a mesa sustenta a peça durante a fabricação.",
+            "Essas peças ajudam a conduzir ou depositar material; a mesa sustenta a peça durante a impressão.",
         },
         {
           id: "c",
@@ -132,7 +132,7 @@ export const l09: LessonInput = {
           text: "Depositar material",
           assetId: "l09-funcao-depositar",
           // redigido pela equipe técnica
-          feedback: "Isso mesmo! O bico deposita o material na trajetória de fabricação.",
+          feedback: "Isso mesmo! O bico deposita o material na trajetória de impressão.",
         },
         {
           id: "b",
@@ -151,7 +151,7 @@ export const l09: LessonInput = {
       ],
       correctOptionId: "a",
       // redigido pela equipe técnica
-      successFeedback: "Isso mesmo! O bico deposita o material na trajetória de fabricação.",
+      successFeedback: "Isso mesmo! O bico deposita o material na trajetória de impressão.",
       // redigido pela equipe técnica
       hint: "Repare de onde sai o filete de material que forma a peça.",
     },

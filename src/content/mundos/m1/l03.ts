@@ -6,7 +6,7 @@ export const l03: LessonInput = {
   slug: "l03",
   number: 3,
   title: "Da ideia ao objeto",
-  objective: "Reconhecer ideia → modelo 3D → preparação no fatiador → fabricação.",
+  objective: "Reconhecer ideia → modelo 3D → preparação no fatiador → impressão.",
   intro: {
     lines: [
       { text: "Eu tive uma ideia! Quero fazer um chaveiro para minha mochila!", pose: "talk" },
@@ -34,7 +34,7 @@ export const l03: LessonInput = {
         {
           id: "b",
           text: "Representação tridimensional digital, com geometria",
-          feedback: "Isso! O modelo 3D representa a forma do chaveiro que queremos fabricar.",
+          feedback: "Isso! O modelo 3D representa a forma do chaveiro que queremos imprimir.",
         },
         {
           id: "c",
@@ -44,7 +44,7 @@ export const l03: LessonInput = {
         },
       ],
       correctOptionId: "b",
-      successFeedback: "Isso! O modelo 3D representa a forma do chaveiro que queremos fabricar.",
+      successFeedback: "Isso! O modelo 3D representa a forma do chaveiro que queremos imprimir.",
       // redigido pela equipe técnica
       hint: "Procure o elemento que tem a forma do chaveiro em todas as direções: largura, altura e profundidade.",
     },
@@ -57,16 +57,16 @@ export const l03: LessonInput = {
       pairs: [
         { id: "p1", left: "Modelo 3D", right: "Representa digitalmente a forma do objeto." },
         { id: "p2", left: "Fatiador", right: "Prepara o modelo e gera instruções para impressão." },
-        { id: "p3", left: "Impressora 3D", right: "Usa as instruções e fabrica o objeto físico." },
+        { id: "p3", left: "Impressora 3D", right: "Usa as instruções e imprime o objeto físico." },
       ],
       errorFeedback:
-        "Essas funções são diferentes. Pense em quem representa a forma, quem prepara as instruções e quem fabrica o objeto.",
+        "Essas funções são diferentes. Pense em quem representa a forma, quem prepara as instruções e quem imprime o objeto.",
       // O schema não tem feedback por par: os três "feedbacks corretos por par" homologados
       // foram unidos em uma única mensagem de acerto (só pontuação/maiúsculas ajustadas).
       successFeedback:
         "O modelo guarda a forma digital do objeto; o fatiador prepara o modelo e gera as instruções; a impressora utiliza as instruções para construir a peça física.",
       // redigido pela equipe técnica
-      hint: "Siga o caminho do chaveiro: primeiro a forma, depois as instruções, por fim a fabricação.",
+      hint: "Siga o caminho do chaveiro: primeiro a forma, depois as instruções, por fim a impressão.",
     },
     {
       id: "A03",
@@ -78,13 +78,13 @@ export const l03: LessonInput = {
         { id: "i1", text: "Imaginar o chaveiro." },
         { id: "i2", text: "Obter o modelo 3D." },
         { id: "i3", text: "Preparar o modelo em fatiador e gerar instruções compatíveis." },
-        { id: "i4", text: "Fabricar o chaveiro." },
+        { id: "i4", text: "Imprimir o chaveiro." },
       ],
       errorFeedback:
         "A impressora precisa receber as instruções antes de começar. Observe onde a preparação deve acontecer.",
       successFeedback:
-        "Perfeito! Uma ideia vira modelo, o modelo é preparado e a impressora fabrica o chaveiro.",
-      hint: "Primeiro temos a ideia e o modelo. Depois preparamos a impressão. Só então a máquina começa a fabricar.",
+        "Perfeito! Uma ideia vira modelo, o modelo é preparado e a impressora imprime o chaveiro.",
+      hint: "Primeiro temos a ideia e o modelo. Depois preparamos a impressão. Só então a máquina começa a imprimir.",
     },
     {
       id: "A04",
@@ -111,7 +111,7 @@ export const l03: LessonInput = {
           id: "b",
           text: "Enviar somente captura de tela do modelo",
           feedback:
-            "Uma captura de tela mostra a aparência do modelo, mas não fornece as instruções de fabricação necessárias neste processo.",
+            "Uma captura de tela mostra a aparência do modelo, mas não fornece as instruções de impressão necessárias neste processo.",
         },
         {
           id: "c",
@@ -129,6 +129,6 @@ export const l03: LessonInput = {
   ],
   outro: {
     line: "Mandou bem! Você descobriu o caminho que transforma uma ideia em um objeto de verdade!",
-    summary: ["Ideia e modelo", "Papel do fatiador", "Preparação e fabricação"],
+    summary: ["Ideia e modelo", "Papel do fatiador", "Preparação e impressão"],
   },
 };

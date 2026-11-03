@@ -17,7 +17,7 @@ export const l20: LessonInput = {
   intro: {
     lines: [
       { text: "Duas máquinas, um chaveiro.", pose: "talk" },
-      { text: "Qual perfil combina com o que vamos fabricar?", pose: "explain" },
+      { text: "Qual perfil combina com o que vamos imprimir?", pose: "explain" },
     ],
     visualAssetId: "l20-duas-maquinas",
     cta: "Vamos comparar!", // redigido pela equipe técnica

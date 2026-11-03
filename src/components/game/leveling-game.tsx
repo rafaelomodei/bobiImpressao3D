@@ -221,7 +221,7 @@ function LevelResultScreen({
         ) : ok ? (
           <>
             <h2 id="resultado-camada" className="text-2xl font-black text-feedback-success-pressed">Primeira camada perfeita!</h2>
-            <p className="font-bold">Linhas uniformes nos quatro cantos. A impressora está pronta para fabricar.</p>
+            <p className="font-bold">Linhas uniformes nos quatro cantos. A impressora está pronta para imprimir.</p>
           </>
         ) : (
           <>

@@ -29,7 +29,7 @@
 
 ### Abertura — S00
 **Caramelo:** “Já imaginou transformar um desenho digital em um objeto de verdade?”  
-**Explicação:** “Na impressão 3D, uma máquina usa um modelo digital para fabricar uma peça física.”  
+**Explicação:** “Na impressão 3D, uma máquina usa um modelo digital para imprimir uma peça física.”  
 **Visual:** mesmo chaveiro como modelo digital → impressora FDM em operação → chaveiro pronto.  
 **CTA:** “Vamos descobrir!”
 
@@ -40,18 +40,18 @@
 |---|---|---|
 | **A ✓** | Uma máquina deposita material e constrói um objeto físico. | “Isso! Na impressão 3D, material é acrescentado para formar o objeto.” |
 | B | Uma máquina corta material de um bloco para formar uma peça. | “Essa máquina retira material de um bloco. A impressão 3D constrói a peça acrescentando material.” |
-| C | Uma impressora coloca uma fotografia em uma folha de papel. | “Essa máquina imprime uma imagem no papel. A impressão 3D fabrica um objeto com volume.” |
+| C | Uma impressora coloca uma fotografia em uma folha de papel. | “Essa máquina imprime uma imagem no papel. A impressora 3D imprime um objeto com volume.” |
 
 ### A02 — Modelo digital ou objeto físico? (associação)
 **Caramelo:** “Antes de uma peça existir de verdade, ela pode existir apenas no computador.”  
 **Enunciado:** “Ligue cada elemento à sua função.”
 
 - Modelo 3D ↔ Representação digital do objeto.
-- Impressora 3D ↔ Máquina responsável pela fabricação.
+- Impressora 3D ↔ Máquina que imprime a peça.
 - Peça impressa ↔ Objeto físico produzido.
 
 **Erro:** “Esses elementos têm funções diferentes. Pense no que existe no computador e no que pode ser segurado.”  
-**Conclusão:** “Perfeito! O modelo contém a informação, a impressora fabrica e a peça é o resultado físico.”
+**Conclusão:** “Perfeito! O modelo contém a informação, a impressora imprime e a peça é o resultado físico.”
 
 ### A03 — Como uma ideia vira objeto? (ordenação)
 **Enunciado:** “Organize as etapas para transformar um modelo digital em uma peça.”
@@ -60,17 +60,17 @@
 2. Preparar o arquivo para a impressora.
 3. Imprimir a peça.
 
-**Acerto:** “Exatamente! Primeiro vem o modelo, depois a preparação e, por fim, a fabricação.”  
-**Erro:** “A impressora precisa receber instruções antes de fabricar. Que etapa prepara o modelo para a máquina?”
+**Acerto:** “Exatamente! Primeiro vem o modelo, depois a preparação e, por fim, a impressão.”  
+**Erro:** “A impressora precisa receber instruções antes de imprimir. Que etapa prepara o modelo para a máquina?”
 
 ### A04 — O desafio do Caramelo (diagnóstico visual)
 **Enunciado:** “Qual imagem mostra o chaveiro sendo impresso neste momento?”
 
 | Imagem | Representação | Feedback |
 |---|---|---|
-| A | Chaveiro como modelo digital no computador | “Esse é o modelo digital. Ele mostra como será o chaveiro, mas a fabricação ainda não começou.” |
+| A | Chaveiro como modelo digital no computador | “Esse é o modelo digital. Ele mostra como será o chaveiro, mas a impressão ainda não começou.” |
 | **B ✓** | Chaveiro parcialmente construído na impressora, com bico depositando material | “Isso mesmo! A impressora está acrescentando material para construir o chaveiro.” |
-| C | Chaveiro físico pronto | “O chaveiro já está pronto nessa imagem. Procure a cena em que a máquina ainda está fabricando.” |
+| C | Chaveiro físico pronto | “O chaveiro já está pronto nessa imagem. Procure a cena em que a máquina ainda está imprimindo.” |
 
 ### Conclusão — S05
 **Caramelo:** “Você descobriu como um modelo digital pode virar um objeto de verdade!”  
@@ -144,7 +144,7 @@
 # L03 — Da ideia ao objeto
 
 **ID:** `BOBI-M01-L03` · **Aprovada** · Pré-requisito: L02 ou avanço por domínio · Próxima: L04  
-**Objetivo:** reconhecer ideia → modelo 3D → preparação no fatiador → fabricação. Não ensinar CAD, formatos de arquivos ou fatiamento operacional nesta etapa.
+**Objetivo:** reconhecer ideia → modelo 3D → preparação no fatiador → impressão. Não ensinar CAD, formatos de arquivos ou fatiamento operacional nesta etapa.
 
 ### Abertura — S00
 **Caramelo:** “Eu tive uma ideia! Quero fazer um chaveiro para minha mochila!”  
@@ -158,7 +158,7 @@
 | Opção | Resposta | Feedback |
 |---|---|---|
 | A | Fotografia ou desenho plano do chaveiro | “A imagem ajuda a mostrar a ideia, mas neste processo ainda precisamos de um modelo com a forma tridimensional do chaveiro.” |
-| **B ✓** | Representação tridimensional digital, com geometria | “Isso! O modelo 3D representa a forma do chaveiro que queremos fabricar.” |
+| **B ✓** | Representação tridimensional digital, com geometria | “Isso! O modelo 3D representa a forma do chaveiro que queremos imprimir.” |
 | C | Texto: “Quero um chaveiro de cachorro caramelo” | “O texto descreve nossa ideia, mas ainda precisamos transformá-la em um modelo digital adequado para imprimir.” |
 
 **Nota:** imagens e textos também podem ser insumos para modelagem; não são, isoladamente, o modelo 3D pronto para o fluxo deste exercício.
@@ -168,10 +168,10 @@
 
 - Modelo 3D ↔ Representa digitalmente a forma do objeto.
 - Fatiador ↔ Prepara o modelo e gera instruções para impressão.
-- Impressora 3D ↔ Usa as instruções e fabrica o objeto físico.
+- Impressora 3D ↔ Usa as instruções e imprime o objeto físico.
 
 **Feedback correto por par:** “O modelo guarda a forma digital do objeto”; “O fatiador prepara o modelo e gera as instruções”; “A impressora utiliza as instruções para construir a peça física.”  
-**Erro:** “Essas funções são diferentes. Pense em quem representa a forma, quem prepara as instruções e quem fabrica o objeto.”
+**Erro:** “Essas funções são diferentes. Pense em quem representa a forma, quem prepara as instruções e quem imprime o objeto.”
 
 ### A03 — A jornada do chaveiro (ordenação)
 **Pergunta:** “Coloque as etapas na ordem correta, da ideia ao objeto.”
@@ -179,11 +179,11 @@
 1. Imaginar o chaveiro.
 2. Obter o modelo 3D.
 3. Preparar o modelo em fatiador e gerar instruções compatíveis.
-4. Fabricar o chaveiro.
+4. Imprimir o chaveiro.
 
-**Acerto:** “Perfeito! Uma ideia vira modelo, o modelo é preparado e a impressora fabrica o chaveiro.”  
+**Acerto:** “Perfeito! Uma ideia vira modelo, o modelo é preparado e a impressora imprime o chaveiro.”  
 **Erro:** “A impressora precisa receber as instruções antes de começar. Observe onde a preparação deve acontecer.”  
-**Dica após dois erros:** “Primeiro temos a ideia e o modelo. Depois preparamos a impressão. Só então a máquina começa a fabricar.”
+**Dica após dois erros:** “Primeiro temos a ideia e o modelo. Depois preparamos a impressão. Só então a máquina começa a imprimir.”
 
 ### A04 — O que está faltando? (diagnóstico de etapa)
 **Contexto:** Caramelo já tem o modelo e a impressora, mas ainda não preparou as instruções.  
@@ -192,14 +192,14 @@
 | Opção | Resposta | Feedback |
 |---|---|---|
 | **A ✓** | Abrir modelo no fatiador, preparar e gerar instruções | “Isso! O fatiador prepara o modelo e gera as instruções necessárias para a impressora.” |
-| B | Enviar somente captura de tela do modelo | “Uma captura de tela mostra a aparência do modelo, mas não fornece as instruções de fabricação necessárias neste processo.” |
+| B | Enviar somente captura de tela do modelo | “Uma captura de tela mostra a aparência do modelo, mas não fornece as instruções de impressão necessárias neste processo.” |
 | C | Começar sem preparar as instruções | “Antes de começar, a impressora precisa receber instruções adequadas ao modelo e ao equipamento.” |
 
 **Caramelo:** “Conseguimos! Agora o chaveiro está preparado para iniciar a impressão.”
 
 ### Conclusão — S05
 **Caramelo:** “Mandou bem! Você descobriu o caminho que transforma uma ideia em um objeto de verdade!”  
-**Resumo:** ideia/modelo, papel do fatiador, preparação e fabricação.  
+**Resumo:** ideia/modelo, papel do fatiador, preparação e impressão.  
 **Primeira conclusão:** +20 XP e +10 Fios; destravar L04.
 
 **Assets:** cachorro Caramelo pensando no chaveiro; modelo 3D, fatiador **genérico**, impressora FDM e etapas; poses de comemoração.  
@@ -220,12 +220,12 @@
 
 ### A01 — Impressão 3D na escola (múltipla escolha visual)
 **Situação:** professora quer objetos geométricos que os alunos possam segurar e observar de vários lados.  
-**Pergunta:** “Qual destes recursos poderia ser fabricado em uma impressora 3D para ajudar nessa aula?”
+**Pergunta:** “Qual destes recursos poderia ser impresso em uma impressora 3D para ajudar nessa aula?”
 
 | Opção | Resposta | Feedback |
 |---|---|---|
 | **A ✓** | Sólidos geométricos físicos (cubos, cilindros e pirâmides) | “Isso! A impressão 3D pode criar sólidos que os alunos conseguem segurar e observar de vários lados.” |
-| B | Vídeo digital de figuras geométricas | “O vídeo também pode ajudar na aula, mas é um recurso digital. Aqui queremos fabricar objetos físicos.” |
+| B | Vídeo digital de figuras geométricas | “O vídeo também pode ajudar na aula, mas é um recurso digital. Aqui queremos imprimir objetos físicos.” |
 | C | Fotografia das figuras no papel | “Uma fotografia pode mostrar as figuras, mas continua sendo plana. A impressora 3D pode criar modelos com volume.” |
 
 ### A02 — Cada peça tem uma utilidade (associação)

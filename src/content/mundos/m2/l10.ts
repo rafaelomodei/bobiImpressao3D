@@ -92,7 +92,7 @@ export const l10: LessonInput = {
         { id: "i2", text: "Passar ao nível seguinte." },
         { id: "i3", text: "Depositar próxima camada." },
       ],
-      errorFeedback: "Antes da camada seguinte, o sistema precisa mudar o nível de fabricação.",
+      errorFeedback: "Antes da camada seguinte, o sistema precisa mudar o nível de impressão.",
       // redigido pela equipe técnica
       successFeedback: "Exatamente! Traça a camada, avança a altura e deposita a seguinte.",
       // redigido pela equipe técnica

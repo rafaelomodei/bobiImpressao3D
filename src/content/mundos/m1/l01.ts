@@ -12,7 +12,7 @@ export const l01: LessonInput = {
     lines: [
       { text: "Já imaginou transformar um desenho digital em um objeto de verdade?", pose: "talk" },
       {
-        text: "Na impressão 3D, uma máquina usa um modelo digital para fabricar uma peça física.",
+        text: "Na impressão 3D, uma máquina usa um modelo digital para imprimir uma peça física.",
         pose: "explain",
       },
     ],
@@ -44,7 +44,7 @@ export const l01: LessonInput = {
           id: "c",
           text: "Uma impressora coloca uma fotografia em uma folha de papel.",
           assetId: "l01-impressora-papel",
-          feedback: "Essa máquina imprime uma imagem no papel. A impressão 3D fabrica um objeto com volume.",
+          feedback: "Essa máquina imprime uma imagem no papel. A impressora 3D imprime um objeto com volume.",
         },
       ],
       correctOptionId: "a",
@@ -63,12 +63,12 @@ export const l01: LessonInput = {
       statement: "Ligue cada elemento à sua função.",
       pairs: [
         { id: "p1", left: "Modelo 3D", right: "Representação digital do objeto." },
-        { id: "p2", left: "Impressora 3D", right: "Máquina responsável pela fabricação." },
+        { id: "p2", left: "Impressora 3D", right: "Máquina que imprime a peça." },
         { id: "p3", left: "Peça impressa", right: "Objeto físico produzido." },
       ],
       errorFeedback:
         "Esses elementos têm funções diferentes. Pense no que existe no computador e no que pode ser segurado.",
-      successFeedback: "Perfeito! O modelo contém a informação, a impressora fabrica e a peça é o resultado físico.",
+      successFeedback: "Perfeito! O modelo contém a informação, a impressora imprime e a peça é o resultado físico.",
       hint: "O modelo existe no computador; a peça impressa é o que você consegue segurar.",
     },
     {
@@ -83,8 +83,8 @@ export const l01: LessonInput = {
         { id: "i3", text: "Imprimir a peça." },
       ],
       errorFeedback:
-        "A impressora precisa receber instruções antes de fabricar. Que etapa prepara o modelo para a máquina?",
-      successFeedback: "Exatamente! Primeiro vem o modelo, depois a preparação e, por fim, a fabricação.",
+        "A impressora precisa receber instruções antes de imprimir. Que etapa prepara o modelo para a máquina?",
+      successFeedback: "Exatamente! Primeiro vem o modelo, depois a preparação e, por fim, a impressão.",
       hint: "Comece pelo modelo. A impressão é sempre a última etapa.",
     },
     {
@@ -99,7 +99,7 @@ export const l01: LessonInput = {
           text: "Chaveiro como modelo digital no computador",
           assetId: "l01-chaveiro-digital",
           feedback:
-            "Esse é o modelo digital. Ele mostra como será o chaveiro, mas a fabricação ainda não começou.",
+            "Esse é o modelo digital. Ele mostra como será o chaveiro, mas a impressão ainda não começou.",
         },
         {
           id: "b",
@@ -112,7 +112,7 @@ export const l01: LessonInput = {
           text: "Chaveiro físico pronto",
           assetId: "l01-chaveiro-pronto",
           feedback:
-            "O chaveiro já está pronto nessa imagem. Procure a cena em que a máquina ainda está fabricando.",
+            "O chaveiro já está pronto nessa imagem. Procure a cena em que a máquina ainda está imprimindo.",
         },
       ],
       correctOptionId: "b",
@@ -122,6 +122,6 @@ export const l01: LessonInput = {
   ],
   outro: {
     line: "Você descobriu como um modelo digital pode virar um objeto de verdade!",
-    summary: ["O que é impressão 3D", "Diferença entre modelo e objeto", "Sequência básica de fabricação"],
+    summary: ["O que é impressão 3D", "Diferença entre modelo e objeto", "Sequência básica de impressão"],
   },
 };

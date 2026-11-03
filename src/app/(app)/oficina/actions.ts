@@ -85,11 +85,11 @@ export async function startPrint(itemId: string): Promise<ActionResult> {
 
   const state = await getWorkshopState(userId);
   if (!state.leveled) return { ok: false, message: "Nivele a mesa antes da primeira impressão." };
-  if (state.activePrint) return { ok: false, message: "Já tem uma fabricação em andamento. Uma por vez!" };
+  if (state.activePrint) return { ok: false, message: "Já tem uma impressão em andamento. Uma por vez!" };
 
   const db = await ensureWorkshop(userId);
   const spendKey = `print:${item.id}:${randomUUID()}`;
-  if (!(await spendFios(db, userId, spendKey, item.costFios, `Fabricação: ${item.name}`)))
+  if (!(await spendFios(db, userId, spendKey, item.costFios, `Impressão: ${item.name}`)))
     return { ok: false, message: `Faltam Fios: este projeto custa ${item.costFios}.` };
 
   const now = Date.now();
@@ -103,8 +103,8 @@ export async function startPrint(itemId: string): Promise<ActionResult> {
   if (error) {
     // Outra fabricação começou ao mesmo tempo: devolve os Fios.
     if (item.costFios > 0)
-      await db.from("wallet_ledger").insert({ user_id: userId, event_key: `refund:${spendKey}`, fios: item.costFios, reason: "Estorno de fabricação" });
-    return { ok: false, message: "Já tem uma fabricação em andamento. Uma por vez!" };
+      await db.from("wallet_ledger").insert({ user_id: userId, event_key: `refund:${spendKey}`, fios: item.costFios, reason: "Estorno de impressão" });
+    return { ok: false, message: "Já tem uma impressão em andamento. Uma por vez!" };
   }
   revalidatePath("/oficina");
   return { ok: true, message: `${item.name} entrou na impressora!` };
@@ -120,7 +120,7 @@ export async function collectPrint(): Promise<ActionResult> {
     .eq("user_id", userId)
     .eq("state", "printing")
     .maybeSingle();
-  if (!print) return { ok: false, message: "Nenhuma fabricação em andamento." };
+  if (!print) return { ok: false, message: "Nenhuma impressão em andamento." };
   if (new Date(print.ready_at).getTime() > Date.now()) return { ok: false, message: "Ainda imprimindo. Falta pouco!" };
 
   const { data: done } = await db

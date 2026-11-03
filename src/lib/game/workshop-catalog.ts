@@ -96,7 +96,7 @@ export const UPGRADES: WorkshopUpgrade[] = [
     id: "mesa-ajustada",
     name: "Kit de estabilidade",
     machineName: "Bobi Ajustada",
-    description: "Estrutura mais firme: fabricações ficam 25% mais rápidas (nunca abaixo de 2 min).",
+    description: "Estrutura mais firme: impressões ficam 25% mais rápidas (nunca abaixo de 2 min).",
     emoji: "🔩",
     costFios: 60,
     requires: { assessmentId: "BOBI-M02-AV02", label: "Passe na avaliação do Mundo 2" },

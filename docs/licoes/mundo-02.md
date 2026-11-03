@@ -29,10 +29,10 @@ Fontes de verdade: [Termo de Abertura](../termo-de-abertura.md) · [Mundo 1 homo
 
 | Atividade | Pergunta/desafio | Gabarito | Feedback em caso de erro |
 |---|---|---|---|
-| A01 · identificação visual | Em uma ilustração FDM com quatro pontos destacados, “Qual parte é a superfície onde a peça começa a ser construída?” | Mesa de impressão. | Se escolher bico ou extrusor: “Essas peças ajudam a conduzir ou depositar material; a mesa sustenta a peça durante a fabricação.” |
+| A01 · identificação visual | Em uma ilustração FDM com quatro pontos destacados, “Qual parte é a superfície onde a peça começa a ser construída?” | Mesa de impressão. | Se escolher bico ou extrusor: “Essas peças ajudam a conduzir ou depositar material; a mesa sustenta a peça durante a impressão.” |
 | A02 · associação | Ligue **bico**, **mesa** e **carretel** às respectivas funções. | Bico ↔ depositar material; mesa ↔ apoiar a peça; carretel ↔ armazenar o filamento. | Dica: “Pense onde o material fica guardado, por onde sai e onde a peça é apoiada.” |
 | A03 · múltipla escolha | “Qual componente empurra ou alimenta o filamento em direção ao sistema de aquecimento?” Opções: extrusor / mesa / ventilador. | Extrusor. | Se marcar ventilador: “O ventilador ajuda a controlar temperaturas; quem movimenta o filamento na alimentação é o extrusor.” |
-| A04 · diagnóstico visual | Caramelo aponta o **bico** e pergunta: “O que essa parte faz durante a impressão FDM?” Opções: depositar material / armazenar rolo / sustentar a peça. | Depositar material na trajetória de fabricação. | Se errar: “O material é armazenado no carretel e a peça é apoiada na mesa; a saída do material acontece no bico.” |
+| A04 · diagnóstico visual | Caramelo aponta o **bico** e pergunta: “O que essa parte faz durante a impressão FDM?” Opções: depositar material / armazenar rolo / sustentar a peça. | Depositar material na trajetória de impressão. | Se errar: “O material é armazenado no carretel e a peça é apoiada na mesa; a saída do material acontece no bico.” |
 
 **Feedback de acerto:** reforçar a relação funcional correta, explicar brevemente o motivo e liberar `Continuar`. **Erros:** retornar a explicação específica acima e permitir nova tentativa; após dois erros, destacar visualmente o indício pertinente.
 
@@ -55,7 +55,7 @@ Fontes de verdade: [Termo de Abertura](../termo-de-abertura.md) · [Mundo 1 homo
 |---|---|---|---|
 | A01 · associação | Na **representação cartesiana didática mostrada**, ligue X, Y e Z às setas ilustradas. | X ↔ lado a lado; Y ↔ frente/trás; Z ↔ altura. | Erro: “Observe a direção de cada seta nesta máquina ilustrada; não precisamos decorar qual peça física se move.” |
 | A02 · identificação visual | “Qual seta mostra mudança de altura entre camadas?” Opções: seta vertical Z / seta lateral X / seta frente-trás Y. | Seta vertical Z. | Erro: “As novas camadas aparecem em outros níveis de altura.” |
-| A03 · ordenação | Na animação guiada de uma peça simples, organize: **traçar percurso da primeira camada**, **passar ao nível seguinte**, **depositar próxima camada**. | Traçar percurso → avançar altura → depositar camada seguinte. | Erro: “Antes da camada seguinte, o sistema precisa mudar o nível de fabricação.” |
+| A03 · ordenação | Na animação guiada de uma peça simples, organize: **traçar percurso da primeira camada**, **passar ao nível seguinte**, **depositar próxima camada**. | Traçar percurso → avançar altura → depositar camada seguinte. | Erro: “Antes da camada seguinte, o sistema precisa mudar o nível de impressão.” |
 | A04 · diagnóstico contextual | Mostrar uma impressora com mesa móvel e outra com cabeçote móvel. “Em todas as impressoras a mesma peça física precisa se mover no mesmo eixo?” Opções: não, depende da arquitetura / sim, somente o cabeçote se move / sim, somente a mesa se move. | Não, a distribuição de movimento varia conforme a arquitetura. | Erro: “O que importa é o movimento relativo; a mesa e o cabeçote não se movimentam igual em todos os modelos.” |
 
 **Feedback de acerto:** reforçar a relação funcional correta, explicar brevemente o motivo e liberar `Continuar`. **Erros:** retornar a explicação específica acima e permitir nova tentativa; após dois erros, destacar visualmente o indício pertinente.
@@ -150,7 +150,7 @@ Fontes de verdade: [Termo de Abertura](../termo-de-abertura.md) · [Mundo 1 homo
 | Atividade | Pergunta/desafio | Gabarito | Feedback em caso de erro |
 |---|---|---|---|
 | A01 · identificação visual | “Em qual parte da impressora a primeira camada é depositada?” Mostrar bico, mesa e carretel. | Mesa/superfície de impressão. | Erro: “A primeira camada se forma sobre uma superfície que sustenta a peça.” |
-| A02 · múltipla escolha | “Por que o contato adequado da primeira camada com a superfície é importante?” Opções: ajuda a manter a peça posicionada durante o início / muda a cor do plástico / substitui o modelo digital. | Ajuda na aderência e estabilidade da peça. | Erro: “Uma base que se solta pode comprometer a fabricação.” |
+| A02 · múltipla escolha | “Por que o contato adequado da primeira camada com a superfície é importante?” Opções: ajuda a manter a peça posicionada durante o início / muda a cor do plástico / substitui o modelo digital. | Ajuda na aderência e estabilidade da peça. | Erro: “Uma base que se solta pode comprometer a impressão.” |
 | A03 · diagnóstico visual | Comparar primeira camada aderida e base com canto erguido. “Qual imagem mostra possível problema de aderência/deformação?” | Peça com canto da base levantado. | Erro: “Procure a região que não permanece apoiada na superfície.” |
 | A04 · aplicação segura | “A peça começou a soltar. O que fazer primeiro no nosso cenário educativo?” Opções: interromper com segurança e observar o sintoma / pressionar a peça com os dedos durante operação / puxar a peça quente. | Interromper com segurança e observar o sintoma. | Erro: “Não aproximamos mãos da mesa e do cabeçote em movimento; primeiro observamos o que ocorreu.” |
 
