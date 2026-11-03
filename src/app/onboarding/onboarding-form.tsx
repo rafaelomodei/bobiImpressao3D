@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import { AvatarBadge } from "@/components/avatar-badge";
 import { AVATARS } from "@/lib/avatars";
 import { completeOnboarding, type OnboardingState } from "./actions";
 
@@ -46,13 +47,7 @@ export function OnboardingForm({ today }: { today: string }) {
                 defaultChecked={v.avatar_id ? v.avatar_id === a.id : i === 0}
                 className="sr-only"
               />
-              <span
-                className="grid size-16 place-items-center rounded-full text-3xl"
-                style={{ background: a.bg }}
-                aria-hidden
-              >
-                {a.emoji}
-              </span>
+              <AvatarBadge avatar={a} size={64} decorative />
               <span className="text-center text-xs font-bold">{a.label}</span>
             </label>
           ))}

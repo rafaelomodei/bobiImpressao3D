@@ -11,6 +11,7 @@ import {
   type Completion,
 } from "@/app/(jogo)/licao/[id]/actions";
 import type { Answer, PublicLesson } from "@/content/public-types";
+import { playSound, usePreloadSounds, useSoundSequence, type SoundName } from "@/lib/sound";
 import { ActivityView, isComplete, type Verdict } from "./activities";
 import { AssetView } from "./asset-view";
 import { Caramelo, CarameloSays } from "./caramelo";
@@ -52,6 +53,7 @@ export function LessonPlayer({ lesson }: { lesson: PublicLesson }) {
   const [pendingCompletion, setPendingCompletion] = useState<Completion | null>(null);
   const [pending, startTransition] = useTransition();
   const total = lesson.activities.length;
+  usePreloadSounds(["tap", "correct", "wrong", "hint", "complete", "reward", "goal", "unlock"]);
 
   const begin = useCallback(
     (force: boolean) => {
@@ -155,6 +157,7 @@ export function LessonPlayer({ lesson }: { lesson: PublicLesson }) {
           return;
         }
         setVerdict({ correct: r.correct, wrongIds: r.wrongIds });
+        playSound(r.correct ? "correct" : "wrong");
         if (r.correct) {
           setFooter({ kind: "correct", feedback: r.feedback });
           if (r.completion) setPendingCompletion(r.completion);
@@ -192,6 +195,7 @@ export function LessonPlayer({ lesson }: { lesson: PublicLesson }) {
   };
 
   const onChange = (a: Answer | null) => {
+    playSound("tap");
     setAnswer(a);
     setFooter({ kind: "idle", canCheck: isComplete(activity, a), pending: false });
   };
@@ -218,6 +222,7 @@ export function LessonPlayer({ lesson }: { lesson: PublicLesson }) {
         onRetry={retry}
         hintShown={hintShown}
         onHint={() => {
+          playSound("hint");
           setHintShown(true);
           setHintUsed(true);
         }}
@@ -230,6 +235,11 @@ export function LessonPlayer({ lesson }: { lesson: PublicLesson }) {
 function LessonDone({ lesson, completion, isReview }: { lesson: PublicLesson; completion: Completion; isReview: boolean }) {
   const totalXp = completion.xp + (completion.dailyGoal?.xp ?? 0);
   const totalFios = completion.fios + (completion.dailyGoal?.fios ?? 0);
+  const sequence: [SoundName, number][] = [["complete", 0]];
+  if (totalXp > 0) sequence.push(["reward", 900]);
+  if (completion.dailyGoal) sequence.push(["goal", 1400]);
+  if (completion.unlockedWorkshop) sequence.push(["unlock", 2000]);
+  useSoundSequence(sequence);
   return (
     <CenterScreen>
       <Caramelo pose="celebrate" size={160} />

@@ -251,6 +251,12 @@ A meta diária é cumprida com **uma lição ou revisão concluída** no dia (`A
 
 **Por quê 10% e piso de 25%:** o erro tem custo visível, mas pequeno; a lição tem 4 a 6 atividades e a dica só aparece no 2º erro, então um aluno que precisa da dica em uma atividade ainda leva 80%. O piso evita que o jogador desista no meio por achar que não vai ganhar nada. Valores ficam em `XP_PENALTY_PER_ERROR` e `XP_MIN_SHARE` e podem ser ajustados na homologação.
 
+## DD024 — Efeitos sonoros e sprites do Caramelo
+
+**Sons.** O jogo toca efeitos curtos em acerto, erro, dica, conclusão, recompensa, meta do dia, desbloqueio, aprovação/reprovação e nas ações da oficina (fabricar, pronto, coletar, comprar, nivelar). Os sons são sintetizados pelo projeto (`scripts/gen-sounds.mts`), sem licença de terceiros; ficam ligados por padrão, com interruptor por aparelho no Perfil e botão 🔊 no player. Catálogo e regras em [sons.md](../design/sons.md).
+
+**Sprites do Caramelo.** As 8 poses finais (`public/sprites/bobi-caramelo-<pose>.png`, 512×512, fundo transparente) substituem o SVG provisório em todo o jogo (falas, feedback, conclusão, oficina, tela de boas-vindas) e no avatar "Caramelo de óculos". São servidas por `next/image` (WebP/AVIF no tamanho exibido). Como os PNGs são estáticos, a animação por quadros do catálogo fica para uma entrega futura; até lá, celebrar/desbloquear flutuam e a pose de preocupação balança, via CSS (desligado com movimento reduzido). **Sprites da impressora.** A oficina mostra `bobi-machine-<tier>-<estado>.png` conforme a melhoria instalada e o estado (parada, imprimindo, pronta). Entregues: Mini nos três estados e Ajustada parada; quando falta a arte de um tier, usa a Mini no mesmo estado. A lista de prontos fica em `MACHINE_SPRITES_READY` (`src/lib/game/workshop-catalog.ts`) e alimenta o catálogo. Os demais 176 assets seguem como cartões provisórios.
+
 ## Pendências que continuam abertas
 
 | ID | Tema | Precisa estar decidido antes de |

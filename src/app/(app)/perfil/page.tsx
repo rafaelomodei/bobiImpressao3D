@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { signOut } from "@/app/auth/actions";
 import { PageShell } from "@/components/page-shell";
 import { RankingToggle } from "@/components/game/ranking-toggle";
+import { SoundSwitch } from "@/components/sound-toggle";
+import { AvatarBadge } from "@/components/avatar-badge";
 import { getAvatar } from "@/lib/avatars";
 import { ageFromBirthDate, requireProfile } from "@/lib/dal";
 import { getPlayerSnapshot } from "@/lib/game/server";
@@ -38,9 +40,7 @@ async function Perfil() {
   return (
     <div className="flex flex-col gap-5">
       <div className="card flex items-center gap-4">
-        <span className="grid size-20 shrink-0 place-items-center rounded-full text-4xl" style={{ background: avatar.bg }} aria-label={avatar.label} role="img">
-          {avatar.emoji}
-        </span>
+        <AvatarBadge avatar={avatar} size={80} />
         <div>
           <p className="text-2xl font-black">{profile.nickname}</p>
           <p className="text-sm font-bold text-structure-soft-text">{lessonsDone}/24 lições · {snap.passedAssessments.size}/3 avaliações</p>
@@ -83,6 +83,12 @@ async function Perfil() {
           <p className="text-sm text-structure-soft-text">O ranking global é só para maiores de 18 anos. Seu XP semanal aparece só para você.</p>
         )}
         <p className="text-xs text-structure-soft-text">No ranking aparecem apenas seu apelido e avatar. Nome, foto e e-mail do Google nunca são exibidos.</p>
+      </section>
+
+      <section aria-labelledby="preferencias" className="card flex flex-col gap-3">
+        <h2 id="preferencias" className="text-lg font-black">Preferências</h2>
+        <SoundSwitch />
+        <p className="text-xs text-structure-soft-text">Vale para este aparelho. Também dá para ligar ou desligar pelo 🔊 durante as lições.</p>
       </section>
 
       <form action={signOut}>

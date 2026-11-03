@@ -2,20 +2,25 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { buyUpgrade, collectPrint, startPrint } from "@/app/(app)/oficina/actions";
 import type { WorkshopState } from "@/lib/game/workshop";
-import { ITEMS, UPGRADES } from "@/lib/game/workshop-catalog";
+import Image from "next/image";
+import { ITEMS, UPGRADES, machineSprite, machineTier } from "@/lib/game/workshop-catalog";
+import { playSound, usePreloadSounds, type SoundName } from "@/lib/sound";
 
 export function WorkshopView({ state }: { state: WorkshopState }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [toast, setToast] = useState<{ ok: boolean; message: string } | null>(null);
+  usePreloadSounds(["print-start", "print-done", "collect", "purchase", "unlock", "wrong"]);
 
-  const run = (fn: () => Promise<{ ok: boolean; message: string }>) =>
+  const run = (fn: () => Promise<{ ok: boolean; message: string }>, success: SoundName[]) =>
     startTransition(async () => {
       try {
         const r = await fn();
+        if (r.ok) success.forEach((s, i) => playSound(s, i * 350));
+        else playSound("wrong");
         setToast(r);
         if (r.ok) router.refresh();
       } catch {
@@ -34,7 +39,7 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
         </p>
       )}
 
-      <MachineCard state={state} pending={pending} onCollect={() => run(collectPrint)} />
+      <MachineCard state={state} pending={pending} onCollect={() => run(collectPrint, ["collect"])} />
 
       <section aria-labelledby="projetos" className="flex flex-col gap-3">
         <h2 id="projetos" className="text-lg font-black">Projetos para fabricar</h2>
@@ -67,7 +72,7 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
                     type="button"
                     className="btn-primary min-h-11 text-sm"
                     disabled={pending || busy || cantAfford}
-                    onClick={() => run(() => startPrint(item.id))}
+                    onClick={() => run(() => startPrint(item.id), ["print-start"])}
                   >
                     {!state.leveled ? "Nivele a mesa primeiro" : state.activePrint ? "Impressora ocupada" : cantAfford ? "Faltam Fios" : "Fabricar"}
                   </button>
@@ -102,7 +107,7 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
                     type="button"
                     className="btn-purple w-auto min-h-11 shrink-0 px-4 text-sm"
                     disabled={pending || !info.unlocked || state.fios < u.costFios}
-                    onClick={() => run(() => buyUpgrade(u.id))}
+                    onClick={() => run(() => buyUpgrade(u.id), ["purchase", "unlock"])}
                   >
                     🧵 {u.costFios}
                   </button>
@@ -139,6 +144,14 @@ function MachineCard({ state, pending, onCollect }: { state: WorkshopState; pend
   const total = print ? new Date(print.readyAt).getTime() - new Date(print.startedAt).getTime() : 1;
   const ready = print && remaining <= 0;
   const progress = print ? Math.min(1, 1 - remaining / total) : 0;
+  const sprite = machineSprite(machineTier(state.upgrades), print ? (ready ? "finished" : "printing") : "idle");
+
+  // Bipes de "pronto" quando a fabricação termina com a oficina aberta.
+  const wasPrinting = useRef(false);
+  useEffect(() => {
+    if (ready && wasPrinting.current) playSound("print-done");
+    wasPrinting.current = Boolean(print) && !ready;
+  }, [ready, print]);
 
   return (
     <section aria-labelledby="maquina" className="overflow-hidden rounded-3xl border-2 border-structure-line bg-surface">
@@ -147,15 +160,32 @@ function MachineCard({ state, pending, onCollect }: { state: WorkshopState; pend
         <span className="text-sm font-bold opacity-90">{state.leveled ? "✔ Mesa nivelada" : "⚠ Mesa sem nivelar"}</span>
       </div>
       <div className="flex flex-col items-center gap-4 p-5 text-center">
-        {/* Placeholder da máquina: substituir por bobi-machine-<tier>-<estado>.png */}
-        <div className="relative grid h-36 w-full place-items-center rounded-2xl border-2 border-dashed border-brand-caramel/50 bg-brand-cream-soft">
-          <span aria-hidden className={`text-6xl ${print && !ready ? "animate-float" : ""}`}>🖨️</span>
-          {item && (
-            <span aria-hidden className="absolute bottom-3 text-3xl" style={{ clipPath: `inset(${(1 - progress) * 100}% 0 0 0)` }}>
-              {item.emoji}
-            </span>
-          )}
-        </div>
+        {sprite ? (
+          <div className="relative grid w-full place-items-center rounded-2xl bg-brand-cream-soft py-2">
+            <Image
+              src={sprite}
+              alt={`${state.machineName} ${print ? (ready ? "com a peça pronta" : "imprimindo") : "parada"}`}
+              width={200}
+              height={200}
+              priority
+              className={`object-contain ${print && !ready ? "animate-[float_2.4s_ease-in-out_infinite]" : ""}`}
+            />
+            {item && (
+              <span aria-hidden className="absolute top-3 right-3 grid size-12 place-items-center rounded-full border-2 border-structure-line bg-surface text-2xl">
+                {item.emoji}
+              </span>
+            )}
+          </div>
+        ) : (
+          <div className="relative grid h-36 w-full place-items-center rounded-2xl border-2 border-dashed border-brand-caramel/50 bg-brand-cream-soft">
+            <span aria-hidden className={`text-6xl ${print && !ready ? "animate-float" : ""}`}>🖨️</span>
+            {item && (
+              <span aria-hidden className="absolute bottom-3 text-3xl" style={{ clipPath: `inset(${(1 - progress) * 100}% 0 0 0)` }}>
+                {item.emoji}
+              </span>
+            )}
+          </div>
+        )}
         {!state.leveled ? (
           <>
             <p className="font-bold">Antes da primeira impressão, ajuste a distância entre o bico e a mesa nos quatro cantos.</p>

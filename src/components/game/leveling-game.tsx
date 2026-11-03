@@ -11,6 +11,7 @@ import {
   type Corner,
   type CornerResult,
 } from "@/lib/game/workshop-catalog";
+import { playSound, usePreloadSounds } from "@/lib/sound";
 import { Caramelo, CarameloSays } from "./caramelo";
 
 /**
@@ -26,18 +27,24 @@ export function LevelingGame({ scenario, auto }: { scenario: Record<Corner, numb
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
   const offset = (c: Corner) => (auto ? 0 : scenario[c] + adjust[c]);
+  usePreloadSounds(["tap", "click", "print-start", "correct", "wrong", "complete"]);
 
   const change = (delta: number) => {
+    playSound("click");
     setResult(null);
     setAdjust((a) => ({ ...a, [selected]: Math.max(-2 * LEVEL_RANGE, Math.min(2 * LEVEL_RANGE, a[selected] + delta)) }));
   };
 
   const test = () =>
     startTransition(async () => {
+      playSound("print-start");
       try {
         const r = await submitLeveling(adjust, auto);
-        if ("error" in r) setError(r.error);
-        else {
+        if ("error" in r) {
+          playSound("wrong");
+          setError(r.error);
+        } else {
+          playSound(r.ok ? "complete" : "wrong", 600);
           setResult(r);
           setError(null);
           if (r.ok) router.refresh();
@@ -94,7 +101,10 @@ export function LevelingGame({ scenario, auto }: { scenario: Record<Corner, numb
                     <button
                       key={c}
                       type="button"
-                      onClick={() => setSelected(c)}
+                      onClick={() => {
+                        playSound("tap");
+                        setSelected(c);
+                      }}
                       aria-pressed={selected === c}
                       aria-label={`${CORNER_LABEL[c]}${r ? `: ${r === "ok" ? "ok" : "precisa de ajuste"}` : ""}`}
                       className={`absolute ${pos} grid size-16 place-items-center rounded-full border-4 text-xl font-black transition ${

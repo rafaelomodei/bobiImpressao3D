@@ -111,6 +111,30 @@ export const UPGRADES: WorkshopUpgrade[] = [
   },
 ];
 
+export type MachineTier = "mini" | "ajustada" | "auto";
+export type MachineState = "idle" | "printing" | "finished";
+
+/** Sprites da impressora já entregues em public/sprites (o catálogo em core.ts marca como prontos). */
+export const MACHINE_SPRITES_READY: readonly string[] = [
+  "mini-idle",
+  "mini-printing",
+  "mini-finished",
+  "ajustada-idle",
+];
+
+export function machineTier(upgrades: string[]): MachineTier {
+  if (upgrades.includes("nivelamento-auto")) return "auto";
+  if (upgrades.includes("mesa-ajustada")) return "ajustada";
+  return "mini";
+}
+
+/** Sprite do tier e estado; sem arte desse tier, usa a Mini no mesmo estado; sem nenhuma, null. */
+export function machineSprite(tier: MachineTier, state: MachineState): string | null {
+  for (const key of [`${tier}-${state}`, `mini-${state}`])
+    if (MACHINE_SPRITES_READY.includes(key)) return `/sprites/bobi-machine-${key}.png`;
+  return null;
+}
+
 export function machineName(upgrades: string[]): string {
   if (upgrades.includes("nivelamento-auto")) return "Bobi Auto";
   if (upgrades.includes("mesa-ajustada")) return "Bobi Ajustada";
