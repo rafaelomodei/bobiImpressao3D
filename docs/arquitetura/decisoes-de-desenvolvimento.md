@@ -24,7 +24,7 @@
 | DD004 | Ordem dos incrementos | A → B → D → C; PD007 homologado em paralelo | **Decidido por delegação** | Planejamento |
 | DD005 | Fuso horário de "dia" e "semana" | `America/Sao_Paulo`; semana de segunda 00:00 a domingo 23:59 | Padrão proposto | Incremento B |
 | DD006 | Quando oferecer dica | Após **dois erros** na mesma atividade | Padrão proposto | Incremento B |
-| DD007 | Comportamento sem conexão | Respostas e recompensas só são confirmadas on-line; PWA guarda interface e imagens | Padrão proposto | Incremento A/B |
+| DD007 | Comportamento sem conexão | **Sempre on-line**: sem modo offline nem cache de lições; sem internet, aviso com o Caramelo preocupado e o jogo fica bloqueado | **Decidido** (03/11/2026) | — |
 | DD008 | Atividade única por conta | Reserva da atividade (lease) com renovação periódica e transferência confirmada | Padrão proposto | Incremento B |
 | DD009 | ~~E-mail do código de acesso~~ | **Substituída por DD011** | Substituída | — |
 | DD010 | Ferramentas de desenvolvimento | pnpm, Tailwind CSS, Zod, Vitest, Playwright, Supabase CLI | Padrão proposto | Incremento A |
@@ -99,14 +99,19 @@ As fichas homologadas **não são reescritas**; o pré-requisito alternativo sim
 
 **Padrão proposto:** a dica é oferecida após **dois erros** na mesma atividade, padronizando "erros recorrentes" das fichas com o número já usado em L02 e L03. O uso de dica é registrado separadamente da primeira tentativa (PD003), sem penalidade.
 
-## DD007 — Sem conexão
+## DD007 — Sempre on-line
 
-**Padrão proposto:**
+**Decisão (03/11/2026):** o bobi **depende sempre de internet** para jogar. Não há modo offline: nenhum *service worker*, nenhum cache de lições, imagens ou respostas para uso sem conexão. Substitui o padrão proposto anterior, que previa guardar interface e imagens no aparelho.
 
-- O PWA guarda em cache a interface, as fontes e as imagens das lições já abertas.
-- **Confirmar resposta, concluir lição, receber XP/Fios e iniciar fabricação exigem conexão**, porque são validados no servidor (PD001).
-- Sem conexão, a tela mostra mensagem clara (RNF016) e mantém a resposta selecionada para reenviar; nada é contado até a confirmação do servidor.
-- A fabricação virtual continua avançando no servidor com o app fechado (RF045).
+**Por quê:** correção, XP, Fios, progresso e fabricação são validados no servidor (PD001, DD018) e o gabarito nunca vai para o aparelho. Jogar sem conexão exigiria enviar o gabarito ou aceitar respostas não confirmadas — os dois contrariam decisões já tomadas — e um cache parcial só criaria a impressão de que dá para jogar.
+
+**Como funciona:**
+
+- O app continua **instalável** como PWA (manifesto e ícones), só sem funcionamento offline.
+- Quando o aparelho perde a conexão, um aviso cobre a tela: **Caramelo preocupado** (pose `concern`), título "Sem internet" e o texto "O bobi precisa de internet para jogar…", com o botão **Tentar de novo**. O aviso some sozinho quando a internet volta (`src/components/offline-screen.tsx`, eventos `online`/`offline` do navegador). Fica montado e escondido desde o carregamento para que a imagem do Caramelo já esteja baixada quando a rede cair.
+- Se a conexão cair no meio de uma resposta, o rodapé do player mostra o aviso de conexão (RNF016) e nada é contado até o servidor confirmar.
+- Abrir o app já sem internet mostra a página de erro do próprio navegador, porque não há nada guardado no aparelho — consequência aceita desta decisão.
+- A fabricação virtual continua avançando no servidor com o app fechado (RF045), sem depender do aparelho.
 
 ## DD008 — Atividade única por conta
 

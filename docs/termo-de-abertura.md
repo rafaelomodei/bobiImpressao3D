@@ -44,6 +44,7 @@ O aprendizado inicial de impressão 3D exige compreender equipamentos, materiais
 | 02/11/2026 | Stack: Next.js + React + TypeScript, PWA, Supabase e Vercel; Firebase excluído ([base técnica](arquitetura/base-tecnica.md)) | **Decidido** |
 | 02/11/2026 | Oficina como núcleo jogável e ranking **global único** (sem ligas), mantendo ciclo semanal e opt-in de PD008 | **Decidido**; detalhamento de PD007 em proposta |
 | 02/11/2026 | DD001–DD004: conteúdo em tabelas Supabase com correção no servidor, mapeamento para os quatro tipos de atividade, avanço por domínio fora do MVP e ordem de incrementos A → B → D → C ([decisões de desenvolvimento](arquitetura/decisoes-de-desenvolvimento.md)) | **Decidido** (DD004 por delegação) |
+| 03/11/2026 | DD007: o bobi **depende sempre de internet**; sem modo offline. Sem conexão, aviso com o Caramelo preocupado e o jogo bloqueado até a conexão voltar | **Decidido** |
 | 03/11/2026 | DD026: papel administrativo do MVP redefinido como **relatórios e observação** (painel `/admin`, RF039), sem criação/edição de conteúdo; conta administrativa de demonstração visível para avaliação do estudo | **Decidido** |
 | 02/11/2026 | DD011–DD015: login **somente com Google** (substitui código por e-mail de PD002), boas-vindas com login antes das lições, paleta laranja/roxo do Caramelo, apelido + avatar sem dados do Google, data de nascimento no onboarding e ranking global só para 18+ | **Decidido** |
 
@@ -225,7 +226,7 @@ Especificações homologadas: [L01–L04](licoes/mundo-01.md), [L05–L08](licoe
 ## 8. Regras de negócio homologadas — síntese
 
 ### PD001 — Plataforma
-Aplicação web responsiva instalável como **PWA**; uso em dispositivos múltiplos com **uma atividade ativa por conta**. Em caso de conflito, apresentar transferência confirmada, invalidar execução anterior e preservar estados já confirmados. Recompensas e progresso são validados no servidor.
+Aplicação web responsiva instalável como **PWA**, **sempre on-line** (sem modo offline; sem internet o app mostra um aviso e não permite jogar, DD007); uso em dispositivos múltiplos com **uma atividade ativa por conta**. Em caso de conflito, apresentar transferência confirmada, invalidar execução anterior e preservar estados já confirmados. Recompensas e progresso são validados no servidor.
 
 ### PD003 — Lições
 Quatro formatos aprovados; lições comuns sem percentual mínimo de primeira tentativa; avaliações de domínio com cinco desafios e ≥80% de acerto; novas tentativas podem variar os desafios; revisão livre.

@@ -16,10 +16,13 @@ export function Caramelo({
   pose = "idle",
   size = 120,
   className = "",
+  eager = false,
 }: {
   pose?: CarameloPose;
   size?: number;
   className?: string;
+  /** Baixa já, mesmo escondido (ex.: aviso "Sem internet", que precisa da imagem antes de a rede cair). */
+  eager?: boolean;
 }) {
   return (
     <Image
@@ -29,6 +32,7 @@ export function Caramelo({
       width={size}
       height={size}
       draggable={false}
+      loading={eager ? "eager" : undefined}
       className={`object-contain select-none ${POSE_MOTION[pose] ?? ""} ${className}`}
     />
   );
