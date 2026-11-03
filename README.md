@@ -4,6 +4,12 @@
 
 Plataforma educacional gamificada para aprender impressão 3D com microlições, desafios visuais, simulações didáticas e progressão autônoma. Mascote: **Caramelo**, um cachorro caramelo brasileiro. Acessórios relacionados à impressão 3D serão definidos na direção de arte.
 
+<p align="center">
+  <img src="docs/media/bobi-demo.gif" alt="Demonstração do bobi no celular: onboarding, trilha, lição L01 com erro, explicação dos termos, dica e acerto, conclusão com XP, nivelamento da mesa e impressão do chaveiro na oficina" width="300">
+</p>
+
+<p align="center"><sub>Um jogador novo resolve a L01 (errando de propósito para mostrar <b>Entenda os termos</b> e a dica), nivela a mesa e imprime o primeiro chaveiro. Gravado com <code>pnpm demo:gif</code>.</sub></p>
+
 ## Jogar agora
 
 **https://bobi-roan.vercel.app** — versão publicada, sem instalar nada. Entre com uma conta Google, escolha apelido, avatar e data de nascimento, e comece pela L01.
@@ -144,6 +150,7 @@ pnpm dev                     # http://localhost:3000
 | `pnpm e2e:session` | Cria o usuário `e2e@bobi.test` e uma sessão sem Google para o Playwright |
 | `pnpm e2e` | Playwright: jornada completa, menor de idade e todo o currículo, na porta 3100 (rode `pnpm build` antes) |
 | `pnpm sprites:sync` | Atualiza a lista de sprites prontos (roda sozinho antes de `dev` e `build`) |
+| `pnpm demo:gif` | Regrava o GIF do README (`docs/media/bobi-demo.gif`) no modo local; precisa de `pnpm dev` no ar e do ffmpeg |
 | `pnpm sprites:report` | Gera `docs/design/sprites-pendentes.md` a partir do catálogo |
 | `pnpm sounds:gen` | Regenera `public/sounds/*.mp3` (precisa de `ffmpeg`) |
 

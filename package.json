@@ -22,7 +22,8 @@
     "local:up": "node scripts/local-up.mjs",
     "local:down": "node scripts/local-down.mjs",
     "local:reset": "supabase db reset",
-    "local:demo": "node scripts/local-demo.mjs"
+    "local:demo": "node scripts/local-demo.mjs",
+    "demo:gif": "node scripts/demo-gif.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
