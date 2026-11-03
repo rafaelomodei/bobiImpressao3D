@@ -134,6 +134,12 @@ export function machineSprite(tier: MachineTier, state: MachineState): string | 
   return null;
 }
 
+/** Sprite do projeto fabricável, quando o arquivo correspondente já estiver pronto. */
+export function itemSprite(item: WorkshopItem): string | null {
+  const file = `bobi-${item.assetId}.png`;
+  return READY_SPRITES.includes(file) ? `/sprites/${file}` : null;
+}
+
 export function machineName(upgrades: string[]): string {
   if (upgrades.includes("nivelamento-auto")) return "Bobi Auto";
   if (upgrades.includes("mesa-ajustada")) return "Bobi Ajustada";

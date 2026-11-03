@@ -5,7 +5,7 @@ import { RankingToggle } from "@/components/game/ranking-toggle";
 import { SoundSwitch } from "@/components/sound-toggle";
 import { AvatarBadge } from "@/components/avatar-badge";
 import { getAvatar } from "@/lib/avatars";
-import { ageFromBirthDate, requireProfile } from "@/lib/dal";
+import { isAdult, requireProfile } from "@/lib/dal";
 import { getPlayerSnapshot } from "@/lib/game/server";
 import { getWorkshopState } from "@/lib/game/workshop";
 
@@ -23,7 +23,7 @@ async function Perfil() {
   const profile = await requireProfile();
   const avatar = getAvatar(profile.avatar_id);
   const [snap, ws] = await Promise.all([getPlayerSnapshot(profile.user_id), getWorkshopState(profile.user_id)]);
-  const adult = ageFromBirthDate(profile.birth_date) >= 18;
+  const adult = isAdult(profile);
   const lessonsDone = snap.completedLessons.size;
   const printed = Object.values(ws.inventory).reduce((s, n) => s + n, 0);
 
@@ -75,15 +75,14 @@ async function Perfil() {
         </ul>
       </section>
 
-      <section aria-labelledby="privacidade" className="card flex flex-col gap-3">
-        <h2 id="privacidade" className="text-lg font-black">Ranking e privacidade</h2>
-        {adult ? (
+      {/* DD025: menores não veem o ranking nem a opção de participar. */}
+      {adult && (
+        <section aria-labelledby="privacidade" className="card flex flex-col gap-3">
+          <h2 id="privacidade" className="text-lg font-black">Ranking e privacidade</h2>
           <RankingToggle initial={profile.ranking_opt_in} />
-        ) : (
-          <p className="text-sm text-structure-soft-text">O ranking global é só para maiores de 18 anos. Seu XP semanal aparece só para você.</p>
-        )}
-        <p className="text-xs text-structure-soft-text">No ranking aparecem apenas seu apelido e avatar. Nome, foto e e-mail do Google nunca são exibidos.</p>
-      </section>
+          <p className="text-xs text-structure-soft-text">No ranking aparecem apenas seu apelido e avatar. Nome, foto e e-mail do Google nunca são exibidos.</p>
+        </section>
+      )}
 
       <section aria-labelledby="preferencias" className="card flex flex-col gap-3">
         <h2 id="preferencias" className="text-lg font-black">Preferências</h2>

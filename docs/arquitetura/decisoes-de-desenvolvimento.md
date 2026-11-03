@@ -259,6 +259,20 @@ A meta diária é cumprida com **uma lição ou revisão concluída** no dia (`A
 
 **Detecção automática.** Um asset fica "pronto" quando o arquivo com o nome do catálogo existe em `public/sprites`. `pnpm sprites:sync` (roda sozinho antes de `dev` e `build`) grava a lista em `src/content/assets/ready.generated.ts`; o conteúdo, a oficina e o relatório de sprites leem dela. Entregar arte nova = soltar o PNG com o nome certo; não precisa editar o catálogo.
 
+## DD025 — Recursos só para adultos ficam invisíveis para menores
+
+**Contexto:** o ranking global é só para maiores de 18 (DD015). Antes, o menor via a aba "Ranking", abria a página e lia "só para maiores de 18"; no Perfil via a seção "Ranking e privacidade" com o mesmo aviso. Mostrar o que não pode usar só gera frustração e curiosidade.
+
+**Decisão:** para quem tem menos de 18 anos (`isAdult` em `src/lib/dal.ts`, idade calculada em America/Sao_Paulo), o recurso não existe:
+
+- **Menu:** a aba Ranking não é renderizada. Abas marcadas `adultsOnly` em `src/components/nav-list.tsx` ficam ocultas por padrão e só aparecem depois que o servidor confirma a idade, então nem piscam para o menor.
+- **Página:** `/ranking` responde com a página "Essa página não existe" (`notFound()`), sem título nem texto que revele o ranking.
+- **Perfil:** a seção "Ranking e privacidade" some; ficam só Preferências.
+- **Servidor:** `setRankingOptIn` continua recusando opt-in de menor, e a função `weekly_ranking` continua filtrando por idade.
+- Quando a pessoa faz 18 anos, a aba aparece sozinha (a idade é recalculada a cada acesso). O opt-in continua desligado até ela ativar.
+
+Novos recursos restritos por idade devem seguir o mesmo padrão: `adultsOnly` no menu, `notFound()` na rota e nenhuma menção na interface.
+
 ## Pendências que continuam abertas
 
 | ID | Tema | Precisa estar decidido antes de |
