@@ -96,11 +96,9 @@ function PathItem({
     ) : isAssessment ? (
       <UiIcon name="trofeu-avaliacao" size={48} />
     ) : state === "completed" ? (
-      "✔"
-    ) : inProgress ? (
-      "▶"
+      <UiIcon name="exercicio-concluido" size={isAssessment ? 48 : 52} />
     ) : (
-      "★"
+      <UiIcon name="inicio-exercicio" size={isAssessment ? 48 : 52} />
     );
   const status = state === "completed" ? "concluída" : state === "available" ? "disponível" : "bloqueada";
 

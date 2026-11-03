@@ -56,3 +56,6 @@ Foco visível roxo; alternativas com `role="radio"`; atalhos 1–5 e Enter; feed
 - **Carregamento de tela:** sempre `PageLoading` (`src/components/page-loading.tsx`) — Caramelo e texto centralizados no espaço livre da tela, nunca um cartão no topo.
 - **Resultado que o jogador precisa ver:** se a ação muda o que ele deve fazer em seguida (ex.: camada de teste do nivelamento), o retorno abre em **tela cheia** com o botão de próxima ação fixo no rodapé. Nada de resultado surgindo abaixo da dobra, onde no celular ele só aparece rolando.
 - **Tela de login:** só marca, Caramelo, uma fala e o botão Google; cabe sem rolagem a partir de 360×640.
+- **Feedback de resposta:** o Caramelo aparece dentro da faixa de feedback (comemorando no acerto, preocupado ou dando dica no erro), ao lado da mensagem, nunca solto no fim da página.
+- **Trilha:** pata = lição disponível ou em andamento; selo com ✔ = concluída; cadeado = bloqueada; medalha = avaliação.
+- **Menu inferior:** sem fundo no botão inteiro; a aba ativa ganha uma pastilha creme com borda laranja suave em volta do ícone e rótulo laranja. Na barra lateral (desktop), a linha ativa recebe o mesmo tratamento.

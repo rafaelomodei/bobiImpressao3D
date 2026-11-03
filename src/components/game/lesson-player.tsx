@@ -210,11 +210,6 @@ export function LessonPlayer({ lesson }: { lesson: PublicLesson }) {
         </p>
         <ActivityHeader activity={activity} assets={lesson.assets} />
         <ActivityView activity={activity} assets={lesson.assets} answer={answer} onChange={onChange} verdict={verdict} locked={locked} />
-        {footer.kind === "wrong" && (
-          <div className="flex justify-center">
-            <Caramelo pose={footer.hint ? "hint" : "concern"} size={72} />
-          </div>
-        )}
       </main>
       <FeedbackFooter
         state={footer}

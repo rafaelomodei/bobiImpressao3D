@@ -2,7 +2,7 @@
 
 > **Arquivo gerado** por `pnpm sprites:report` a partir de `src/content/assets/*.ts`. Não edite à mão: altere o catálogo e gere de novo.
 
-**Total catalogado:** 188 · **Pendentes:** 152 · **Prontos:** 36
+**Total catalogado:** 190 · **Pendentes:** 152 · **Prontos:** 38
 
 ## Como entregar um asset
 
@@ -88,6 +88,8 @@
 | `bobi-ui-ranking.png`<br>🏆 Ranking ✅ | Sprite ilustrado de interface: troféu laranja com estrela creme, alças e base roxas. Contorno roxo-escuro, volume leve e acabamento alinhado ao Caramelo e à Bobi Mini. | frontal, ícone<br>256x256 PNG RGBA · transparent | — | texto; ícones de terceiros | interface |
 | `bobi-ui-perfil.png`<br>🐶 Perfil ✅ | Sprite ilustrado de interface: retrato do Caramelo com óculos de oficina laranja e lentes azuis. Contorno roxo-escuro, volume leve e acabamento alinhado ao Caramelo e à Bobi Mini. | frontal, ícone<br>256x256 PNG RGBA · transparent | — | texto; ícones de terceiros | interface |
 | `bobi-ui-cadeado.png`<br>🔒 Bloqueado ✅ | Sprite ilustrado de interface: cadeado roxo arredondado, arco creme, chaveiro laranja e patinha em relevo. Contorno roxo-escuro, volume leve e acabamento alinhado ao Caramelo e à Bobi Mini. | frontal, ícone<br>256x256 PNG RGBA · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-exercicio-concluido.png`<br>✅ Exercício concluído ✅ | Sprite ilustrado de interface: selo laranja com marca de certo creme, aro dourado, linhas de camada e uma faísca. Contorno roxo-escuro, volume leve e acabamento alinhado ao Caramelo e à Bobi Mini. | frontal, ícone<br>256x256 PNG RGBA · transparent | — | texto; ícones de terceiros | interface |
+| `bobi-ui-inicio-exercicio.png`<br>🐾 Iniciar exercício ✅ | Sprite ilustrado de interface: medalhão roxo e laranja com patinha creme e quatro almofadas douradas. Contorno roxo-escuro, volume leve e acabamento alinhado ao Caramelo e à Bobi Mini. | frontal, ícone<br>256x256 PNG RGBA · transparent | — | texto; ícones de terceiros | interface |
 | `bobi-ui-trofeu-avaliacao.png`<br>🏅 Avaliação de domínio ✅ | Sprite ilustrado de interface: medalha dourada com estrela creme, fita roxa e linhas de camada no aro. Contorno roxo-escuro, volume leve e acabamento alinhado ao Caramelo e à Bobi Mini. | frontal, ícone<br>256x256 PNG RGBA · transparent | — | texto; ícones de terceiros | interface |
 
 ## Mundo 1 — Descoberta

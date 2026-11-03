@@ -1,4 +1,4 @@
-# Ícones de interface — contrato visual v0.3
+# Ícones de interface — contrato visual v0.4
 
 **Data:** 03/11/2026  
 **Estado:** família refeita como sprites ilustrados originais de interface; revisão visual do responsável pendente.
@@ -22,6 +22,8 @@
 | `bobi-ui-ranking.png` | Troféu de conquista |
 | `bobi-ui-perfil.png` | Retrato do Caramelo |
 | `bobi-ui-cadeado.png` | Cadeado fechado com patinha |
+| `bobi-ui-exercicio-concluido.png` | Selo de exercício concluído |
+| `bobi-ui-inicio-exercicio.png` | Patinha para iniciar exercício |
 | `bobi-ui-trofeu-avaliacao.png` | Medalha de avaliação com camadas |
 
 ## Padrão da mini impressora
@@ -36,3 +38,4 @@ No ícone de oficina, duas guias creme passam pelos dois lados do carro laranja.
 - **Trilha:** caminho laranja pontilhado com três marcos de progresso, terminando em uma estrela.
 - **Ranking e avaliação:** troféu e medalha carregam estrela e camadas de impressão como motivos de conquista.
 - **Perfil e bloqueio:** rosto simplificado do Caramelo com óculos e cadeado acolhedor, ambos no mesmo traço arredondado.
+- **Progresso de exercício:** o selo de check representa uma lição concluída; a patinha em medalhão marca a próxima lição disponível para começar. Ambos substituem glifos de texto na trilha.
