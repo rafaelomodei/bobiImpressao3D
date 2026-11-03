@@ -1,5 +1,6 @@
 "use client";
 
+import { UiIcon, type UiIconName } from "@/components/ui-icon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState, useTransition } from "react";
@@ -248,8 +249,8 @@ function LessonDone({ lesson, completion, isReview }: { lesson: PublicLesson; co
         <p className="mt-2 text-lg font-bold">{lesson.outro.line}</p>
       </div>
       <div className="grid w-full grid-cols-2 gap-3">
-        <Reward label="XP" icon="⭐" value={totalXp} color="bg-brand-caramel" />
-        <Reward label="Fios" icon="🧵" value={totalFios} color="bg-structure-purple" />
+        <Reward label="XP" icon="xp" value={totalXp} color="bg-brand-caramel" />
+        <Reward label="Fios" icon="fios" value={totalFios} color="bg-structure-purple" />
       </div>
       {completion.baseXp > completion.xp && (
         <p className="text-sm font-bold text-structure-soft-text">
@@ -257,7 +258,7 @@ function LessonDone({ lesson, completion, isReview }: { lesson: PublicLesson; co
           Acertar de primeira rende o XP completo.
         </p>
       )}
-      {completion.dailyGoal && <p className="badge text-sm">🔥 Meta do dia cumprida: +{completion.dailyGoal.xp} XP e +{completion.dailyGoal.fios} Fios</p>}
+      {completion.dailyGoal && <p className="badge gap-1.5 text-sm"><UiIcon name="streak" size={18} /> Meta do dia cumprida: +{completion.dailyGoal.xp} XP e +{completion.dailyGoal.fios} Fios</p>}
       {!completion.firstTime && totalXp === 0 && (
         <p className="text-sm text-structure-soft-text">Revisões extras no mesmo dia não somam XP, mas fixam o conteúdo.</p>
       )}
@@ -270,7 +271,7 @@ function LessonDone({ lesson, completion, isReview }: { lesson: PublicLesson; co
         </ul>
       </div>
       {completion.unlockedWorkshop && (
-        <p className="card w-full border-brand-primary bg-brand-cream-soft font-bold">🛠️ A oficina do Caramelo abriu! Fabrique seu primeiro chaveiro.</p>
+        <p className="card flex w-full items-center gap-3 border-brand-primary bg-brand-cream-soft text-left font-bold"><UiIcon name="oficina" size={40} /> A oficina do Caramelo abriu! Fabrique seu primeiro chaveiro.</p>
       )}
       <div className="flex w-full flex-col gap-3">
         <Link href="/trilha" className="btn-primary">
@@ -286,14 +287,14 @@ function LessonDone({ lesson, completion, isReview }: { lesson: PublicLesson; co
   );
 }
 
-function Reward({ label, icon, value, color }: { label: string; icon: string; value: number; color: string }) {
+function Reward({ label, icon, value, color }: { label: string; icon: UiIconName; value: number; color: string }) {
   return (
     <div className={`overflow-hidden rounded-2xl border-2 ${color === "bg-brand-caramel" ? "border-brand-caramel" : "border-structure-purple"}`}>
       <p className={`${color} py-1 text-xs font-black tracking-wide text-white uppercase`}>
         {label === "XP" ? <span className="text-structure-deep">Total de XP</span> : "Fios ganhos"}
       </p>
-      <p className="animate-pop py-3 text-3xl font-black">
-        <span aria-hidden>{icon}</span> <CountUp value={value} />
+      <p className="animate-pop flex items-center justify-center gap-2 py-3 text-3xl font-black">
+        <UiIcon name={icon} size={36} /> <CountUp value={value} />
       </p>
     </div>
   );

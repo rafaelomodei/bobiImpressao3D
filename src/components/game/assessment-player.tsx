@@ -1,5 +1,6 @@
 "use client";
 
+import { UiIcon } from "@/components/ui-icon";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState, useTransition } from "react";
@@ -193,7 +194,7 @@ function AssessmentDone({ assessment, result }: { assessment: PublicAssessment; 
       </div>
       {result.firstPass && (
         <p className="badge text-sm">
-          ⭐ +{result.xp} XP · 🧵 +{result.fios} Fios
+          <UiIcon name="xp" size={18} /> +{result.xp} XP · <UiIcon name="fios" size={18} /> +{result.fios} Fios
           {result.baseXp > result.xp && ` (${result.total - result.score} erro${result.total - result.score === 1 ? "" : "s"}: ${result.xp} de ${result.baseXp} XP)`}
         </p>
       )}
