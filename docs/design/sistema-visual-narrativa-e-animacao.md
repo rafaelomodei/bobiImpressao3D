@@ -14,19 +14,23 @@ O bobi. deve aproveitar padrões conhecidos de aplicativos gamificados, particul
 
 ## 2. Sistema visual candidato (tokens iniciais)
 
-Tokens abaixo são uma **hipótese de implementação**, não aprovação de identidade final. Eles fornecem consistência até a homologação de uma ficha-mãe e design system.
+Tokens abaixo são uma **hipótese de implementação** (v0.2, 02/11/2026), derivada da [ficha do Caramelo v0.1](referencias/caramelo/README.md) conforme [DD013](../arquitetura/decisoes-de-desenvolvimento.md#dd013--paleta-laranja-e-roxo). A versão v0.1, com verde como cor principal, foi descartada por aproximar a identidade do Duolingo e conflitar com o mascote.
 
-| Token | Valor sugerido | Uso |
-|---|---|---|
-| `color.brand.primary` | `#219A70` | Ações principais, caminho e estados positivos |
-| `color.brand.primaryDark` | `#167957` | Pressionado / contorno contextual |
-| `color.brand.warm` | `#E7A14A` | Identidade Caramelo, detalhes de recompensa |
-| `color.accent.blue` | `#3C87D6` | Informação e elementos de oficina |
-| `color.accent.purple` | `#7364C7` | Itens especiais/desbloqueios |
-| `color.feedback.error` | `#CA4F50` | Erro com texto/ícone, nunca só por cor |
-| `color.background` | `#F8FAF6` | Superfície base |
-| `color.surface` | `#FFFFFF` | Cards e controles |
-| `color.text.primary` | `#25313D` | Texto principal |
+| Token | Valor sugerido | Uso | Contraste verificado |
+|---|---|---|---|
+| `color.brand.primary` | `#FD7301` | Botões de ação, nó atual da trilha, logo "." | Texto `#241241` sobre ele: 6,2:1 |
+| `color.brand.primaryPressed` | `#C2410C` | Borda inferior/pressionado | Branco: 5,2:1 |
+| `color.brand.caramel` | `#F29507` | Caramelo, recompensas, XP | Texto `#241241`: 7,3:1 |
+| `color.brand.cream` | `#FDD182` | Destaques suaves, fundo de balão do Caramelo | — |
+| `color.structure.purple` | `#523568` | Cabeçalhos, barra de navegação, trilha concluída | Branco: 10,2:1 |
+| `color.structure.deep` | `#241241` | Texto principal, superfícies escuras | Sobre `#FFF8EE`: 16,1:1 |
+| `color.structure.soft` | `#8D71A7` | Itens bloqueados, bordas, ícones secundários | — |
+| `color.feedback.success` | `#1F8A4C` | **Somente** resposta correta | Branco: 4,4:1 (usar texto em negrito ≥ 18 px) |
+| `color.feedback.error` | `#C63D3D` | Erro, sempre com ícone e texto | Branco: 5,1:1 |
+| `color.background` | `#FFF8EE` | Fundo das telas (creme claro) | — |
+| `color.surface` | `#FFFFFF` | Cards e controles | — |
+
+**Regra:** branco sobre o laranja principal tem contraste insuficiente (2,75:1); botões laranja usam texto roxo profundo.
 
 **Forma:** cantos arredondados consistentes, espaçamento com base em escala de 4/8, contorno legível, cards simples, botões grandes com estados ativos/desativados/carregando/correto/incorreto. Sombra mínima para botões, sem gradiente intenso.
 
