@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { CarameloPlaceholder } from "@/components/caramelo-placeholder";
+import { Caramelo } from "@/components/game/caramelo";
 import { GoogleButton } from "@/components/google-button";
 import { Logo } from "@/components/logo";
 
@@ -15,7 +15,7 @@ export default function WelcomePage({ searchParams }: PageProps<"/">) {
       </header>
 
       <section className="flex flex-col items-center gap-6 text-center">
-        <CarameloPlaceholder size={180} />
+        <Caramelo pose="talk" size={200} className="animate-pop" />
         <div className="card relative w-full text-left">
           <p className="font-extrabold">Oi! Eu sou o Caramelo. 🐾</p>
           <p className="mt-1 text-structure-soft-text">

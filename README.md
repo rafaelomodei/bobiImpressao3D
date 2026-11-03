@@ -26,7 +26,8 @@ Plataforma educacional gamificada para aprender impressão 3D com microlições,
 - [PD007 — Oficina e progressão](docs/gameplay/pd007-oficina-e-progressao.md) — proposta de minijogo, máquinas, upgrades, inventário e ranking global.
 - [Sistema visual, narrativa e animação](docs/design/sistema-visual-narrativa-e-animacao.md) — diretrizes candidatas para UX, sprites e falas do Caramelo.
 - [Design system](docs/design/design-system.md) — tokens, componentes e telas implementados.
-- [Sprites e ilustrações pendentes](docs/design/sprites-pendentes.md) — 188 assets com instruções de produção (gerado por `pnpm sprites:report`).
+- [Sprites e ilustrações pendentes](docs/design/sprites-pendentes.md) — 188 assets com instruções de produção (gerado por `pnpm sprites:report`); as 8 poses do Caramelo já estão prontas.
+- [Efeitos sonoros](docs/design/sons.md) — catálogo, quando cada som toca e como regenerar.
 - [Skill de gameplay e narrativa](.agents/skills/bobi-game-director/SKILL.md) — regras de consistência e criação de mecânicas e diálogos.
 
 **Responsável:** Rafael Geovani Omodei. **Levantamento iniciado:** 19/10/2026. **Última homologação pedagógica:** 02/11/2026. **MVP curricular:** 24/24 lições e 3/3 avaliações homologadas; implementação e revisões finais pendentes.
@@ -63,6 +64,7 @@ pnpm dev                     # http://localhost:3000
 | `pnpm e2e:session` | Cria o usuário `e2e@bobi.test` e uma sessão local sem Google (apaga o progresso anterior) |
 | `pnpm e2e` | Playwright: jornada completa + todo o currículo, contra `pnpm start` na porta 3100 (rode `pnpm build` antes) |
 | `pnpm sprites:report` | Gera `docs/design/sprites-pendentes.md` a partir do catálogo |
+| `pnpm sounds:gen` | Regenera `public/sounds/*.mp3` (precisa de `ffmpeg`) |
 
 `BOBI_FAST_PRINTS=1` faz as fabricações da oficina durarem segundos em vez de minutos (somente testes locais).
 

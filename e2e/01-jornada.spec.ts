@@ -113,7 +113,7 @@ test("jornada: onboarding, L01 completa, oficina, perfil e ranking", async ({ pa
 
   await page.goto("/perfil");
   await expect(page.getByText("Primeiro passo")).toBeVisible();
-  await page.getByRole("switch").check();
+  await page.getByRole("switch", { name: "Participar do ranking semanal global" }).check();
   await expect(page.getByText("Você entrou no ranking semanal.")).toBeVisible();
   await shot(page, "17-perfil");
 

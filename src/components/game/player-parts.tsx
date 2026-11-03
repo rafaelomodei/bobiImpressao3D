@@ -1,5 +1,6 @@
 "use client";
 
+import { SoundButton } from "@/components/sound-toggle";
 import Link from "next/link";
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import type { PublicActivity, PublicAsset } from "@/content/public-types";
@@ -74,6 +75,7 @@ export function PlayerTopBar({
         >
           <div className="progress-fill" style={{ width: `${Math.max(4, progress * 100)}%` }} />
         </div>
+        <SoundButton />
       </div>
     </header>
   );

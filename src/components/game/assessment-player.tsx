@@ -10,6 +10,7 @@ import {
 } from "@/app/(jogo)/avaliacao/[id]/actions";
 import { leaveActivity, renewLease } from "@/app/(jogo)/licao/[id]/actions";
 import type { Answer, PublicAssessment } from "@/content/public-types";
+import { playSound, usePreloadSounds, useSoundSequence, type SoundName } from "@/lib/sound";
 import { ActivityView, isComplete } from "./activities";
 import { Caramelo, CarameloSays } from "./caramelo";
 import {
@@ -45,6 +46,7 @@ export function AssessmentPlayer({ assessment }: { assessment: PublicAssessment 
   const [footer, setFooter] = useState<FooterState>({ kind: "idle", canCheck: false, pending: false });
   const [pending, startTransition] = useTransition();
   const total = assessment.questions.length;
+  usePreloadSounds(["tap", "recorded", "pass", "fail", "reward", "unlock"]);
 
   const begin = useCallback(
     (force: boolean) => {
@@ -131,6 +133,7 @@ export function AssessmentPlayer({ assessment }: { assessment: PublicAssessment 
           setPhase({ kind: "result", result: r.result });
           return;
         }
+        playSound("recorded");
         setFooter({ kind: "recorded" });
       } catch {
         setFooter({ kind: "offline" });
@@ -158,6 +161,7 @@ export function AssessmentPlayer({ assessment }: { assessment: PublicAssessment 
           assets={assessment.assets}
           answer={answer}
           onChange={(a) => {
+            playSound("tap");
             setAnswer(a);
             setFooter({ kind: "idle", canCheck: isComplete(question, a), pending: false });
           }}
@@ -171,6 +175,10 @@ export function AssessmentPlayer({ assessment }: { assessment: PublicAssessment 
 }
 
 function AssessmentDone({ assessment, result }: { assessment: PublicAssessment; result: AssessmentResult }) {
+  const sequence: [SoundName, number][] = [[result.passed ? "pass" : "fail", 0]];
+  if (result.firstPass && result.xp > 0) sequence.push(["reward", 1300]);
+  if (result.unlockedWorld) sequence.push(["unlock", 1900]);
+  useSoundSequence(sequence);
   return (
     <CenterScreen>
       <Caramelo pose={result.passed ? "celebrate" : "concern"} size={150} />

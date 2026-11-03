@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageShell } from "@/components/page-shell";
+import { AvatarBadge } from "@/components/avatar-badge";
 import { getAvatar } from "@/lib/avatars";
 import { ageFromBirthDate, requireProfile } from "@/lib/dal";
 import { addDays, dayInSaoPaulo, weekStart } from "@/lib/game/rules";
@@ -67,7 +68,7 @@ async function Ranking() {
                 <span className={`w-8 text-center text-lg font-black ${r.pos <= 3 ? "text-brand-primary-pressed" : "text-structure-soft-text"}`}>
                   {r.pos <= 3 ? ["🥇", "🥈", "🥉"][r.pos - 1] : r.pos}
                 </span>
-                <span className="grid size-10 place-items-center rounded-full text-xl" style={{ background: av.bg }} aria-hidden>{av.emoji}</span>
+                <AvatarBadge avatar={av} size={40} decorative />
                 <span className="flex-1 font-black">{r.nickname}{me && <span className="ml-2 badge">você</span>}</span>
                 <span className="font-black">{r.xp} XP</span>
               </li>
