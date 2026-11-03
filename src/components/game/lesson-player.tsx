@@ -89,7 +89,10 @@ export function LessonPlayer({ lesson }: { lesson: PublicLesson }) {
 
   const renew = useCallback(() => (deviceId ? renewLease(deviceId) : Promise.resolve(true)), [deviceId]);
   const onLost = useCallback(() => setPhase({ kind: "lease-lost" }), []);
-  useLeaseHeartbeat(phase.kind === "activity" || phase.kind === "intro", renew, onLost);
+  // Depois da última resposta o servidor já concluiu a lição e liberou a reserva: parar de
+  // renovar, senão o próximo ciclo vê a reserva vazia e mostra "continuou em outro aparelho"
+  // enquanto a pessoa ainda lê o feedback antes de tocar em "Concluir".
+  useLeaseHeartbeat((phase.kind === "activity" && !pendingCompletion) || phase.kind === "intro", renew, onLost);
 
   // Telemetria (DD026): tempo de cada resposta e onde a pessoa sai.
   const timer = useAnswerTimer();
