@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { z } from "zod";
 import { CONTENT_VERSION, WORLDS, findAssessment } from "@/content";
 import { gradeActivity } from "@/content/engine";
@@ -8,6 +9,7 @@ import type { Answer } from "@/content/public-types";
 import { requireUserId } from "@/lib/dal";
 import { REWARDS, xpAfterErrors } from "@/lib/game/rules";
 import { checkLease, claimLease, getPlayerSnapshot, grantReward, nodeState, releaseLease } from "@/lib/game/server";
+import { cleanDuration, logSessionEvent } from "@/lib/game/telemetry";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 const answerSchema: z.ZodType<Answer> = z.discriminatedUnion("kind", [
@@ -51,6 +53,7 @@ export async function beginAssessment(slug: string, deviceId: string, force = fa
   const db = createAdminClient();
   const lease = await claimLease(db, userId, deviceId, found.assessment.id, force);
   if (!lease.ok) return { ok: false, reason: "conflict" };
+  after(() => logSessionEvent(db, userId, "activity_open", { contextId: found.assessment.id }));
 
   const { data: open } = await db
     .from("assessment_attempts")
@@ -78,6 +81,7 @@ export async function submitAssessmentAnswer(input: {
   questionId: string;
   answer: Answer;
   deviceId: string;
+  durationMs?: number;
 }): Promise<AssessmentSubmit> {
   const userId = await requireUserId();
   const found = findAssessment(input.slug);
@@ -112,6 +116,7 @@ export async function submitAssessmentAnswer(input: {
       attempt_no: 1,
       is_correct: grade.correct,
       answer: answer.data,
+      duration_ms: cleanDuration(input.durationMs),
     });
   }
 
