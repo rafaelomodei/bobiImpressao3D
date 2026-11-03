@@ -4,6 +4,33 @@
 
 Plataforma educacional gamificada para aprender impressão 3D com microlições, desafios visuais, simulações didáticas e progressão autônoma. Mascote: **Caramelo**, um cachorro caramelo brasileiro. Acessórios relacionados à impressão 3D serão definidos na direção de arte.
 
+## Jogar agora
+
+**https://bobi-roan.vercel.app** — versão publicada, sem instalar nada. Entre com uma conta Google, escolha apelido, avatar e data de nascimento, e comece pela L01.
+
+| Link | O que abre |
+|---|---|
+| [bobi-roan.vercel.app](https://bobi-roan.vercel.app) | Tela de entrada (login Google) |
+| [/trilha](https://bobi-roan.vercel.app/trilha) | Trilha dos 3 mundos (24 lições + 3 avaliações) |
+| [/oficina](https://bobi-roan.vercel.app/oficina) | Oficina do Caramelo (abre depois da L01) |
+| [/perfil](https://bobi-roan.vercel.app/perfil) | Perfil, conquistas e preferências (som) |
+| [/ranking](https://bobi-roan.vercel.app/ranking) | Ranking semanal (só maiores de 18) |
+| [/admin](https://bobi-roan.vercel.app/admin/entrar) | Painel administrativo de relatórios (conta de demonstração abaixo) |
+
+As páginas internas pedem login; sem sessão, você volta para a entrada. Cada push na `main` publica uma nova versão automaticamente (Vercel).
+
+## Painel administrativo (relatórios)
+
+O administrador **observa**, não cria conteúdo ([DD026](docs/arquitetura/decisoes-de-desenvolvimento.md#dd026--papel-administrativo-relatórios-não-criação-de-conteúdo)). Em `/admin` aparecem: jogadores ativos por dia, acerto na primeira tentativa, tempo por resposta, uso da dica, o que acontece depois de um erro (tentou de novo, saiu e voltou, não voltou), onde as pessoas saem (botão X ou fechando o app), cada lição da trilha, as atividades mais difíceis, as avaliações e a lista de jogadores (só apelido e faixa etária).
+
+**Conta de demonstração** (projeto em estudo, visível de propósito para avaliação):
+
+| E-mail | Senha |
+|---|---|
+| `admin@bobi.local` | `bobi-admin-2026` |
+
+Entre por **/admin/entrar** (há um link "Área administrativa" na tela inicial). Jogadores entram só com Google; o login por e-mail existe apenas nesse caminho e só para contas administrativas que já existem — a tela não cria conta. A conta já está criada na versão publicada; no modo local o `pnpm local:up` cria. Para criar em outro ambiente ou adicionar outra conta: `pnpm admin:create [email senha]` (`--local` para o Supabase local). Antes de abrir o app ao público, defina `BOBI_ADMIN_DEMO=0` para esconder a credencial e troque a senha.
+
 ## Documentação
 
 - [Termo de Abertura e Requisitos](docs/termo-de-abertura.md) — decisões, escopo do MVP e pendências.
@@ -42,29 +69,70 @@ Plataforma educacional gamificada para aprender impressão 3D com microlições,
 | Oficina, máquinas e upgrades (PD007) | Proposta |
 | Arte do Caramelo | Referência visual v0.1 selecionada; ficha definitiva pendente |
 | Paleta da interface | Laranja/roxo decidido (DD013); tokens v0.2 candidatos |
-| Código | Jogável: 24 lições, 3 avaliações, oficina (valores de teste), perfil e ranking — arte provisória |
+| Código | Publicado e jogável: 24 lições, 3 avaliações, oficina (valores de teste), perfil, ranking 18+ e efeitos sonoros |
+| Arte no jogo | Caramelo (8 poses), impressoras, bancada, itens, minijogo e ícones prontos; ilustrações das lições ainda provisórias |
 
-## Como rodar
+## Rodar localmente
 
-Requisitos: Node 24+, pnpm, acesso ao projeto Supabase.
+Requisitos: **Node 24+** e **pnpm** (`corepack enable`). Para o modo 100% local, também **Docker** rodando.
 
 ```bash
 pnpm install
-cp .env.example .env.local   # preencha os valores (ver docs/arquitetura/base-tecnica.md §1.1)
+```
+
+### Opção A — 100% local, sem Google e sem conta no Supabase (recomendado para desenvolver)
+
+Sobe banco, autenticação e API do Supabase em containers Docker, aplica todas as migrações e libera um botão de login de teste.
+
+```bash
+pnpm local:up   # 1ª vez baixa as imagens (alguns minutos); grava .env.development.local
+pnpm dev        # http://localhost:3000
+```
+
+Na tela inicial, clique em **"Entrar sem Google (modo local)"**: o jogo cria a conta `jogador@bobi.local` no Supabase local e abre a sessão. Daí em diante é o jogo completo — lições, avaliações, oficina, perfil e ranking.
+
+| Endereço | Para quê |
+|---|---|
+| http://localhost:3000 | O jogo |
+| http://127.0.0.1:54323 | Supabase Studio local (tabelas, usuários, dados) |
+| http://127.0.0.1:54321 | API do Supabase local |
+
+| Comando | O que faz |
+|---|---|
+| `pnpm local:up` | Sobe o Supabase local e aponta o `pnpm dev` para ele |
+| `pnpm local:reset` | Zera o banco local e reaplica as migrações (apaga o progresso) |
+| `pnpm local:demo` | Cria 24 jogadores de demonstração (dados sintéticos) para o painel `/admin` ter o que mostrar |
+| `pnpm local:down` | Para os containers e volta o `pnpm dev` para o Supabase remoto (`.env.local`) |
+
+Como funciona: `local:up` escreve `.env.development.local`, que no `pnpm dev` tem prioridade sobre o `.env.local`. Nele vão a URL e as chaves do Supabase local, `BOBI_DEV_LOGIN=1` (botão de login local) e `BOBI_FAST_PRINTS=1` (fabricações da oficina em segundos). O botão de login local só aparece com o Supabase em `localhost` e nunca na Vercel. O login Google não funciona neste modo (o Supabase local não tem credenciais Google).
+
+### Opção B — contra o Supabase remoto (mesmo banco da versão publicada)
+
+Para testar com os dados e o login Google reais. Precisa das chaves do projeto.
+
+```bash
+cp .env.example .env.local   # preencha URL, chave publicável e chave secreta (ver base-tecnica.md §1.1)
 pnpm dev                     # http://localhost:3000
 ```
+
+`http://localhost:3000/**` precisa estar nas *Redirect URLs* do Supabase Auth para o login Google voltar ao ambiente local. Se `pnpm local:up` foi usado antes, rode `pnpm local:down` para o `pnpm dev` voltar a ler o `.env.local`.
+
+### Todos os comandos
 
 | Comando | O que faz |
 |---|---|
 | `pnpm dev` | Servidor de desenvolvimento |
-| `pnpm build` | Build de produção |
+| `pnpm build` / `pnpm start` | Build e servidor de produção |
 | `pnpm lint` / `pnpm typecheck` | Lint e checagem de tipos |
+| `pnpm test` | Testes unitários (conteúdo, regras de XP, sequência, oficina) |
+| `pnpm local:up` / `local:reset` / `local:down` | Modo 100% local com Supabase em Docker |
+| `pnpm local:demo` | Jogadores de demonstração no Supabase local para o painel `/admin` |
 | `pnpm db:push` | Aplica `supabase/migrations` no projeto remoto (`--dry-run` para simular) |
-| `pnpm test` | Valida o conteúdo (schema Zod + catálogo de assets) |
-| `pnpm e2e:session` | Cria o usuário `e2e@bobi.test` e uma sessão local sem Google (apaga o progresso anterior) |
-| `pnpm e2e` | Playwright: jornada completa + todo o currículo, contra `pnpm start` na porta 3100 (rode `pnpm build` antes) |
-| `pnpm sprites:report` | Gera `docs/design/sprites-pendentes.md` a partir do catálogo |
+| `pnpm admin:create` | Cria/atualiza a conta do painel `/admin` no projeto remoto (`--local` para o Supabase local) |
+| `pnpm e2e:session` | Cria o usuário `e2e@bobi.test` e uma sessão sem Google para o Playwright |
+| `pnpm e2e` | Playwright: jornada completa, menor de idade e todo o currículo, na porta 3100 (rode `pnpm build` antes) |
 | `pnpm sprites:sync` | Atualiza a lista de sprites prontos (roda sozinho antes de `dev` e `build`) |
+| `pnpm sprites:report` | Gera `docs/design/sprites-pendentes.md` a partir do catálogo |
 | `pnpm sounds:gen` | Regenera `public/sounds/*.mp3` (precisa de `ffmpeg`) |
 
 `BOBI_FAST_PRINTS=1` faz as fabricações da oficina durarem segundos em vez de minutos (somente testes locais).
@@ -80,6 +148,6 @@ pnpm dev                     # http://localhost:3000
 | `src/components/game/` | Motor de atividades, players de lição/avaliação, oficina e minijogo |
 | `supabase/migrations/` | Perfis, progresso, tentativas, carteira, meta diária, avaliações, reservas, oficina e ranking |
 
-Login: somente Google (DD011). Para testar localmente, `http://localhost:3000/**` precisa estar nas *Redirect URLs* do Supabase Auth.
+Login: somente Google em produção (DD011); o login sem Google existe apenas no modo local (Opção A).
 
 > Projeto em definição. Os conteúdos técnicos e recursos visuais devem ser revisados antes da publicação. A proteção de dados e os mecanismos apropriados a contas de menores permanecem uma pendência técnica obrigatória para o lançamento ao público correspondente.

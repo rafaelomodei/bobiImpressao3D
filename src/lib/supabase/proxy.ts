@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { publicEnv } from "@/lib/env";
 
 /** Rotas acessíveis sem sessão. */
-const PUBLIC_PATHS = ["/", "/auth"];
+const PUBLIC_PATHS = ["/", "/auth", "/admin/entrar"];
 
 function isPublic(pathname: string) {
   return PUBLIC_PATHS.some(
@@ -55,6 +55,8 @@ export async function updateSession(request: NextRequest) {
     return redirect;
   };
 
+  if (!signedIn && (pathname === "/admin" || pathname.startsWith("/admin/")) && !isPublic(pathname))
+    return redirectTo("/admin/entrar");
   if (!signedIn && !isPublic(pathname)) return redirectTo("/");
   if (signedIn && pathname === "/") return redirectTo("/trilha");
 

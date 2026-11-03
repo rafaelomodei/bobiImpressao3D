@@ -39,6 +39,7 @@
 | DD019 | Recompensas e meta diária | Livro-razão com chave idempotente; meta = 1 lição/revisão por dia; XP competitivo = XP elegível | Decidido por delegação | — |
 | DD020 | Avaliações e variações | Banco-base homologado, uma resposta por questão, resultado no final; variações (RF044) ainda pendentes | Decidido por delegação | — |
 | DD021 | Oficina jogável antes de PD007 | Catálogo com **valores de teste**: abre após L01; 5 itens; 2 melhorias; nivelamento em 4 cantos | Decidido por delegação | Homologação PD007 |
+| DD026 | Papel administrativo e painel de relatórios | Administrador só **observa**: painel `/admin` com uso, aprendizagem, tempo, saídas e retenção após erro; sem criação de conteúdo; conta de demonstração visível | Decidido | — |
 | DD022 | Assets provisórios | Cartão provisório (emoji + rótulo) até a arte existir; catálogo gera `sprites-pendentes.md` | Decidido por delegação | Arte final |
 
 ---
@@ -273,6 +274,46 @@ A meta diária é cumprida com **uma lição ou revisão concluída** no dia (`A
 
 Novos recursos restritos por idade devem seguir o mesmo padrão: `adultsOnly` no menu, `notFound()` na rota e nenhuma menção na interface.
 
+## DD026 — Papel administrativo: relatórios, não criação de conteúdo
+
+**Contexto:** o termo de abertura previa um "administrador/editor" voltado à gestão de conteúdo (RF037, RF038), e RF039 pedia métricas mínimas de uso e aprendizagem. No MVP o conteúdo é versionado no Git (DD001 §5, DD017), então um painel editorial não traz ganho agora. O que falta é **enxergar o comportamento de quem joga**: se está aprendendo, onde erra, quanto tempo leva e se desiste depois de errar.
+
+**Decisão:** o papel administrativo do MVP é **somente leitura**. O painel `/admin` mostra relatórios; não cria mundos, lições, atividades nem altera progresso de jogadores.
+
+**Acesso.**
+
+- Quem pode abrir: contas listadas na tabela `admin_users` (sem políticas RLS; só o servidor lê com a chave secreta). `requireAdmin` em `src/lib/admin.ts` protege a página.
+- Entrada própria em `/admin/entrar`, com e-mail e senha, **só para contas que já existem**: a tela não cria conta, não envia e-mail e não tem cadastro. Jogadores continuam entrando só com Google (DD011); a opção de e-mail aparece apenas no caminho do painel. A conta administrativa não joga (não tem perfil e fica fora de todos os indicadores).
+- **Conta de demonstração**, visível na tela de entrada porque o projeto está em estudo e precisa ser avaliado: `admin@bobi.local` / `bobi-admin-2026`. É criada uma vez por ambiente com `pnpm admin:create` (remoto) — já criada no projeto publicado em 03/11/2026 — e automaticamente pelo `pnpm local:up` no modo local. `pnpm admin:create <email> <senha>` cria outras contas administrativas. `BOBI_ADMIN_DEMO=0` esconde a credencial da tela — obrigatório antes de abrir o app ao público, junto com a troca da senha.
+- O provedor de e-mail do Supabase Auth precisa ficar **ligado** para esse login funcionar. Como o app não oferece cadastro por e-mail, recomenda-se desligar o cadastro público por e-mail no painel do Supabase quando for possível sem afetar o Google.
+- O painel mostra só **apelido e faixa etária** (menor / 18+). Nome, e-mail, foto e data de nascimento não aparecem (RNF015, DD014, DD015).
+
+**O que é medido (telemetria nova).**
+
+| Dado | Onde | Como |
+|---|---|---|
+| Tempo de resposta | `activity_attempts.duration_ms` | Do momento em que a atividade (ou a nova tentativa) aparece até "Verificar", medido no aparelho; acima de 1 h é descartado |
+| Abertura de lição/avaliação | `session_events` `activity_open` | Ao reservar a atividade (DD008) |
+| Saída pelo botão X | `session_events` `activity_exit` | Com a atividade em que estava e se a última resposta estava errada (`after_error`) |
+| Saída do app | `session_events` `app_left` | Fechar a aba, trocar de app ou bloquear a tela no meio da atividade; enviado por `navigator.sendBeacon` para `/api/telemetria` |
+
+Telemetria nunca quebra o jogo: falhas ao gravar eventos são ignoradas.
+
+**Indicadores do painel** (`src/lib/game/analytics.ts`, testados em `analytics.test.ts`), filtráveis por 7, 30 ou 90 dias:
+
+- **Visão geral:** jogadores cadastrados e novos, jogadores ativos, primeiras conclusões de lição, respostas enviadas, acerto na primeira tentativa, tempo mediano por resposta, uso da dica quando oferecida (após 2 erros, DD006) e aprovação nas avaliações.
+- **Jogadores ativos por dia** (dia em America/Sao_Paulo, DD005).
+- **Retenção após erro:** para cada resposta errada em lição, o que veio depois — *tentou de novo na hora* (respondeu em até 30 min sem sair), *saiu e voltou depois* ou *saiu e não voltou*; como saiu (botão X, saiu do app ou ficou mais de 30 min parado); tempo mediano até voltar; e quantos erros viraram acerto depois na mesma atividade. Avaliações ficam fora porque não dão feedback imediato.
+- **Onde as pessoas saem:** total de saídas no meio da atividade, quantas logo após um erro, e os pontos (lição + atividade) com mais saídas.
+- **Trilha lição por lição:** começaram, concluíram, acerto de primeira, erros por jogador, tempo mediano e saídas.
+- **Atividades mais difíceis:** maior erro na primeira tentativa (mínimo de 2 jogadores), tempo e uso de dica.
+- **Avaliações de domínio:** tentativas finalizadas, aprovação, nota média e questão com menor acerto.
+- **Jogadores:** apelido, faixa etária, última atividade, lições concluídas, XP, respostas e acerto de primeira.
+
+**Dados de demonstração:** `pnpm local:demo` cria jogadores sintéticos (`demo-XX@bobi.local`, apelidos `demo_*`) no Supabase **local** para o painel ter o que mostrar. O script se recusa a rodar contra o banco remoto.
+
+**Consequências:** RF039 passa a implementado; RF037/RF038 (versionar e publicar conteúdo pela interface) continuam fora do MVP e dependem de PD010. Os registros anteriores a esta decisão não têm `duration_ms` nem eventos de sessão, então os indicadores de tempo e saída valem a partir de 03/11/2026.
+
 ## Pendências que continuam abertas
 
 | ID | Tema | Precisa estar decidido antes de |
@@ -283,7 +324,8 @@ Novos recursos restritos por idade devem seguir o mesmo padrão: `adultsOnly` no
 | — | Regra de empate do ranking global | Ranking |
 | PT001 | Idade, privacidade e menores (inclui Family Link no login Google, DD011) | Qualquer conta real de menor; anúncios |
 | — | Credenciais OAuth do Google configuradas no Supabase | Primeiro login |
-| PD010 | Gestão editorial e painel administrativo | Edição de conteúdo fora do Git |
+| PD010 | Gestão editorial (o painel de **relatórios** já existe, DD026; edição de conteúdo continua no Git) | Edição de conteúdo fora do Git |
+| DD026 | Esconder a conta de demonstração (`BOBI_ADMIN_DEMO=0`), trocar a senha e criar contas administrativas nominais (`pnpm admin:create`) | Abertura ao público |
 | PD011 | Metas de desempenho e recuperação | Lançamento |
 | PD012 | Aceite do MVP e avaliação pedagógica | Lançamento |
 | DD017 | Revisão pedagógica dos textos marcados como "redigido pela equipe técnica" | Teste com usuários |

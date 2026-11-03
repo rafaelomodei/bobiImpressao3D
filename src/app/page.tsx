@@ -1,7 +1,10 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import { Caramelo } from "@/components/game/caramelo";
 import { GoogleButton } from "@/components/google-button";
 import { Logo } from "@/components/logo";
+import { signInLocal } from "@/app/auth/actions";
+import { devLoginEnabled } from "@/lib/dev-login";
 
 /** DD012: boas-vindas com login Google antes de qualquer lição. */
 export default function WelcomePage({ searchParams }: PageProps<"/">) {
@@ -29,9 +32,19 @@ export default function WelcomePage({ searchParams }: PageProps<"/">) {
           <LoginError searchParams={searchParams} />
         </Suspense>
         <GoogleButton />
+        {devLoginEnabled() && (
+          <form action={signInLocal}>
+            <button type="submit" className="btn-secondary">
+              Entrar sem Google (modo local)
+            </button>
+          </form>
+        )}
         <p className="text-center text-xs text-structure-soft-text">
           Ao entrar, você usa sua conta Google só para acessar o bobi. Seu nome e sua foto não aparecem para ninguém.
         </p>
+        <Link href="/admin/entrar" className="text-center text-xs font-bold text-structure-purple underline underline-offset-2">
+          Área administrativa (relatórios)
+        </Link>
       </footer>
     </main>
   );

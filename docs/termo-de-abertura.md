@@ -26,7 +26,8 @@ O aprendizado inicial de impressão 3D exige compreender equipamentos, materiais
 | Rafael Geovani Omodei | Idealização, priorização e homologação |
 | Aprendiz | Usuário final |
 | Pais/responsáveis | Salvaguardas e autorizações aplicáveis |
-| Administrador/editor | Papel operacional de gestão dos conteúdos, ainda sem pessoa designada |
+| Administrador (relatórios) | Acompanha uso e aprendizagem pelo painel `/admin`: quem jogou, onde erra, tempo por atividade, saídas e retenção após erro. **Somente leitura** no MVP; não cria mundos, lições nem atividades (DD026) |
+| Editor de conteúdo | Gestão editorial de lições e atividades (RF037/RF038, PD010); fora do MVP, conteúdo segue versionado no Git; ainda sem pessoa designada |
 | Revisor técnico/pedagógico | Papel de validação dos conteúdos, ainda sem pessoa designada |
 
 ## 3. Histórico de mudanças e aprovações
@@ -43,6 +44,7 @@ O aprendizado inicial de impressão 3D exige compreender equipamentos, materiais
 | 02/11/2026 | Stack: Next.js + React + TypeScript, PWA, Supabase e Vercel; Firebase excluído ([base técnica](arquitetura/base-tecnica.md)) | **Decidido** |
 | 02/11/2026 | Oficina como núcleo jogável e ranking **global único** (sem ligas), mantendo ciclo semanal e opt-in de PD008 | **Decidido**; detalhamento de PD007 em proposta |
 | 02/11/2026 | DD001–DD004: conteúdo em tabelas Supabase com correção no servidor, mapeamento para os quatro tipos de atividade, avanço por domínio fora do MVP e ordem de incrementos A → B → D → C ([decisões de desenvolvimento](arquitetura/decisoes-de-desenvolvimento.md)) | **Decidido** (DD004 por delegação) |
+| 03/11/2026 | DD026: papel administrativo do MVP redefinido como **relatórios e observação** (painel `/admin`, RF039), sem criação/edição de conteúdo; conta administrativa de demonstração visível para avaliação do estudo | **Decidido** |
 | 02/11/2026 | DD011–DD015: login **somente com Google** (substitui código por e-mail de PD002), boas-vindas com login antes das lições, paleta laranja/roxo do Caramelo, apelido + avatar sem dados do Google, data de nascimento no onboarding e ranking global só para 18+ | **Decidido** |
 
 ## 4. Currículo aprovado (PD004)
@@ -175,7 +177,7 @@ Especificações homologadas: [L01–L04](licoes/mundo-01.md), [L05–L08](licoe
 | RF036 | Anúncio recompensado | Fora do MVP |
 | RF037 | Versionar conteúdos | Proposto |
 | RF038 | Gerenciar publicação e revisão | Proposto |
-| RF039 | Métricas mínimas de uso e aprendizagem | Proposto |
+| RF039 | Métricas mínimas de uso e aprendizagem — painel administrativo de relatórios (DD026) | Implementado (painel `/admin`) |
 | RF040 | Gerenciar conta e solicitar exclusão | Definido em conceito |
 | RF041 | Lembretes opcionais | Proposto |
 | RF042 | Aprendizado sem professor | Homologado |
@@ -268,7 +270,8 @@ Cadastro com conta Google e apelido, sincronização e exclusão de conta. *(Aut
 | CDU009 | Fabricar item virtual |
 | CDU010 | Consultar ranking/perfil |
 | CDU011 | Gerenciar assinatura |
-| CDU012 | Gerenciar conteúdo |
+| CDU012 | Gerenciar conteúdo (fora do MVP; conteúdo versionado no Git, DD017) |
+| CDU015 | Consultar relatórios de uso e aprendizagem (administrador, DD026) |
 | CDU013 | Resolver conflito de atividade |
 | CDU014 | Gerenciar/excluir conta |
 

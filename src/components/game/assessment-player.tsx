@@ -24,8 +24,11 @@ import {
   LeaseLostScreen,
   LoadingScreen,
   PlayerTopBar,
+  useAnswerTimer,
   useDeviceId,
+  useExitBeacon,
   useLeaseHeartbeat,
+  type ExitInfo,
   type FooterState,
 } from "./player-parts";
 
@@ -81,8 +84,22 @@ export function AssessmentPlayer({ assessment }: { assessment: PublicAssessment 
   const onLost = useCallback(() => setPhase({ kind: "lease-lost" }), []);
   useLeaseHeartbeat(phase.kind === "question" || phase.kind === "intro", renew, onLost);
 
+  // Telemetria (DD026): tempo de cada resposta e onde a pessoa sai.
+  const timer = useAnswerTimer();
+  const timerKey = phase.kind === "question" ? phase.index : -1;
+  useEffect(() => timer.reset(), [timer, timerKey]);
+  const exitInfo: ExitInfo | null =
+    phase.kind === "question" || phase.kind === "intro"
+      ? {
+          contextId: assessment.id,
+          activityId: phase.kind === "question" ? (assessment.questions[phase.index]?.id ?? null) : null,
+          afterError: false,
+        }
+      : null;
+  useExitBeacon(exitInfo);
+
   const exit = () => {
-    if (deviceId) void leaveActivity(deviceId).catch(() => undefined);
+    if (deviceId) void leaveActivity(deviceId, exitInfo ?? undefined).catch(() => undefined);
     router.push("/trilha");
   };
 
@@ -122,7 +139,13 @@ export function AssessmentPlayer({ assessment }: { assessment: PublicAssessment 
     setFooter({ kind: "idle", canCheck: true, pending: true });
     startTransition(async () => {
       try {
-        const r = await submitAssessmentAnswer({ slug: assessment.slug, questionId: question.id, answer, deviceId });
+        const r = await submitAssessmentAnswer({
+          slug: assessment.slug,
+          questionId: question.id,
+          answer,
+          deviceId,
+          durationMs: timer.elapsed(),
+        });
         if (!r.ok) {
           if (r.reason === "lease-lost") setPhase({ kind: "lease-lost" });
           else begin(false);

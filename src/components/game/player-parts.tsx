@@ -2,7 +2,7 @@
 
 import { SoundButton } from "@/components/sound-toggle";
 import Link from "next/link";
-import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import type { PublicActivity, PublicAsset } from "@/content/public-types";
 import { LEASE_RENEW_MS } from "@/lib/game/rules";
 import { AssetView } from "./asset-view";
@@ -44,6 +44,62 @@ export function useLeaseHeartbeat(active: boolean, renew: () => Promise<boolean>
     }, LEASE_RENEW_MS);
     return () => clearInterval(t);
   }, [active, renew, onLost]);
+}
+
+/* ------------------------------------------------------------------------- */
+/* Telemetria para o painel administrativo (DD026)                            */
+/* ------------------------------------------------------------------------- */
+
+/** Onde a pessoa está agora: usado ao sair pelo X e ao sair do app. */
+export type ExitInfo = { contextId: string; activityId: string | null; afterError: boolean };
+
+/** Cronômetro da resposta: `reset` quando a atividade aparece ou a pessoa tenta de novo. */
+export function useAnswerTimer() {
+  const start = useRef(0);
+  return useMemo(
+    () => ({
+      reset: () => {
+        start.current = performance.now();
+      },
+      elapsed: () => Math.max(0, Math.round(performance.now() - start.current)),
+    }),
+    [],
+  );
+}
+
+/**
+ * Avisa o servidor quando a pessoa sai do app no meio de uma atividade
+ * (fecha a aba, troca de app, bloqueia a tela). Um aviso por saída; volta a armar
+ * quando a página fica visível de novo. sendBeacon sobrevive ao fechamento.
+ */
+export function useExitBeacon(info: ExitInfo | null) {
+  const current = useRef(info);
+  useEffect(() => {
+    current.current = info;
+  });
+  useEffect(() => {
+    let sent = false;
+    const send = () => {
+      const i = current.current;
+      if (!i || sent) return;
+      sent = true;
+      try {
+        navigator.sendBeacon("/api/telemetria", new Blob([JSON.stringify(i)], { type: "application/json" }));
+      } catch {
+        // sem suporte a beacon: o evento se perde, o jogo segue.
+      }
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") send();
+      else sent = false;
+    };
+    window.addEventListener("pagehide", send);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      window.removeEventListener("pagehide", send);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, []);
 }
 
 /* ------------------------------------------------------------------------- */

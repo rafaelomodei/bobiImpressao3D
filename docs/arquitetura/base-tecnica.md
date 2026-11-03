@@ -33,6 +33,7 @@ Modelo versionado em [`.env.example`](../../.env.example); valores reais ficam e
 | `SUPABASE_SECRET_KEY` | **Somente servidor** | Chave secreta (`sb_secret_…`), ignora RLS; usar só em correção, recompensas e seeds |
 | `SUPABASE_PROJECT_NAME` / `SUPABASE_PROJECT_REF` | Ferramentas | Identificação do projeto para a Supabase CLI |
 | `SUPABASE_DB_PASSWORD` | Ferramentas | Senha do Postgres para `supabase link` e migrações |
+| `BOBI_ADMIN_DEMO` | Somente servidor | `0` esconde da tela `/admin/entrar` a credencial da conta administrativa de demonstração (DD026); padrão: visível |
 
 Regras: nunca commitar `.env`/`.env.local`; nunca prefixar a chave secreta com `NEXT_PUBLIC_`; trocar a chave secreta no painel do Supabase se ela vazar.
 
@@ -68,6 +69,8 @@ Regras: nunca commitar `.env`/`.env.local`; nunca prefixar a chave secreta com `
 | `private.answer_keys` | `activity_id`, `content_version`, `answer_key`, `feedback_by_option`, `hint` | Gabarito e feedback, nunca expostos ao navegador |
 | `assessment_attempts` | `user_id`, `assessment_id`, `variant_id`, `score`, `passed`, `finished_at` | Avaliações de domínio e variações (RF044) |
 | `daily_activity` | `user_id`, `day` (`America/Sao_Paulo`), `goal_met`, `streak_count` | Meta diária, sequência e revisão válida do dia (DD005) |
+| `session_events` | `user_id`, `event` (`activity_open`/`activity_exit`/`app_left`), `context_id`, `activity_id`, `after_error` | Saídas e retenção após erro para o painel administrativo (DD026) |
+| `admin_users` | `user_id` | Contas com acesso ao painel `/admin`, somente leitura (DD026) |
 
 *Estrutura conceitual*: tabelas, nomes e tipos definitivos serão definidos com migrações, constraints, índices, RLS e testes. Não armazenar respostas/gabaritos de uma forma que comprometa a verificação servidor; o conteúdo publicado precisa ser assinado/versionado ou protegido por regras de acesso adequadas.
 

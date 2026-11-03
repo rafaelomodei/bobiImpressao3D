@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { z } from "zod";
 import { CONTENT_VERSION, PATH, findLesson } from "@/content";
 import { gradeActivity } from "@/content/engine";
@@ -16,6 +17,7 @@ import {
   registerDailyStudy,
   releaseLease,
 } from "@/lib/game/server";
+import { cleanDuration, exitInfoSchema, logSessionEvent, type ExitInfo } from "@/lib/game/telemetry";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 const answerSchema: z.ZodType<Answer> = z.discriminatedUnion("kind", [
@@ -42,6 +44,7 @@ export async function beginLesson(slug: string, deviceId: string, force = false)
   const db = createAdminClient();
   const lease = await claimLease(db, userId, deviceId, lesson.id, force);
   if (!lease.ok) return { ok: false, reason: "conflict" };
+  after(() => logSessionEvent(db, userId, "activity_open", { contextId: lesson.id }));
 
   const row = snapshot.progress.get(lesson.id);
   if (!row) {
@@ -90,6 +93,8 @@ export async function submitLessonAnswer(input: {
   answer: Answer;
   hintUsed: boolean;
   deviceId: string;
+  /** Tempo desde que a atividade (ou a nova tentativa) apareceu na tela (DD026). */
+  durationMs?: number;
 }): Promise<SubmitResult> {
   const userId = await requireUserId();
   const found = findLesson(input.slug);
@@ -133,6 +138,7 @@ export async function submitLessonAnswer(input: {
     hint_used: input.hintUsed,
     is_review: row.is_review,
     answer: answer.data,
+    duration_ms: cleanDuration(input.durationMs),
   });
 
   if (!grade.correct) {
@@ -225,9 +231,15 @@ export async function renewLease(deviceId: string): Promise<boolean> {
   return checkLease(createAdminClient(), userId, deviceId);
 }
 
-export async function leaveActivity(deviceId: string): Promise<void> {
+/** Saída pelo botão (X). `info` registra onde a pessoa saiu e se foi logo após um erro (DD026). */
+export async function leaveActivity(deviceId: string, info?: ExitInfo): Promise<void> {
   const userId = await requireUserId();
   if (!deviceSchema.safeParse(deviceId).success) return;
-  await releaseLease(createAdminClient(), userId, deviceId);
+  const db = createAdminClient();
+  const exit = exitInfoSchema.safeParse(info);
+  await Promise.all([
+    releaseLease(db, userId, deviceId),
+    exit.success ? logSessionEvent(db, userId, "activity_exit", exit.data) : undefined,
+  ]);
 }
 

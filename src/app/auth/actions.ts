@@ -2,6 +2,8 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { DEV_LOGIN_EMAIL, devLoginEnabled } from "@/lib/dev-login";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 async function getOrigin() {
@@ -23,6 +25,22 @@ export async function signInWithGoogle() {
   });
   if (error || !data.url) redirect("/?erro=login");
   redirect(data.url);
+}
+
+/**
+ * Modo local (sem Google): cria/usa a conta jogador@bobi.local no Supabase do Docker
+ * e abre a sessão por link mágico gerado pelo servidor. Bloqueado fora do modo local.
+ */
+export async function signInLocal() {
+  if (!devLoginEnabled()) redirect("/?erro=login");
+  const admin = createAdminClient();
+  await admin.auth.admin.createUser({ email: DEV_LOGIN_EMAIL, email_confirm: true });
+  const { data: link, error } = await admin.auth.admin.generateLink({ type: "magiclink", email: DEV_LOGIN_EMAIL });
+  if (error || !link.properties?.hashed_token) redirect("/?erro=login&motivo=modo-local");
+  const supabase = await createClient();
+  const { error: otpError } = await supabase.auth.verifyOtp({ type: "magiclink", token_hash: link.properties.hashed_token });
+  if (otpError) redirect(`/?erro=login&motivo=${encodeURIComponent(otpError.message)}`);
+  redirect("/trilha");
 }
 
 export async function signOut() {
