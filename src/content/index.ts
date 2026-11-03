@@ -52,7 +52,7 @@ export function findAssessment(slug: string): { assessment: Assessment; world: W
 
 export function getAsset(id: string): PublicAsset {
   const a = ASSET_MAP.get(id);
-  return a ? toPublicAsset(a) : { id, label: id, emoji: "🖼️", kind: "illustration", src: null };
+  return a ? toPublicAsset(a) : { id, label: id, emoji: "🖼️", kind: "illustration", src: null, reducedMotionSrc: null };
 }
 
 function assetsFor(ids: string[]): Record<string, PublicAsset> {

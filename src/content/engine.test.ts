@@ -1,12 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { activity } from "./schema";
-import { gradeActivity, toPublicActivity } from "./engine";
+import { activity, assetEntry } from "./schema";
+import { gradeActivity, toPublicActivity, toPublicAsset } from "./engine";
+import { ASSETS as m1Assets } from "./assets/m1";
 import { l01 } from "./mundos/m1/l01";
 
 const acts = l01.activities.map((a) => activity.parse(a));
 const [mc, match, order] = acts;
 
 describe("projeção pública (DD001/DD018)", () => {
+  it("usa o quadro estático quando a animação pede movimento reduzido", () => {
+    const tower = assetEntry.parse(m1Assets.find((asset) => asset.id === "l02-torre-estagios"));
+    const published = toPublicAsset({ ...tower, status: "ready" });
+    expect(published.src).toBe("/sprites/bobi-l02-torre-estagios.png");
+    expect(published.reducedMotionSrc).toBe("/sprites/bobi-l02-torre-estagios-01.png");
+  });
   it("não envia gabarito nem feedback", () => {
     const json = JSON.stringify(acts.map((a) => toPublicActivity(a, l01.id)));
     expect(json).not.toContain("correctOptionId");

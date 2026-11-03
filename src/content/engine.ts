@@ -107,11 +107,13 @@ export function activityAssetIds(a: Activity): string[] {
 }
 
 export function toPublicAsset(a: AssetEntry): PublicAsset {
+  const isReady = a.status === "ready";
   return {
     id: a.id,
     label: a.label,
     emoji: a.emoji,
     kind: a.kind,
-    src: a.status === "ready" ? `/sprites/${a.file}` : null,
+    src: isReady ? `/sprites/${a.file}` : null,
+    reducedMotionSrc: isReady && a.production.reducedMotionFile ? `/sprites/${a.production.reducedMotionFile}` : null,
   };
 }

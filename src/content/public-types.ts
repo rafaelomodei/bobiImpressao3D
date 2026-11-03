@@ -10,6 +10,8 @@ export type PublicAsset = {
   emoji: string;
   kind: string;
   src: string | null;
+  /** Quadro estático usado quando o dispositivo pede movimento reduzido. */
+  reducedMotionSrc: string | null;
 };
 
 export type PublicPreBlock =
