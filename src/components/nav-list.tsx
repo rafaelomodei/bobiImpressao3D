@@ -26,7 +26,7 @@ export function NavList({ activeHref, adult = false }: { activeHref: string | nu
                 active ? "bg-brand-cream text-structure-deep" : "text-structure-soft-text hover:bg-background"
               }`}
             >
-              <Image src={`/sprites/bobi-ui-${t.icon}.svg`} alt="" aria-hidden width={24} height={24} className="size-6" />
+              <Image src={`/sprites/bobi-ui-${t.icon}.png`} alt="" aria-hidden width={24} height={24} className="size-6" />
               {t.label}
             </Link>
           </li>

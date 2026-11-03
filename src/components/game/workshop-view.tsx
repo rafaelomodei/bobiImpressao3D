@@ -8,6 +8,7 @@ import type { WorkshopState } from "@/lib/game/workshop";
 import Image from "next/image";
 import { ITEMS, UPGRADES, itemSprite, machineSprite, machineTier } from "@/lib/game/workshop-catalog";
 import { playSound, usePreloadSounds, type SoundName } from "@/lib/sound";
+import { UiIcon } from "@/components/ui-icon";
 
 export function WorkshopView({ state }: { state: WorkshopState }) {
   const router = useRouter();
@@ -54,7 +55,7 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
               <li key={item.id} className={`card flex flex-col gap-3 p-4 ${blocked ? "opacity-70" : ""}`}>
                 <div className="flex items-center gap-3">
                   <span aria-hidden className="grid size-14 place-items-center rounded-2xl bg-brand-cream-soft text-3xl">
-                    {blocked ? "🔒" : sprite ? <Image src={sprite} alt="" width={56} height={56} className="size-14 object-contain" /> : item.emoji}
+                    {blocked ? <UiIcon name="cadeado" size={36} /> : sprite ? <Image src={sprite} alt="" width={56} height={56} className="size-14 object-contain" /> : item.emoji}
                   </span>
                   <div>
                     <p className="font-black">{item.name}</p>
@@ -63,11 +64,14 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs font-black">
                   <span className="badge">⏱ {info.minutes} min</span>
-                  <span className="badge">🧵 {item.costFios === 0 ? "grátis" : `${item.costFios} Fios`}</span>
+                  <span className="badge"><UiIcon name="fios" size={14} className="mr-1 align-[-2px]" />
+                    {item.costFios === 0 ? "grátis" : `${item.costFios} Fios`}</span>
                   {(state.inventory[item.id] ?? 0) > 0 && <span className="badge">📦 {state.inventory[item.id]} na prateleira</span>}
                 </div>
                 {blocked ? (
-                  <p className="text-sm font-bold text-structure-soft-text">🔒 {item.requires.label}</p>
+                  <p className="flex items-center gap-1.5 text-sm font-bold text-structure-soft-text">
+                    <UiIcon name="cadeado" size={18} /> {item.requires.label}
+                  </p>
                 ) : (
                   <button
                     type="button"
@@ -92,14 +96,18 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
             return (
               <li key={u.id} className={`card flex items-center gap-3 p-4 ${info.owned ? "border-feedback-success/40" : ""}`}>
                 <span aria-hidden className="grid size-12 shrink-0 place-items-center rounded-2xl bg-structure-purple/10 text-2xl">
-                  {info.unlocked ? u.emoji : "🔒"}
+                  {info.unlocked ? u.emoji : <UiIcon name="cadeado" size={30} />}
                 </span>
                 <div className="flex-1">
                   <p className="font-black">
                     {u.name} <span className="text-sm font-bold text-structure-soft-text">→ {u.machineName}</span>
                   </p>
                   <p className="text-sm text-structure-soft-text">{u.description}</p>
-                  {!info.unlocked && <p className="mt-1 text-sm font-bold">🔒 {u.requires.label}</p>}
+                  {!info.unlocked && (
+                    <p className="mt-1 flex items-center gap-1.5 text-sm font-bold">
+                      <UiIcon name="cadeado" size={18} /> {u.requires.label}
+                    </p>
+                  )}
                 </div>
                 {info.owned ? (
                   <span className="badge">✔ Instalada</span>
@@ -110,7 +118,8 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
                     disabled={pending || !info.unlocked || state.fios < u.costFios}
                     onClick={() => run(() => buyUpgrade(u.id), ["purchase", "unlock"])}
                   >
-                    🧵 {u.costFios}
+                    <UiIcon name="fios" size={18} className="mr-1 align-[-3px]" />
+                    {u.costFios}
                   </button>
                 )}
               </li>

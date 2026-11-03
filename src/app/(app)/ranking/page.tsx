@@ -9,6 +9,7 @@ import { addDays, dayInSaoPaulo, weekStart } from "@/lib/game/rules";
 import { getPlayerSnapshot } from "@/lib/game/server";
 import { createClient } from "@/lib/supabase/server";
 import { PageLoading } from "@/components/page-loading";
+import { UiIcon } from "@/components/ui-icon";
 
 export const metadata: Metadata = { title: "Ranking" };
 
@@ -45,7 +46,7 @@ async function Ranking() {
       <div className="card flex items-center justify-between">
         <div>
           <p className="text-sm font-bold text-structure-soft-text">Seu XP nesta semana</p>
-          <p className="text-4xl font-black">⭐ {snap.weekXp}</p>
+          <p className="flex items-center gap-2 text-4xl font-black"><UiIcon name="xp" size={40} /> {snap.weekXp}</p>
         </div>
         <p className="badge">{fmt(ws)} a {fmt(addDays(ws, 6))}</p>
       </div>

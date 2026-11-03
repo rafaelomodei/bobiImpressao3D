@@ -6,6 +6,7 @@ import { StatsBar } from "@/components/game/stats-bar";
 import { requireProfile } from "@/lib/dal";
 import { getPlayerSnapshot, type PlayerSnapshot } from "@/lib/game/server";
 import { PageLoading } from "@/components/page-loading";
+import { UiIcon } from "@/components/ui-icon";
 
 export const metadata: Metadata = { title: "Trilha" };
 
@@ -89,7 +90,18 @@ function PathItem({
       : state === "available"
         ? "bg-brand-primary text-structure-deep shadow-[0_6px_0_var(--color-brand-primary-pressed)]"
         : "bg-locked text-structure-soft shadow-[0_6px_0_var(--color-locked-pressed)]";
-  const icon = state === "locked" ? "🔒" : isAssessment ? "🏅" : state === "completed" ? "✔" : inProgress ? "▶" : "★";
+  const icon =
+    state === "locked" ? (
+      <UiIcon name="cadeado" size={isAssessment ? 44 : 40} className="opacity-80" />
+    ) : isAssessment ? (
+      <UiIcon name="trofeu-avaliacao" size={48} />
+    ) : state === "completed" ? (
+      "✔"
+    ) : inProgress ? (
+      "▶"
+    ) : (
+      "★"
+    );
   const status = state === "completed" ? "concluída" : state === "available" ? "disponível" : "bloqueada";
 
   const circle = (
