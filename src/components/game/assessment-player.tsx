@@ -186,6 +186,7 @@ function AssessmentDone({ assessment, result }: { assessment: PublicAssessment; 
       {result.firstPass && (
         <p className="badge text-sm">
           ⭐ +{result.xp} XP · 🧵 +{result.fios} Fios
+          {result.baseXp > result.xp && ` (${result.total - result.score} erro${result.total - result.score === 1 ? "" : "s"}: ${result.xp} de ${result.baseXp} XP)`}
         </p>
       )}
       {result.unlockedWorld && (

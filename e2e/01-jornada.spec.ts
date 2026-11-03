@@ -73,6 +73,8 @@ test("jornada: onboarding, L01 completa, oficina, perfil e ranking", async ({ pa
   await next(page);
   await expect(page.getByText("Lição concluída!")).toBeVisible();
   await expect(page.getByText(/Meta do dia cumprida/)).toBeVisible();
+  // DD023: dois erros na A01 descontam 20% do XP da lição.
+  await expect(page.getByText("2 erros nesta lição: 16 de 20 XP.", { exact: false })).toBeVisible();
   await page.waitForTimeout(900);
   await shot(page, "11-conclusao");
 

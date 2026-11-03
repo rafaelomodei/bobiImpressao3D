@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { computePathStates, computeStreak, weekStart, type PathNode } from "./rules";
+import { computePathStates, computeStreak, weekStart, xpAfterErrors, type PathNode } from "./rules";
 import { cornerResult, levelingScenario, printMinutes, ITEMS } from "./workshop-catalog";
 
 const L = (n: number, world: number): PathNode => ({ kind: "lesson", id: `L${n}`, slug: `l${n}`, number: n, title: "", world });
@@ -38,5 +38,19 @@ describe("oficina (DD021)", () => {
   });
   it("cenário de nivelamento nunca começa todo nivelado", () => {
     for (let s = 0; s < 20; s++) expect(Object.values(levelingScenario(s)).some((v) => cornerResult(v) !== "ok")).toBe(true);
+  });
+});
+
+describe("xpAfterErrors (DD023)", () => {
+  it("desconta 10% do XP base por erro", () => {
+    expect([0, 1, 2, 3, 5].map((e) => xpAfterErrors(20, e))).toEqual([20, 18, 16, 14, 10]);
+  });
+  it("nunca fica abaixo de 25% do XP base", () => {
+    expect(xpAfterErrors(20, 8)).toBe(5);
+    expect(xpAfterErrors(20, 50)).toBe(5);
+    expect(xpAfterErrors(5, 20)).toBe(2);
+  });
+  it("avaliação: uma questão errada vale 27 de 30", () => {
+    expect(xpAfterErrors(30, 1)).toBe(27);
   });
 });

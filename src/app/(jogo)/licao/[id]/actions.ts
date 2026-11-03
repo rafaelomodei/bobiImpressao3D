@@ -6,7 +6,7 @@ import { CONTENT_VERSION, PATH, findLesson } from "@/content";
 import { gradeActivity } from "@/content/engine";
 import type { Answer } from "@/content/public-types";
 import { requireUserId } from "@/lib/dal";
-import { HINT_AFTER_ERRORS, REWARDS, dayInSaoPaulo } from "@/lib/game/rules";
+import { HINT_AFTER_ERRORS, REWARDS, dayInSaoPaulo, xpAfterErrors } from "@/lib/game/rules";
 import {
   checkLease,
   claimLease,
@@ -62,6 +62,9 @@ export async function beginLesson(slug: string, deviceId: string, force = false)
 
 export type Completion = {
   xp: number;
+  /** XP cheio da conclusão, antes do desconto por erros (DD023). */
+  baseXp: number;
+  errors: number;
   fios: number;
   firstTime: boolean;
   dailyGoal: { xp: number; fios: number } | null;
@@ -172,27 +175,41 @@ export async function submitLessonAnswer(input: {
   if (!finished) return { ok: true, correct: true, feedback: grade.feedback };
 
   const [completion] = await Promise.all([
-    completeLesson(userId, lesson.id, !row.first_completed_at),
+    completeLesson(userId, lesson.id, !row.first_completed_at, row.run_started_at),
     releaseLease(db, userId, input.deviceId),
   ]);
   return { ok: true, correct: true, feedback: grade.feedback, completion };
 }
 
-async function completeLesson(userId: string, lessonId: string, firstTime: boolean): Promise<Completion> {
+async function completeLesson(
+  userId: string,
+  lessonId: string,
+  firstTime: boolean,
+  runStartedAt: string,
+): Promise<Completion> {
   const db = createAdminClient();
-  const reward = firstTime
-    ? grantReward(db, userId, `lesson:${lessonId}:first`, REWARDS.lessonFirst, `Primeira conclusão ${lessonId}`).then(
-        (ok) => (ok ? REWARDS.lessonFirst : { xp: 0, fios: 0 }),
-      )
-    : grantReward(db, userId, `review:${lessonId}:${dayInSaoPaulo()}`, REWARDS.lessonReviewDaily, `Revisão ${lessonId}`).then(
-        (ok) => (ok ? REWARDS.lessonReviewDaily : { xp: 0, fios: 0 }),
-      );
+  // Erros desta rodada (desde o início da lição ou da revisão) descontam XP (DD023).
+  const { count } = await db
+    .from("activity_attempts")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .eq("context_id", lessonId)
+    .eq("is_correct", false)
+    .gte("created_at", runStartedAt);
+  const errors = count ?? 0;
+  const base = firstTime ? REWARDS.lessonFirst : REWARDS.lessonReviewDaily;
+  const earned = { xp: xpAfterErrors(base.xp, errors), fios: base.fios };
+  const eventKey = firstTime ? `lesson:${lessonId}:first` : `review:${lessonId}:${dayInSaoPaulo()}`;
+  const reason = `${firstTime ? "Primeira conclusão" : "Revisão"} ${lessonId} (${errors} erro${errors === 1 ? "" : "s"})`;
+  const reward = grantReward(db, userId, eventKey, earned, reason).then((ok) => (ok ? earned : { xp: 0, fios: 0 }));
   const [{ xp, fios }, dailyGoal] = await Promise.all([reward, registerDailyStudy(db, userId)]);
 
   const idx = PATH.findIndex((n) => n.id === lessonId);
   const next = PATH[idx + 1];
   return {
     xp,
+    baseXp: xp > 0 ? base.xp : 0,
+    errors,
     fios,
     firstTime,
     dailyGoal,

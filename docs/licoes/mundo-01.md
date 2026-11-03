@@ -15,7 +15,7 @@
 - **Lições comuns não têm requisito de 80% na primeira tentativa**: são concluídas quando todas as atividades obrigatórias são resolvidas, inclusive após erros/dicas.
 - Todo erro recebe feedback específico e nova tentativa. Não consome vidas. Após erros recorrentes, oferecer orientação.
 - Cada interação confirmada é persistida; após interrupção, retomar da próxima pendente, sem contar respostas não confirmadas.
-- Primeira conclusão elegível: **20 XP + 10 Fios**, uma única vez. Primeira revisão válida no dia: **5 XP**, sem Fios. Repetições adicionais inelegíveis: 0.
+- Primeira conclusão elegível: **20 XP + 10 Fios**, uma única vez. Primeira revisão válida no dia: **5 XP**, sem Fios. Repetições adicionais inelegíveis: 0. O XP é descontado em 10% do valor por erro na rodada, com mínimo de 25% (DD023); os Fios não mudam.
 - Desbloquear a próxima lição após conclusão. Atualizar meta diária conforme regra de elegibilidade. Funciona sem impressora física.
 - O **teste de domínio ao fim do mundo** é separado das oito lições: cinco desafios, aprovação a partir de quatro acertos (80%).
 - Registrar para cada atividade: `activity_id`, `lesson_id`, `content_version`, `activity_type`, `competency`, `statement`, opções/ordem/pares, resposta esperada, feedback por erro, dica, `visual_asset_ids` e `source_ids`. Em execução, registrar tentativas, primeira resposta, dicas, confirmação e conclusão.
