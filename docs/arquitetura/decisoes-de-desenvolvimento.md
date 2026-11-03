@@ -2,7 +2,7 @@
 
 **Data:** 02/11/2026  
 **Responsável:** Rafael Geovani Omodei  
-**Atualização:** 02/11/2026 — DD011–DD016 (login Google, onboarding, paleta, perfil, idade/ranking e padrões de interface).  
+**Atualização:** 03/11/2026 — DD017–DD022 (implementação jogável); 02/11/2026 — DD011–DD016 (login Google, onboarding, paleta, perfil, idade/ranking e padrões de interface).  
 **Finalidade:** registrar as decisões que destravam a implementação, separando o que foi **decidido pelo responsável** do que é **padrão proposto** (vale até objeção). Complementa a [base técnica](base-tecnica.md) e não altera RF/RNF nem o conteúdo das lições homologadas.
 
 ## Legenda de status
@@ -34,6 +34,12 @@
 | DD014 | Identidade exibida | Apelido + avatar bobi.; nome e foto do Google nunca exibidos | **Decidido** | Incremento A/B |
 | DD015 | Idade e ranking | Data de nascimento no onboarding; ranking global só para 18+ | **Decidido** | Ranking |
 | DD016 | Padrões de interface | Mobile-first, abas inferiores, uma atividade por tela, tema claro | Padrão proposto | Incremento A |
+| DD017 | Conteúdo no MVP | Módulos TypeScript `server-only` validados por Zod; tabelas de conteúdo no Supabase depois | Decidido por delegação | — |
+| DD018 | Proteção do gabarito | Correção em server actions; ids opacos e embaralhamento estável para pares e ordem | Decidido por delegação | — |
+| DD019 | Recompensas e meta diária | Livro-razão com chave idempotente; meta = 1 lição/revisão por dia; XP competitivo = XP elegível | Decidido por delegação | — |
+| DD020 | Avaliações e variações | Banco-base homologado, uma resposta por questão, resultado no final; variações (RF044) ainda pendentes | Decidido por delegação | — |
+| DD021 | Oficina jogável antes de PD007 | Catálogo com **valores de teste**: abre após L01; 5 itens; 2 melhorias; nivelamento em 4 cantos | Decidido por delegação | Homologação PD007 |
+| DD022 | Assets provisórios | Cartão provisório (emoji + rótulo) até a arte existir; catálogo gera `sprites-pendentes.md` | Decidido por delegação | Arte final |
 
 ---
 
@@ -180,6 +186,52 @@ As fichas homologadas **não são reescritas**; o pré-requisito alternativo sim
 | Som e animação | Sons curtos opcionais, desligados por padrão; respeitar "reduzir movimento" do sistema. |
 | Acessibilidade | Alvos de toque ≥ 44 px, foco visível, feedback com ícone + texto, contraste AA. |
 
+## DD017 — Conteúdo em módulos `server-only` no MVP
+
+**Decisão (por delegação, 03/11/2026):** as 24 lições e 3 avaliações homologadas foram transcritas para `src/content/mundos/m{1,2,3}/*.ts`, validadas pelo schema Zod de `src/content/schema.ts` (teste `pnpm test` e na carga do servidor). O registro `src/content/index.ts` é `server-only`; o navegador recebe só a projeção pública (`src/content/public-types.ts`).
+
+**Por quê:** entrega o objetivo de DD001 (gabarito nunca exposto, correção no servidor, conteúdo revisado em PR, validação por schema) sem esperar o modelo de tabelas de conteúdo. `CONTENT_VERSION` é o hash do conteúdo validado e é gravado em cada tentativa/progresso (RNF011).
+
+**Próximo passo:** quando PD010 definir o painel editorial, gerar seeds das tabelas `lessons/activities/private.answer_keys` a partir destes módulos — o schema já é o contrato.
+
+**Textos não homologados:** onde a ficha não trazia um campo exigido pelo motor (dicas, títulos, alguns feedbacks, distratores das avaliações), o texto foi redigido pela equipe técnica e está marcado no código com `// redigido pela equipe técnica`; avaliações com distratores redigidos têm `authoredDistractors: true`. **Precisam de revisão pedagógica.**
+
+## DD018 — Correção no servidor e ids opacos
+
+**Decisão:** toda resposta vai para uma server action que corrige, grava `activity_attempts` e avança `lesson_progress` com atualização condicional (`current_step` esperado), impedindo dupla conclusão (RNF017). Na associação e na ordenação, os ids enviados ao navegador são hashes (`opaqueId`) e a ordem é embaralhada de forma estável, para que o HTML não revele pares nem sequência. A dica aparece a partir do 2º erro na rodada (DD006); uso de dica fica registrado.
+
+## DD019 — Recompensas, meta diária e sequência
+
+**Decisão:** `wallet_ledger` com `unique(user_id, event_key)`:
+
+| Evento | Chave | XP / Fios |
+|---|---|---|
+| Primeira conclusão | `lesson:<id>:first` | 20 / 10 |
+| Revisão válida do dia | `review:<id>:<dia>` | 5 / 0 |
+| Primeira aprovação | `assessment:<id>:first` | 30 / 15 |
+| Meta diária | `daily:<dia>` | 10 / 5 |
+
+A meta diária é cumprida com **uma lição ou revisão concluída** no dia (`America/Sao_Paulo`). Sequência = dias consecutivos com meta até hoje (ou ontem). XP competitivo = XP dos eventos acima (já limitados por dia), somado por semana de segunda a domingo. Gastos de Fios na oficina são lançamentos negativos sem XP.
+
+## DD020 — Avaliações de domínio
+
+**Decisão:** uma tentativa aberta por avaliação; cada questão é respondida uma vez, sem revelar acerto; o resultado (acertos, explicação por questão e links para revisar as lições indicadas) aparece no final. Aprovação com 4/5 libera o próximo mundo. Nova tentativa usa o mesmo banco-base até as variações de RF044 serem escritas e homologadas.
+
+## DD021 — Oficina jogável com valores de teste
+
+**Decisão:** para ter um loop jogável, a oficina foi implementada com valores **provisórios** em `src/lib/game/workshop-catalog.ts`. Eles **não** homologam PD007.
+
+- Abre após concluir a L01 (primeiro marco curricular).
+- Máquina: Bobi Mini → Bobi Ajustada (kit de estabilidade, 60 Fios, após AV02, −25% no tempo) → Bobi Auto (sensor, 100 Fios, após AV03, nivelamento assistido).
+- Itens: chaveiro (grátis, 2 min, L01), cubo de calibração (10, 3 min, L04), organizador (20, 5 min, AV01), suporte de ferramentas (30, 8 min, L16), porta-carretel (40, 10 min, AV02).
+- Minijogo: 4 cantos, escala didática de −3 a +3, botões "aproximar/afastar", camada de teste com sintoma por canto (achatada/falhada, redonda/solta, uniforme). Nivelar é exigido antes da primeira fabricação; pode refazer quando quiser. Sem custo por erro.
+- Fabricação: uma ativa por conta (índice único), fim calculado pelo relógio do servidor, coleta só após `ready_at`. A peça vai para a prateleira (inventário); coletar não dá XP nem Fios.
+- Teste local: `BOBI_FAST_PRINTS=1` transforma minutos em segundos.
+
+## DD022 — Assets provisórios e catálogo de sprites
+
+**Decisão:** cada imagem citada no conteúdo tem entrada no catálogo (`src/content/assets/*.ts`) com descrição, câmera, tamanho, fundo, o que deve e não pode aparecer, grupo de consistência e arquivo. Enquanto `status` for `placeholder`, a interface mostra um cartão provisório com emoji e rótulo. `pnpm sprites:report` gera [sprites-pendentes.md](../design/sprites-pendentes.md), a lista de produção. O Caramelo usa um SVG provisório com variação por pose (`src/components/game/caramelo.tsx`).
+
 ## Pendências que continuam abertas
 
 | ID | Tema | Precisa estar decidido antes de |
@@ -193,3 +245,7 @@ As fichas homologadas **não são reescritas**; o pré-requisito alternativo sim
 | PD010 | Gestão editorial e painel administrativo | Edição de conteúdo fora do Git |
 | PD011 | Metas de desempenho e recuperação | Lançamento |
 | PD012 | Aceite do MVP e avaliação pedagógica | Lançamento |
+| DD017 | Revisão pedagógica dos textos marcados como "redigido pela equipe técnica" | Teste com usuários |
+| DD021 | Homologar ou substituir os valores de teste da oficina (PD007) | Lançamento |
+| RF044 | Escrever variações das avaliações | Fim do incremento D |
+| DD022 | Produzir os 188 assets de `sprites-pendentes.md` | Teste com usuários |

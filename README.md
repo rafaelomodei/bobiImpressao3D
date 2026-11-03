@@ -25,6 +25,8 @@ Plataforma educacional gamificada para aprender impressão 3D com microlições,
 - [Mapa de tipos de atividade](docs/arquitetura/mapa-de-tipos-de-atividade.md) — componente do motor para cada atividade com rótulo não canônico.
 - [PD007 — Oficina e progressão](docs/gameplay/pd007-oficina-e-progressao.md) — proposta de minijogo, máquinas, upgrades, inventário e ranking global.
 - [Sistema visual, narrativa e animação](docs/design/sistema-visual-narrativa-e-animacao.md) — diretrizes candidatas para UX, sprites e falas do Caramelo.
+- [Design system](docs/design/design-system.md) — tokens, componentes e telas implementados.
+- [Sprites e ilustrações pendentes](docs/design/sprites-pendentes.md) — 188 assets com instruções de produção (gerado por `pnpm sprites:report`).
 - [Skill de gameplay e narrativa](.agents/skills/bobi-game-director/SKILL.md) — regras de consistência e criação de mecânicas e diálogos.
 
 **Responsável:** Rafael Geovani Omodei. **Levantamento iniciado:** 19/10/2026. **Última homologação pedagógica:** 02/11/2026. **MVP curricular:** 24/24 lições e 3/3 avaliações homologadas; implementação e revisões finais pendentes.
@@ -39,7 +41,7 @@ Plataforma educacional gamificada para aprender impressão 3D com microlições,
 | Oficina, máquinas e upgrades (PD007) | Proposta |
 | Arte do Caramelo | Referência visual v0.1 selecionada; ficha definitiva pendente |
 | Paleta da interface | Laranja/roxo decidido (DD013); tokens v0.2 candidatos |
-| Código | Incremento A (fundação) em andamento |
+| Código | Jogável: 24 lições, 3 avaliações, oficina (valores de teste), perfil e ranking — arte provisória |
 
 ## Como rodar
 
@@ -57,6 +59,23 @@ pnpm dev                     # http://localhost:3000
 | `pnpm build` | Build de produção |
 | `pnpm lint` / `pnpm typecheck` | Lint e checagem de tipos |
 | `pnpm db:push` | Aplica `supabase/migrations` no projeto remoto (`--dry-run` para simular) |
+| `pnpm test` | Valida o conteúdo (schema Zod + catálogo de assets) |
+| `pnpm e2e:session` | Cria o usuário `e2e@bobi.test` e uma sessão local sem Google (apaga o progresso anterior) |
+| `pnpm e2e` | Playwright: jornada completa + todo o currículo, contra `pnpm start` na porta 3100 (rode `pnpm build` antes) |
+| `pnpm sprites:report` | Gera `docs/design/sprites-pendentes.md` a partir do catálogo |
+
+`BOBI_FAST_PRINTS=1` faz as fabricações da oficina durarem segundos em vez de minutos (somente testes locais).
+
+### Onde está cada coisa
+
+| Caminho | Conteúdo |
+|---|---|
+| `src/content/mundos/` | Lições e avaliações homologadas transcritas (server-only, DD017) |
+| `src/content/assets/` | Catálogo de sprites/ilustrações (DD022) |
+| `src/content/engine.ts` | Projeção pública e correção das atividades (DD018) |
+| `src/lib/game/` | Regras (XP, desbloqueio, sequência), carteira, reserva de atividade e oficina |
+| `src/components/game/` | Motor de atividades, players de lição/avaliação, oficina e minijogo |
+| `supabase/migrations/` | Perfis, progresso, tentativas, carteira, meta diária, avaliações, reservas, oficina e ranking |
 
 Login: somente Google (DD011). Para testar localmente, `http://localhost:3000/**` precisa estar nas *Redirect URLs* do Supabase Auth.
 

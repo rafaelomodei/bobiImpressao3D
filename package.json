@@ -8,7 +8,11 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
-    "db:push": "node scripts/db-push.mjs"
+    "db:push": "node scripts/db-push.mjs",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "e2e:session": "node scripts/dev-session.mjs --reset",
+    "sprites:report": "node --no-warnings scripts/sprites-report.mts"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
@@ -20,6 +24,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@playwright/test": "1.56.1",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -28,7 +33,8 @@
     "eslint-config-next": "16.4.4",
     "supabase": "3.0.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.7"
   },
   "packageManager": "pnpm@11.9.0"
 }
