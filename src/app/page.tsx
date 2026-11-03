@@ -49,11 +49,14 @@ export default function WelcomePage({ searchParams }: PageProps<"/">) {
 }
 
 async function LoginError({ searchParams }: { searchParams: PageProps<"/">["searchParams"] }) {
-  const { erro } = await searchParams;
+  const { erro, motivo } = await searchParams;
   if (erro !== "login") return null;
   return (
-    <p role="alert" className="text-center text-sm font-bold text-feedback-error">
-      ⚠ Não deu para entrar agora. Tente de novo.
-    </p>
+    <div role="alert" className="text-center text-sm font-bold text-feedback-error">
+      <p>⚠ Não deu para entrar agora. Tente de novo.</p>
+      {typeof motivo === "string" && motivo && (
+        <p className="mt-1 text-xs font-semibold text-structure-soft-text">Detalhe: {motivo}</p>
+      )}
+    </div>
   );
 }
