@@ -1,73 +1,141 @@
 import type { Metadata } from "next";
-import { CarameloPlaceholder } from "@/components/caramelo-placeholder";
-import { PageShell } from "@/components/page-shell";
-import { MUNDOS } from "@/content/trilha";
+import Link from "next/link";
+import { Suspense } from "react";
+import { WORLDS } from "@/content";
+import { Caramelo } from "@/components/game/caramelo";
+import { StatsBar } from "@/components/game/stats-bar";
 import { requireProfile } from "@/lib/dal";
+import { getPlayerSnapshot, type PlayerSnapshot } from "@/lib/game/server";
 
 export const metadata: Metadata = { title: "Trilha" };
 
 export default function TrilhaPage() {
   return (
-    <PageShell title="Sua trilha">
-      <Trilha />
-    </PageShell>
+    <main className="mx-auto flex w-full max-w-xl flex-1 flex-col">
+      <Suspense fallback={<TrilhaSkeleton />}>
+        <Trilha />
+      </Suspense>
+    </main>
   );
 }
 
+function TrilhaSkeleton() {
+  return (
+    <div className="flex flex-col items-center gap-6 px-4 py-10">
+      <Caramelo pose="idle" size={96} className="animate-float" />
+      <p className="font-black text-structure-soft-text">Carregando sua trilha…</p>
+    </div>
+  );
+}
+
+/** Deslocamento horizontal em zigue-zague dos nós (px). */
+const OFFSETS = [0, 44, 72, 44, 0, -44, -72, -44];
+
 async function Trilha() {
   const profile = await requireProfile();
+  const snap = await getPlayerSnapshot(profile.user_id);
+  const current = snap.path.find((p) => p.state === "available");
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="card flex items-center gap-4">
-        <CarameloPlaceholder size={64} />
-        <p>
-          <span className="font-extrabold">E aí, {profile.nickname}!</span>{" "}
-          <span className="text-structure-soft-text">A primeira missão chega no próximo incremento.</span>
+    <>
+      <StatsBar snapshot={snap} />
+      <div className="flex flex-col gap-10 px-4 pt-4 pb-10">
+        {WORLDS.map((w) => {
+          const nodes = snap.path.filter((p) => p.node.world === w.number);
+          const unlocked = nodes.some((n) => n.state !== "locked");
+          const done = nodes.filter((n) => n.state === "completed").length;
+          return (
+            <section key={w.id} aria-labelledby={`mundo-${w.id}`} className="flex flex-col gap-6">
+              <header
+                className={`sticky top-[60px] z-10 flex items-center justify-between gap-3 rounded-2xl px-5 py-4 text-white shadow-[0_4px_0_var(--color-structure-purple-pressed)] ${
+                  unlocked ? "bg-structure-purple" : "bg-structure-soft"
+                }`}
+              >
+                <div>
+                  <p className="text-xs font-black tracking-widest uppercase opacity-80">Mundo {w.number}</p>
+                  <h2 id={`mundo-${w.id}`} className="text-xl font-black">
+                    {w.title}
+                  </h2>
+                  <p className="text-sm font-bold opacity-90">{w.subtitle}</p>
+                </div>
+                <p className="shrink-0 rounded-xl bg-white/15 px-3 py-1 text-sm font-black">
+                  {done}/{nodes.length}
+                </p>
+              </header>
+              <ol className="flex flex-col items-center gap-5">
+                {nodes.map((p, i) => (
+                  <PathItem key={p.node.id} item={p} offset={OFFSETS[i % 8]} isCurrent={current?.node.id === p.node.id} />
+                ))}
+              </ol>
+            </section>
+          );
+        })}
+        <p className="text-center text-sm font-bold text-structure-soft-text">
+          Mais mundos chegam depois do MVP: fatiamento avançado, materiais e diagnóstico.
         </p>
       </div>
+    </>
+  );
+}
 
-      {MUNDOS.map((mundo, mi) => (
-        <section key={mundo.id} aria-labelledby={`mundo-${mundo.id}`} className="flex flex-col gap-3">
-          <h2
-            id={`mundo-${mundo.id}`}
-            className="rounded-2xl bg-structure-purple px-5 py-3 text-lg font-black text-surface"
-          >
-            Mundo {mi + 1} · {mundo.titulo}
-          </h2>
-          <ol className="flex flex-col items-center gap-3 py-2">
-            {mundo.licoes.map((titulo, li) => {
-              const numero = mi * 8 + li + 1;
-              const atual = numero === 1;
-              const offset = ["", "translate-x-10", "translate-x-14", "translate-x-10", "", "-translate-x-10", "-translate-x-14", "-translate-x-10"][li];
-              return (
-                <li key={titulo} className={`flex flex-col items-center gap-1 ${offset}`}>
-                  <span
-                    className={`grid size-16 place-items-center rounded-full text-xl font-black ${
-                      atual
-                        ? "bg-brand-primary text-structure-deep shadow-[0_5px_0_var(--color-brand-primary-pressed)]"
-                        : "bg-structure-soft/25 text-structure-soft-text"
-                    }`}
-                    aria-hidden
-                  >
-                    {atual ? "★" : "🔒"}
-                  </span>
-                  <span className="max-w-40 text-center text-xs font-bold">
-                    L{String(numero).padStart(2, "0")} · {titulo}
-                    <span className="sr-only">{atual ? " (próxima missão)" : " (bloqueada)"}</span>
-                  </span>
-                </li>
-              );
-            })}
-            <li className="flex flex-col items-center gap-1">
-              <span className="grid size-20 place-items-center rounded-3xl bg-structure-soft/25 text-3xl" aria-hidden>
-                🏅
-              </span>
-              <span className="text-xs font-bold">Avaliação do Mundo {mi + 1}</span>
-            </li>
-          </ol>
-        </section>
-      ))}
-    </div>
+function PathItem({
+  item,
+  offset,
+  isCurrent,
+}: {
+  item: PlayerSnapshot["path"][number];
+  offset: number;
+  isCurrent: boolean;
+}) {
+  const { node, state, inProgress } = item;
+  const isAssessment = node.kind === "assessment";
+  const href = isAssessment ? `/avaliacao/${node.slug}` : `/licao/${node.slug}`;
+  const label = isAssessment ? node.title : `L${String(node.number).padStart(2, "0")} · ${node.title}`;
+  const size = isAssessment ? "size-20" : "size-[72px]";
+  const color =
+    state === "completed"
+      ? "bg-brand-caramel text-structure-deep shadow-[0_6px_0_var(--color-brand-caramel-pressed)]"
+      : state === "available"
+        ? "bg-brand-primary text-structure-deep shadow-[0_6px_0_var(--color-brand-primary-pressed)]"
+        : "bg-locked text-structure-soft shadow-[0_6px_0_var(--color-locked-pressed)]";
+  const icon = state === "locked" ? "🔒" : isAssessment ? "🏅" : state === "completed" ? "✔" : inProgress ? "▶" : "★";
+  const status = state === "completed" ? "concluída" : state === "available" ? "disponível" : "bloqueada";
+
+  const circle = (
+    <span
+      className={`grid ${size} place-items-center ${isAssessment ? "rounded-3xl" : "rounded-full"} text-3xl font-black transition active:translate-y-1.5 active:shadow-none ${color} ${
+        isCurrent ? "ring-4 ring-brand-primary/30 ring-offset-4 ring-offset-background" : ""
+      }`}
+      aria-hidden
+    >
+      {icon}
+    </span>
+  );
+
+  return (
+    <li className={`relative flex flex-col items-center gap-2 ${isCurrent ? "mt-10" : ""}`} style={{ transform: `translateX(${offset}px)` }}>
+      {isCurrent && (
+        <span className="animate-float absolute -top-11 rounded-xl border-2 border-structure-line bg-surface px-3 py-1 text-sm font-black whitespace-nowrap text-brand-primary-pressed uppercase">
+          {inProgress ? "Continuar" : "Começar"}
+        </span>
+      )}
+      {state === "locked" ? (
+        <span className="flex flex-col items-center gap-2" aria-disabled>
+          {circle}
+          <span className="max-w-44 text-center text-xs font-bold text-structure-soft-text">
+            {label}
+            <span className="sr-only"> ({status})</span>
+          </span>
+        </span>
+      ) : (
+        <Link href={href} className="flex flex-col items-center gap-2 rounded-2xl">
+          {circle}
+          <span className="max-w-44 text-center text-xs font-extrabold">
+            {label}
+            <span className="sr-only"> ({status}{state === "completed" ? ", toque para revisar" : ""})</span>
+          </span>
+        </Link>
+      )}
+    </li>
   );
 }

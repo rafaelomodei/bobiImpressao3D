@@ -33,3 +33,6 @@ test-results/
 
 *.pem
 .pnp.*
+e2e/.auth/
+test-results/
+playwright-report/
