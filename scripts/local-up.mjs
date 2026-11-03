@@ -43,6 +43,8 @@ BOBI_FAST_PRINTS=1
 
 // Conta do painel /admin (a tela de entrada não cria contas, DD026).
 execFileSync("node", ["scripts/admin-create.mjs", "--local"], { stdio: "inherit" });
+// Conta de teste com tudo liberado, para avaliar o jogo sem Google (DD029).
+execFileSync("node", ["scripts/tester-create.mjs", "--local"], { stdio: "inherit" });
 
 console.log(`
 ✔ Supabase local no ar: ${url}
@@ -51,5 +53,6 @@ console.log(`
 
 Agora rode:  pnpm dev   →  http://localhost:3000  →  "Entrar sem Google (modo local)"
 Painel admin: http://localhost:3000/admin/entrar  (admin@bobi.local / bobi-admin-2026)
+Conta de teste: http://localhost:3000/teste      (avaliador@bobi.local / bobi-teste-2026)
 Para voltar ao Supabase remoto: pnpm local:down
 `);

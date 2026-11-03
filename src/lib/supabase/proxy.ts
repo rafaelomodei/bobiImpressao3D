@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { publicEnv } from "@/lib/env";
 
 /** Rotas acessíveis sem sessão. */
-const PUBLIC_PATHS = ["/", "/auth", "/admin/entrar"];
+const PUBLIC_PATHS = ["/", "/auth", "/admin/entrar", "/teste"];
 
 function isPublic(pathname: string) {
   return PUBLIC_PATHS.some(

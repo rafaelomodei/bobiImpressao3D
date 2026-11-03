@@ -41,6 +41,7 @@
 | DD021 | Oficina jogável antes de PD007 | Catálogo com **valores de teste**: abre após L01; 5 itens; 2 melhorias; nivelamento em 4 cantos | Decidido por delegação | Homologação PD007 |
 | DD026 | Papel administrativo e painel de relatórios | Administrador só **observa**: painel `/admin` com uso, aprendizagem, tempo, saídas e retenção após erro; sem criação de conteúdo; conta de demonstração visível | Decidido | — |
 | DD027 | Ciclo de erro com glossário | Ao errar, "Entenda os termos" explica em frases curtas os termos da pergunta e da resposta marcada, com ilustração existente | Decidido | — |
+| DD029 | Conta de teste para avaliação | Jogador comum com todo o progresso gravado no banco (sem regra especial), entrada por e-mail em `/teste`; credencial visível | Decidido | — |
 | DD022 | Assets provisórios | Cartão provisório (emoji + rótulo) até a arte existir; catálogo gera `sprites-pendentes.md` | Decidido por delegação | Arte final |
 
 ---
@@ -337,6 +338,21 @@ Telemetria nunca quebra o jogo: falhas ao gravar eventos são ignoradas.
 
 **Revisão pedagógica:** as definições foram redigidas pela equipe técnica e entram na mesma revisão dos textos marcados como "redigido pela equipe técnica" (DD017).
 
+## DD029 — Conta de teste para avaliação
+
+**Contexto:** quem avalia o projeto (professor, banca, colegas) precisa ver todas as telas e funcionalidades sem jogar as 24 lições antes, e não deve depender de uma conta Google pessoal. Os jogadores entram só com Google (DD011).
+
+**Decisão:** existe uma **conta de teste** compartilhada, que é um **jogador comum**. O jogo não tem nenhuma regra especial para ela: o script `pnpm tester:create` grava no banco o progresso de quem já terminou tudo, e as regras normais de desbloqueio (DD003, DD021) liberam o resto.
+
+- **Credencial visível** (projeto em estudo): `avaliador@bobi.local` / `bobi-teste-2026`, na tela `/teste` e no README. A tela inicial tem o link "Conta de teste (avaliação)". `BOBI_TESTER_DEMO=0` esconde a credencial e o link.
+- **Entrada em `/teste`**, com e-mail e senha, **só para contas que já existem**, como no painel (DD026): a tela não cria conta nem envia e-mail. O bloqueio de cadastro público por e-mail continua valendo, então só contas internas (`@bobi.local`) têm senha. A conta administrativa é recusada ali e entra por `/admin/entrar`.
+- **O que o script grava:** perfil já feito (apelido `Avaliador`, adulto, fora do ranking até ativar no perfil), as 24 lições concluídas, as 3 avaliações aprovadas com 5/5, o XP e os Fios dessas conquistas (mesmas chaves idempotentes do jogo) e +500 Fios para a oficina. A oficina inteira custa 260 Fios.
+- **O que fica para testar:** lições abrem em modo revisão, avaliações podem ser refeitas, a mesa da oficina começa sem nivelar (minijogo) e nada foi comprado nem impresso. A sequência de dias começa em 0.
+- **Relatórios:** as conquistas gravadas têm data de 01/01/2026, então não entram nos indicadores do período do painel `/admin` nem no XP semanal do ranking. O que a pessoa jogar com a conta conta normalmente, e assim dá para ver as próprias ações refletidas no painel.
+- **Restaurar:** rodar `pnpm tester:create` de novo devolve as lições e avaliações ao estado concluído. `pnpm tester:create --reset` apaga a conta e recria do zero, incluindo oficina e histórico. No modo local, o `pnpm local:up` já cria a conta.
+
+**Consequências:** como a conta é compartilhada, avaliadores diferentes veem as ações uns dos outros. Antes de abrir o app ao público, esconder a credencial (`BOBI_TESTER_DEMO=0`) ou apagar a conta.
+
 ## Pendências que continuam abertas
 
 | ID | Tema | Precisa estar decidido antes de |
@@ -349,6 +365,7 @@ Telemetria nunca quebra o jogo: falhas ao gravar eventos são ignoradas.
 | — | Credenciais OAuth do Google configuradas no Supabase | Primeiro login |
 | PD010 | Gestão editorial (o painel de **relatórios** já existe, DD026; edição de conteúdo continua no Git) | Edição de conteúdo fora do Git |
 | DD026 | Esconder a conta de demonstração (`BOBI_ADMIN_DEMO=0`), trocar a senha e criar contas administrativas nominais (`pnpm admin:create`) | Abertura ao público |
+| DD029 | Esconder a conta de teste (`BOBI_TESTER_DEMO=0`) ou apagá-la | Abertura ao público |
 | PD011 | Metas de desempenho e recuperação | Lançamento |
 | PD012 | Aceite do MVP e avaliação pedagógica | Lançamento |
 | DD017 | Revisão pedagógica dos textos marcados como "redigido pela equipe técnica" | Teste com usuários |

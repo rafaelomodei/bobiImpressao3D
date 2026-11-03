@@ -34,6 +34,7 @@ Modelo versionado em [`.env.example`](../../.env.example); valores reais ficam e
 | `SUPABASE_PROJECT_NAME` / `SUPABASE_PROJECT_REF` | Ferramentas | Identificação do projeto para a Supabase CLI |
 | `SUPABASE_DB_PASSWORD` | Ferramentas | Senha do Postgres para `supabase link` e migrações |
 | `BOBI_ADMIN_DEMO` | Somente servidor | `0` esconde da tela `/admin/entrar` a credencial da conta administrativa de demonstração (DD026); padrão: visível |
+| `BOBI_TESTER_DEMO` | Somente servidor | `0` esconde da tela `/teste` e da tela inicial a credencial da conta de teste (DD029); padrão: visível |
 
 Regras: nunca commitar `.env`/`.env.local`; nunca prefixar a chave secreta com `NEXT_PUBLIC_`; trocar a chave secreta no painel do Supabase se ela vazar.
 

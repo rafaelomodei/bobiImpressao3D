@@ -15,9 +15,20 @@ Plataforma educacional gamificada para aprender impressão 3D com microlições,
 | [/oficina](https://bobi-roan.vercel.app/oficina) | Oficina do Caramelo (abre depois da L01) |
 | [/perfil](https://bobi-roan.vercel.app/perfil) | Perfil, conquistas e preferências (som) |
 | [/ranking](https://bobi-roan.vercel.app/ranking) | Ranking semanal (só maiores de 18) |
+| [/teste](https://bobi-roan.vercel.app/teste) | Conta de teste com tudo liberado, sem Google (credencial abaixo) |
 | [/admin](https://bobi-roan.vercel.app/admin/entrar) | Painel administrativo de relatórios (conta de demonstração abaixo) |
 
 As páginas internas pedem login; sem sessão, você volta para a entrada. Cada push na `main` publica uma nova versão automaticamente (Vercel).
+
+## Conta de teste (para avaliar o jogo)
+
+Para avaliar o bobi sem conta Google e sem jogar as 24 lições antes ([DD029](docs/arquitetura/decisoes-de-desenvolvimento.md#dd029--conta-de-teste-para-avaliação)):
+
+| E-mail | Senha |
+|---|---|
+| `avaliador@bobi.local` | `bobi-teste-2026` |
+
+Entre por **/teste** (há um link "Conta de teste (avaliação)" na tela inicial). É um jogador comum, com os três mundos, as 24 lições e as 3 avaliações já concluídos e Fios para a oficina. Não há regra especial no jogo: o progresso foi gravado no banco por `pnpm tester:create`. Rodar o comando de novo restaura as lições e avaliações; `--reset` recria a conta do zero. No modo local o `pnpm local:up` já cria. A conta é compartilhada, então quem avalia vê as ações dos outros avaliadores. Antes de abrir o app ao público, defina `BOBI_TESTER_DEMO=0`.
 
 ## Painel administrativo (relatórios)
 
@@ -129,6 +140,7 @@ pnpm dev                     # http://localhost:3000
 | `pnpm local:demo` | Jogadores de demonstração no Supabase local para o painel `/admin` |
 | `pnpm db:push` | Aplica `supabase/migrations` no projeto remoto (`--dry-run` para simular) |
 | `pnpm admin:create` | Cria/atualiza a conta do painel `/admin` no projeto remoto (`--local` para o Supabase local) |
+| `pnpm tester:create` | Cria/restaura a conta de teste com tudo liberado (`--local` para o Supabase local, `--reset` para recriar do zero) |
 | `pnpm e2e:session` | Cria o usuário `e2e@bobi.test` e uma sessão sem Google para o Playwright |
 | `pnpm e2e` | Playwright: jornada completa, menor de idade e todo o currículo, na porta 3100 (rode `pnpm build` antes) |
 | `pnpm sprites:sync` | Atualiza a lista de sprites prontos (roda sozinho antes de `dev` e `build`) |
