@@ -1,6 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
@@ -33,6 +34,7 @@ export async function isAdminUser(userId: string): Promise<boolean> {
 
 /** Painel: exige sessão de uma conta listada em admin_users; senão volta para a entrada do painel. */
 export const requireAdmin = cache(async (): Promise<string> => {
+  await connection(); // ver requireUserId em dal.ts (Date.now() no prerender)
   const supabase = await createClient();
   const { data } = await supabase.auth.getClaims();
   const userId = data?.claims?.sub;

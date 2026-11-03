@@ -1,6 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
 export type Profile = {
@@ -13,6 +14,10 @@ export type Profile = {
 
 /** Usuário autenticado (claims verificadas do JWT) ou redireciona para boas-vindas. */
 export const requireUserId = cache(async (): Promise<string> => {
+  // Dados do jogador só na requisição: com o App Shell (partialPrefetching) a página é
+  // pré-renderizada com os cookies, e a validação do JWT usa Date.now() (expiração),
+  // o que o Next proíbe durante o prerender. As telas já mostram o carregamento no lugar.
+  await connection();
   const supabase = await createClient();
   const { data } = await supabase.auth.getClaims();
   const userId = data?.claims?.sub;
