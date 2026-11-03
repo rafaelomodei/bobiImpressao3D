@@ -7,8 +7,10 @@ import { createClient } from "@/lib/supabase/server";
 /**
  * Conta administrativa de demonstração (DD026). O projeto está em estudo: a credencial
  * fica visível na tela de entrada do painel para quem for avaliar a aplicação.
- * A conta é criada na primeira entrada. Para esconder e desativar a criação
- * automática (ex.: antes de abrir ao público), defina BOBI_ADMIN_DEMO=0.
+ * A conta já existe no banco: é criada uma vez por `pnpm admin:create` (e pelo
+ * `pnpm local:up` no modo local); a tela de entrada não cria contas.
+ * Para esconder a credencial (ex.: antes de abrir ao público), defina BOBI_ADMIN_DEMO=0.
+ * Mantenha estes valores iguais aos de scripts/admin-create.mjs.
  */
 export const DEMO_ADMIN = {
   email: "admin@bobi.local",
@@ -38,26 +40,3 @@ export const requireAdmin = cache(async (): Promise<string> => {
   if (!(await isAdminUser(userId))) redirect("/admin/entrar?erro=sem-acesso");
   return userId;
 });
-
-/** Cria (se preciso) a conta de demonstração e garante o papel de administrador. */
-export async function ensureDemoAdmin(): Promise<void> {
-  const admin = createAdminClient();
-  const created = await admin.auth.admin.createUser({
-    email: DEMO_ADMIN.email,
-    password: DEMO_ADMIN.password,
-    email_confirm: true,
-  });
-  let userId = created.data.user?.id;
-  if (!userId) {
-    // Já existe: localiza e repõe a senha de demonstração.
-    for (let page = 1; !userId && page <= 20; page++) {
-      const { data } = await admin.auth.admin.listUsers({ page, perPage: 200 });
-      userId = data.users.find((u) => u.email === DEMO_ADMIN.email)?.id;
-      if (data.users.length < 200) break;
-    }
-    if (!userId) throw new Error("Conta de demonstração não encontrada.");
-    await admin.auth.admin.updateUserById(userId, { password: DEMO_ADMIN.password });
-  }
-  const { error } = await admin.from("admin_users").upsert({ user_id: userId }, { onConflict: "user_id" });
-  if (error) throw new Error(`Falha ao registrar administrador: ${error.message}`);
-}

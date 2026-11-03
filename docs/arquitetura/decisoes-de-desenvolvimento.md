@@ -283,8 +283,9 @@ Novos recursos restritos por idade devem seguir o mesmo padrão: `adultsOnly` no
 **Acesso.**
 
 - Quem pode abrir: contas listadas na tabela `admin_users` (sem políticas RLS; só o servidor lê com a chave secreta). `requireAdmin` em `src/lib/admin.ts` protege a página.
-- Entrada própria em `/admin/entrar`, com e-mail e senha. Jogadores continuam entrando só com Google (DD011); a conta administrativa não joga (não tem perfil e fica fora de todos os indicadores).
-- **Conta de demonstração**, visível na tela de entrada porque o projeto está em estudo e precisa ser avaliado: `admin@bobi.local` / `bobi-admin-2026`. É criada (e recebe o papel) na primeira entrada com essa credencial, tanto no Supabase local quanto no remoto. `BOBI_ADMIN_DEMO=0` esconde a credencial e desliga a criação automática — obrigatório antes de abrir o app ao público.
+- Entrada própria em `/admin/entrar`, com e-mail e senha, **só para contas que já existem**: a tela não cria conta, não envia e-mail e não tem cadastro. Jogadores continuam entrando só com Google (DD011); a opção de e-mail aparece apenas no caminho do painel. A conta administrativa não joga (não tem perfil e fica fora de todos os indicadores).
+- **Conta de demonstração**, visível na tela de entrada porque o projeto está em estudo e precisa ser avaliado: `admin@bobi.local` / `bobi-admin-2026`. É criada uma vez por ambiente com `pnpm admin:create` (remoto) — já criada no projeto publicado em 03/11/2026 — e automaticamente pelo `pnpm local:up` no modo local. `pnpm admin:create <email> <senha>` cria outras contas administrativas. `BOBI_ADMIN_DEMO=0` esconde a credencial da tela — obrigatório antes de abrir o app ao público, junto com a troca da senha.
+- O provedor de e-mail do Supabase Auth precisa ficar **ligado** para esse login funcionar. Como o app não oferece cadastro por e-mail, recomenda-se desligar o cadastro público por e-mail no painel do Supabase quando for possível sem afetar o Google.
 - O painel mostra só **apelido e faixa etária** (menor / 18+). Nome, e-mail, foto e data de nascimento não aparecem (RNF015, DD014, DD015).
 
 **O que é medido (telemetria nova).**
@@ -324,7 +325,7 @@ Telemetria nunca quebra o jogo: falhas ao gravar eventos são ignoradas.
 | PT001 | Idade, privacidade e menores (inclui Family Link no login Google, DD011) | Qualquer conta real de menor; anúncios |
 | — | Credenciais OAuth do Google configuradas no Supabase | Primeiro login |
 | PD010 | Gestão editorial (o painel de **relatórios** já existe, DD026; edição de conteúdo continua no Git) | Edição de conteúdo fora do Git |
-| DD026 | Desativar a conta administrativa de demonstração (`BOBI_ADMIN_DEMO=0`) e criar contas administrativas nominais | Abertura ao público |
+| DD026 | Esconder a conta de demonstração (`BOBI_ADMIN_DEMO=0`), trocar a senha e criar contas administrativas nominais (`pnpm admin:create`) | Abertura ao público |
 | PD011 | Metas de desempenho e recuperação | Lançamento |
 | PD012 | Aceite do MVP e avaliação pedagógica | Lançamento |
 | DD017 | Revisão pedagógica dos textos marcados como "redigido pela equipe técnica" | Teste com usuários |

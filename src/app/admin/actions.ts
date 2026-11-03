@@ -1,12 +1,13 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { DEMO_ADMIN, demoAdminEnabled, ensureDemoAdmin, isAdminUser } from "@/lib/admin";
+import { isAdminUser } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
 
 /**
- * Entrada do painel administrativo com e-mail e senha (DD026). O login Google
- * continua sendo o único acesso de jogadores (DD011); esta conta não joga.
+ * Entrada do painel administrativo com e-mail e senha (DD026). Só entra numa conta
+ * que já existe e está em admin_users (criada por `pnpm admin:create`); esta tela
+ * não cria contas. Jogadores continuam entrando só com Google (DD011).
  */
 export async function signInAdmin(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
@@ -14,26 +15,12 @@ export async function signInAdmin(formData: FormData) {
   if (!email || !password) redirect("/admin/entrar?erro=credenciais");
 
   const supabase = await createClient();
-  let { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-  // Primeira entrada com a conta de demonstração: cria a conta e tenta de novo.
-  const isDemo = email === DEMO_ADMIN.email && password === DEMO_ADMIN.password;
-  if (error && isDemo && demoAdminEnabled()) {
-    try {
-      await ensureDemoAdmin();
-    } catch {
-      redirect("/admin/entrar?erro=indisponivel");
-    }
-    ({ data, error } = await supabase.auth.signInWithPassword({ email, password }));
-  }
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error || !data.user) redirect("/admin/entrar?erro=credenciais");
 
   if (!(await isAdminUser(data.user.id))) {
-    if (isDemo && demoAdminEnabled()) await ensureDemoAdmin();
-    else {
-      await supabase.auth.signOut();
-      redirect("/admin/entrar?erro=sem-acesso");
-    }
+    await supabase.auth.signOut();
+    redirect("/admin/entrar?erro=sem-acesso");
   }
   redirect("/admin");
 }

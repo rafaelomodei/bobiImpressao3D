@@ -33,7 +33,7 @@ Modelo versionado em [`.env.example`](../../.env.example); valores reais ficam e
 | `SUPABASE_SECRET_KEY` | **Somente servidor** | Chave secreta (`sb_secret_…`), ignora RLS; usar só em correção, recompensas e seeds |
 | `SUPABASE_PROJECT_NAME` / `SUPABASE_PROJECT_REF` | Ferramentas | Identificação do projeto para a Supabase CLI |
 | `SUPABASE_DB_PASSWORD` | Ferramentas | Senha do Postgres para `supabase link` e migrações |
-| `BOBI_ADMIN_DEMO` | Somente servidor | `0` esconde a conta administrativa de demonstração e desliga sua criação automática (DD026); padrão: ligada |
+| `BOBI_ADMIN_DEMO` | Somente servidor | `0` esconde da tela `/admin/entrar` a credencial da conta administrativa de demonstração (DD026); padrão: visível |
 
 Regras: nunca commitar `.env`/`.env.local`; nunca prefixar a chave secreta com `NEXT_PUBLIC_`; trocar a chave secreta no painel do Supabase se ela vazar.
 

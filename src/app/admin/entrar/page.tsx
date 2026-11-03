@@ -10,7 +10,6 @@ export const metadata: Metadata = { title: "Painel administrativo" };
 const ERRORS: Record<string, string> = {
   credenciais: "E-mail ou senha incorretos.",
   "sem-acesso": "Esta conta não tem acesso ao painel administrativo.",
-  indisponivel: "Não deu para preparar a conta de demonstração agora. Tente de novo.",
 };
 
 /** Entrada do painel de relatórios (DD026). Jogadores entram pela tela inicial, com Google. */

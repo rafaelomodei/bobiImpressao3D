@@ -29,7 +29,7 @@ O administrador **observa**, não cria conteúdo ([DD026](docs/arquitetura/decis
 |---|---|
 | `admin@bobi.local` | `bobi-admin-2026` |
 
-Entre por **/admin/entrar** (há um link "Área administrativa" na tela inicial). A conta é criada sozinha na primeira entrada. Antes de abrir o app ao público, defina `BOBI_ADMIN_DEMO=0` para esconder a credencial e desligar a criação automática.
+Entre por **/admin/entrar** (há um link "Área administrativa" na tela inicial). Jogadores entram só com Google; o login por e-mail existe apenas nesse caminho e só para contas administrativas que já existem — a tela não cria conta. A conta já está criada na versão publicada; no modo local o `pnpm local:up` cria. Para criar em outro ambiente ou adicionar outra conta: `pnpm admin:create [email senha]` (`--local` para o Supabase local). Antes de abrir o app ao público, defina `BOBI_ADMIN_DEMO=0` para esconder a credencial e troque a senha.
 
 ## Documentação
 
@@ -128,6 +128,7 @@ pnpm dev                     # http://localhost:3000
 | `pnpm local:up` / `local:reset` / `local:down` | Modo 100% local com Supabase em Docker |
 | `pnpm local:demo` | Jogadores de demonstração no Supabase local para o painel `/admin` |
 | `pnpm db:push` | Aplica `supabase/migrations` no projeto remoto (`--dry-run` para simular) |
+| `pnpm admin:create` | Cria/atualiza a conta do painel `/admin` no projeto remoto (`--local` para o Supabase local) |
 | `pnpm e2e:session` | Cria o usuário `e2e@bobi.test` e uma sessão sem Google para o Playwright |
 | `pnpm e2e` | Playwright: jornada completa, menor de idade e todo o currículo, na porta 3100 (rode `pnpm build` antes) |
 | `pnpm sprites:sync` | Atualiza a lista de sprites prontos (roda sozinho antes de `dev` e `build`) |
