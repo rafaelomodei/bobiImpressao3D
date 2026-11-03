@@ -29,14 +29,14 @@ Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1]
 
 | ID/formato | Enunciado ou tarefa | Resposta correta | Feedback em caso de erro |
 |---|---|---|---|
-| A01 · associação | Ligue STL, 3MF e G-code ao papel no contexto FDM. | STL ↔ representação geométrica; 3MF ↔ formato de manufatura aditiva que pode conter geometria e outros dados; G-code ↔ instruções da máquina. | “Geometria e instruções de fabricação não são a mesma coisa.” |
+| A01 · associação | Ligue STL, 3MF e G-code ao papel no contexto FDM. | STL ↔ representação geométrica; 3MF ↔ formato de manufatura aditiva que pode conter geometria e outros dados; G-code ↔ instruções da máquina. | “Geometria e instruções de impressão não são a mesma coisa.” |
 | A02 · múltipla escolha | “Um STL sozinho contém temperatura e percurso de uma impressora específica?” Opções: não, precisa de preparação / sim, sempre / é uma imagem. | Não, STL não contém instruções de máquina. | “O fatiador considera equipamento, material e parâmetros.” |
 | A03 · visual | Mostre cartões STL (malha), 3MF (projeto ilustrativo) e G-code (trajetórias). “Qual apresenta instruções para a máquina?” | G-code compatível com a máquina do cenário. | “Arquivos que descrevem geometria não necessariamente trazem comandos executáveis.” |
 | A04 · aplicação | “Todo 3MF contém os mesmos dados de perfil e instruções?” Opções: não / sim, obrigatoriamente / é só imagem. | Não; depende do arquivo e da aplicação. | “3MF é extensível e nem todo arquivo incorpora todas as configurações.” |
 
 **Acerto:** explicar por que a escolha é válida, confirmar a interação e habilitar 'Continuar'. **Erro:** exibir a explicação específica da tabela, permitir tentar novamente e oferecer destaque visual após erros recorrentes.
 
-**Conclusão:** “Você descobriu a diferença entre representar a peça e instruir a fabricação!” **Primeira conclusão elegível:** +20 XP e +10 Fios; desbloqueia próxima etapa.
+**Conclusão:** “Você descobriu a diferença entre representar a peça e instruir a impressão!” **Primeira conclusão elegível:** +20 XP e +10 Fios; desbloqueia próxima etapa.
 
 **Recursos visuais (pendentes):** Ícones para STL, 3MF e G-code, chaveiro em malha, trajeto esquemático; sem código real.
 
@@ -47,14 +47,14 @@ Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1]
 
 **Código:** BOBI-M03-L18 · **Pré-requisito:** L17 concluída ou avanço por domínio · **Próxima:** L19 · **Fontes:** ULT-02, BAM-03, ORC-01.
 
-**Objetivo:** Reconhecer a função de preparar o modelo e gerar instruções de fabricação com contexto de impressora/material.
+**Objetivo:** Reconhecer a função de preparar o modelo e gerar instruções de impressão com contexto de impressora/material.
 
 **Abertura do Caramelo:** “O modelo está pronto. Quem transforma o projeto em orientações para a impressora?”
 
 | ID/formato | Enunciado ou tarefa | Resposta correta | Feedback em caso de erro |
 |---|---|---|---|
-| A01 · múltipla escolha | “Para que serve um fatiador?” Opções: preparar modelo/instruções / imprimir papel / guardar filamento. | Preparar modelo e gerar instruções. | “O fatiador faz a ponte entre a geometria e a fabricação.” |
-| A02 · associação | Associe modelo, fatiador, prévia e instruções. | Modelo ↔ forma; fatiador ↔ preparo; prévia ↔ inspeção de trajetórias; instruções ↔ comandos compatíveis. | “Visualizar o resultado previsto não é o mesmo que executar a fabricação.” |
+| A01 · múltipla escolha | “Para que serve um fatiador?” Opções: preparar modelo/instruções / imprimir papel / guardar filamento. | Preparar modelo e gerar instruções. | “O fatiador faz a ponte entre a geometria e a impressão.” |
+| A02 · associação | Associe modelo, fatiador, prévia e instruções. | Modelo ↔ forma; fatiador ↔ preparo; prévia ↔ inspeção de trajetórias; instruções ↔ comandos compatíveis. | “Visualizar o resultado previsto não é o mesmo que executar a impressão.” |
 | A03 · ordenação | Ordene abrir modelo, escolher contexto da máquina/material, fatiar e inspecionar prévia. | Abrir → contexto → fatiar → inspecionar. | “A prévia vem depois do preparo.” |
 | A04 · diagnóstico visual | Interface original indica 'ainda não fatiado'. “O que falta antes de ver as camadas?” | Executar fatiamento válido. | “A prévia depende das trajetórias calculadas.” |
 
@@ -97,7 +97,7 @@ Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1]
 
 **Objetivo:** Reconhecer compatibilidade entre perfil de máquina, área útil e projeto no cenário.
 
-**Abertura do Caramelo:** “Duas máquinas, um chaveiro. Qual perfil combina com o que vamos fabricar?”
+**Abertura do Caramelo:** “Duas máquinas, um chaveiro. Qual perfil combina com o que vamos imprimir?”
 
 | ID/formato | Enunciado ou tarefa | Resposta correta | Feedback em caso de erro |
 |---|---|---|---|
@@ -126,7 +126,7 @@ Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1]
 | ID/formato | Enunciado ou tarefa | Resposta correta | Feedback em caso de erro |
 |---|---|---|---|
 | A01 · múltipla escolha | Impressora FDM fictícia aceita PLA. “Qual material escolher?” Opções: PLA compatível / resina líquida / papel. | Filamento PLA compatível. | “A impressora FDM do cenário usa filamento.” |
-| A02 · associação | Ligue carretel PLA, perfil de material e impressora FDM aos seus papéis. | Carretel ↔ material físico; perfil ↔ parâmetros do material; impressora ↔ fabrica. | “Material e configurações são coisas diferentes.” |
+| A02 · associação | Ligue carretel PLA, perfil de material e impressora FDM aos seus papéis. | Carretel ↔ material físico; perfil ↔ parâmetros do material; impressora ↔ imprime. | “Material e configurações são coisas diferentes.” |
 | A03 · diagnóstico visual | Carretel rotulado PLA e perfil PETG selecionado. “Qual inconsistência aparece?” | Perfil e material divergentes. | “Compare o rótulo do filamento com a configuração.” |
 | A04 · aplicação | “Uma temperatura fixa funciona para todo PLA e toda impressora?” Opções: não, varia / sim, sempre / depende só da cor. | Não; depende de equipamento, material e perfil. | “Não existe recomendação universal válida em todo contexto.” |
 
@@ -167,7 +167,7 @@ Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1]
 
 **Código:** BOBI-M03-L23 · **Pré-requisito:** L22 concluída ou avanço por domínio · **Próxima:** L24 · **Fontes:** BAM-03, ORC-01, ULT-02.
 
-**Objetivo:** Inspecionar prévias simples e identificar anomalias claras antes da fabricação virtual.
+**Objetivo:** Inspecionar prévias simples e identificar anomalias claras antes da impressão virtual.
 
 **Abertura do Caramelo:** “O fatiador mostrou a prévia. Vamos conferir se nosso chaveiro vai ficar do jeito esperado!”
 
@@ -193,14 +193,14 @@ Documentos relacionados: [Termo de Abertura](../termo-de-abertura.md), [Mundo 1]
 
 **Objetivo:** Concluir preparação, inspeção e execução simulada guiada de um chaveiro no bobi., sem fatiamento físico ou tempo de espera bloqueante.
 
-**Abertura do Caramelo:** “Chegou a missão final! Vamos fabricar um chaveiro **virtual** usando tudo que aprendemos.”
+**Abertura do Caramelo:** “Chegou a missão final! Vamos imprimir um chaveiro **virtual** usando tudo que aprendemos.”
 
 | ID/formato | Enunciado ou tarefa | Resposta correta | Feedback em caso de erro |
 |---|---|---|---|
 | A01 · seleção visual | Entre chaveiro 3D com furo, JPG e escultura sem abertura, “Qual modelo escolher?” | Modelo 3D do chaveiro com furo funcional. | “O modelo precisa ter geometria 3D e a abertura para a argola.” |
 | A02 · configuração | Oficina virtual FDM aceita PLA. Escolha entre FDM+PLA/perfil correto, FDM+resina e perfil de outra máquina. | FDM, PLA e perfil compatível. | “Material, impressora e perfil precisam combinar.” |
 | A03 · inspeção visual | Três prévias: chaveiro dentro da mesa e furo livre; fora da mesa; furo coberto. “Qual pode avançar?” | Dentro da mesa, com furo livre e perfil já compatível. | “Confira área e geometria funcional antes de continuar.” |
-| A04 · execução virtual | Botão 'Iniciar impressão virtual' mostra animação original curta de camadas e chaveiro simulado pronto. “Qual processo vimos?” | Deposição de material por camadas, ilustrando FDM. | “Esta é uma simulação ilustrativa, não fabricação física.” |
+| A04 · execução virtual | Botão 'Iniciar impressão virtual' mostra animação original curta de camadas e chaveiro simulado pronto. “Qual processo vimos?” | Deposição de material por camadas, ilustrando FDM. | “Esta é uma simulação ilustrativa, não uma impressão física.” |
 
 **Acerto:** explicar por que a escolha é válida, confirmar a interação e habilitar 'Continuar'. **Erro:** exibir a explicação específica da tabela, permitir tentar novamente e oferecer destaque visual após erros recorrentes.
 

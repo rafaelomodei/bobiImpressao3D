@@ -110,16 +110,16 @@ export const l08: LessonInput = {
       // redigido pela equipe técnica (título, enunciado e feedbacks)
       title: "Do modelo à peça",
       pedagogicalLabel: "ordenação",
-      statement: "Organize o fluxo para fabricar o porta-lápis.",
+      statement: "Organize o fluxo para imprimir o porta-lápis.",
       items: [
         { id: "i1", text: "Obter modelo 3D." },
         { id: "i2", text: "Preparar no fatiador." },
         { id: "i3", text: "Fornecer instruções à impressora." },
-        { id: "i4", text: "Fabricar peça." },
+        { id: "i4", text: "Imprimir a peça." },
       ],
-      errorFeedback: "A impressora precisa das instruções de fabricação preparadas antes de iniciar.",
-      successFeedback: "Perfeito! Com o modelo preparado e as instruções na impressora, a fabricação pode começar.",
-      hint: "Tudo começa pelo modelo. A fabricação é sempre a última etapa.",
+      errorFeedback: "A impressora precisa das instruções de impressão preparadas antes de iniciar.",
+      successFeedback: "Perfeito! Com o modelo preparado e as instruções na impressora, a impressão pode começar.",
+      hint: "Tudo começa pelo modelo. A impressão é sempre a última etapa.",
     },
     {
       id: "A04",

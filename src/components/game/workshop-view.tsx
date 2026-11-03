@@ -43,7 +43,7 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
       <MachineCard state={state} pending={pending} onCollect={() => run(collectPrint, ["collect"])} />
 
       <section aria-labelledby="projetos" className="flex flex-col gap-3">
-        <h2 id="projetos" className="text-lg font-black">Projetos para fabricar</h2>
+        <h2 id="projetos" className="text-lg font-black">Projetos para imprimir</h2>
         <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {ITEMS.map((item) => {
             const info = state.items.find((i) => i.id === item.id)!;
@@ -79,7 +79,7 @@ export function WorkshopView({ state }: { state: WorkshopState }) {
                     disabled={pending || busy || cantAfford}
                     onClick={() => run(() => startPrint(item.id), ["print-start"])}
                   >
-                    {!state.leveled ? "Nivele a mesa primeiro" : state.activePrint ? "Impressora ocupada" : cantAfford ? "Faltam Fios" : "Fabricar"}
+                    {!state.leveled ? "Nivele a mesa primeiro" : state.activePrint ? "Impressora ocupada" : cantAfford ? "Faltam Fios" : "Imprimir"}
                   </button>
                 )}
               </li>
@@ -235,11 +235,11 @@ function MachineCard({ state, pending, onCollect }: { state: WorkshopState; pend
           ) : (
             <>
               <p className="font-black">Imprimindo: {item.name}</p>
-              <div className="progress-track" role="progressbar" aria-valuenow={Math.round(progress * 100)} aria-valuemin={0} aria-valuemax={100} aria-label="Progresso da fabricação">
+              <div className="progress-track" role="progressbar" aria-valuenow={Math.round(progress * 100)} aria-valuemin={0} aria-valuemax={100} aria-label="Progresso da impressão">
                 <div className="progress-fill" style={{ width: `${progress * 100}%` }} />
               </div>
               <p className="text-2xl font-black tabular-nums">{formatMs(remaining)}</p>
-              <p className="text-sm text-structure-soft-text">Pode fechar o app: a fabricação continua no servidor.</p>
+              <p className="text-sm text-structure-soft-text">Pode fechar o app: a impressão continua no servidor.</p>
             </>
           )
         ) : (

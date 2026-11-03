@@ -54,11 +54,11 @@ export const l21: LessonInput = {
       pairs: [
         { id: "p1", left: "Carretel PLA", right: "Material físico." },
         { id: "p2", left: "Perfil de material", right: "Parâmetros do material." },
-        { id: "p3", left: "Impressora FDM", right: "Fabrica." },
+        { id: "p3", left: "Impressora FDM", right: "Imprime." },
       ],
       errorFeedback: "Material e configurações são coisas diferentes.",
       // redigido pela equipe técnica
-      successFeedback: "Perfeito! O carretel é o material, o perfil guarda os parâmetros e a impressora fabrica.",
+      successFeedback: "Perfeito! O carretel é o material, o perfil guarda os parâmetros e a impressora imprime.",
       // redigido pela equipe técnica
       hint: "Um deles você segura na mão; outro só existe no fatiador.",
     },

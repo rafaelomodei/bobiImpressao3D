@@ -37,7 +37,7 @@ async function Oficina() {
             <Caramelo pose="explain" size={110} />
             <p className="text-lg font-black">A oficina abre quando você concluir a primeira lição.</p>
             <p className="text-structure-soft-text">
-              Aqui você vai nivelar a mesa, fabricar itens virtuais e melhorar sua impressora.
+              Aqui você vai nivelar a mesa, imprimir itens virtuais e melhorar sua impressora.
             </p>
             <Link href="/licao/l01" className="btn-primary">
               Começar a L01

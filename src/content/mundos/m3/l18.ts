@@ -13,7 +13,7 @@ export const l18: LessonInput = {
   number: 18,
   title: "Conheça o fatiador",
   objective:
-    "Reconhecer a função de preparar o modelo e gerar instruções de fabricação com contexto de impressora/material.",
+    "Reconhecer a função de preparar o modelo e gerar instruções de impressão com contexto de impressora/material.",
   intro: {
     lines: [
       { text: "O modelo está pronto.", pose: "talk" },
@@ -34,14 +34,14 @@ export const l18: LessonInput = {
           id: "a",
           text: "Preparar o modelo e as instruções.",
           // redigido pela equipe técnica (texto de acerto)
-          feedback: "Isso! O fatiador prepara o modelo e gera as instruções de fabricação.",
+          feedback: "Isso! O fatiador prepara o modelo e gera as instruções de impressão.",
         },
-        { id: "b", text: "Imprimir papel.", feedback: "O fatiador faz a ponte entre a geometria e a fabricação." },
-        { id: "c", text: "Guardar filamento.", feedback: "O fatiador faz a ponte entre a geometria e a fabricação." },
+        { id: "b", text: "Imprimir papel.", feedback: "O fatiador faz a ponte entre a geometria e a impressão." },
+        { id: "c", text: "Guardar filamento.", feedback: "O fatiador faz a ponte entre a geometria e a impressão." },
       ],
       correctOptionId: "a",
       // redigido pela equipe técnica
-      successFeedback: "Isso! O fatiador prepara o modelo e gera as instruções de fabricação.",
+      successFeedback: "Isso! O fatiador prepara o modelo e gera as instruções de impressão.",
       // redigido pela equipe técnica
       hint: "Ele fica entre o arquivo da peça e a máquina.",
     },
@@ -57,7 +57,7 @@ export const l18: LessonInput = {
         { id: "p3", left: "Prévia", right: "Inspeção de trajetórias." },
         { id: "p4", left: "Instruções", right: "Comandos compatíveis." },
       ],
-      errorFeedback: "Visualizar o resultado previsto não é o mesmo que executar a fabricação.",
+      errorFeedback: "Visualizar o resultado previsto não é o mesmo que executar a impressão.",
       // redigido pela equipe técnica
       successFeedback: "Perfeito! A forma vira preparo, o preparo vira instruções, e a prévia ajuda a conferir.",
       // redigido pela equipe técnica

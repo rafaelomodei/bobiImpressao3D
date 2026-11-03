@@ -124,7 +124,7 @@
 |---|---|---|---|
 | A01 · Escolha visual | Selecionar entre três modelos aquele que resolve a necessidade de guardar lápis. | **Porta-lápis com compartimentos adequados**. | A melhor escolha atende à necessidade apresentada, não apenas à aparência. |
 | A02 · Seleção tecnológica | Há uma impressora FDM disponível: “Qual material corresponde à alimentação dessa máquina?” | **Carretel de filamento compatível**. | Diferenciar filamento e resina para essa máquina; compatibilidade depende do contexto. |
-| A03 · Ordenação | Organizar o fluxo de fabricação. | **Obter modelo 3D → preparar no fatiador → fornecer instruções à impressora → fabricar peça**. | A impressora precisa das instruções de fabricação preparadas antes de iniciar. |
+| A03 · Ordenação | Organizar o fluxo de impressão. | **Obter modelo 3D → preparar no fatiador → fornecer instruções à impressora → imprimir a peça**. | A impressora precisa das instruções de impressão preparadas antes de iniciar. |
 | A04 · Diagnóstico visual | Resultado **fictício** do porta-lápis apresenta fios entre regiões. “Qual sintoma aparece?” | **Stringing**. | Identificar manifestação visual, sem deduzir causa específica. |
 
 **Conclusão — Caramelo:** “Conseguimos organizar meu primeiro projeto! Você já sabe como começar e o que observar se algo não sair como esperado.”

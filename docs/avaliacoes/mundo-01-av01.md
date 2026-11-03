@@ -37,12 +37,12 @@ A avaliação de domínio **não é uma microlição comum**: pontua acertos nas
 **Regra de correção:** a alternativa escolhida deve identificar o processo aditivo; distratores devem representar métodos efetivamente diferentes, como remoção de material ou moldagem.  
 **Feedback ao final:** esclarecer por que depositar material representa fabricação aditiva.
 
-### Q02 — Sequência de fabricação
+### Q02 — Sequência de impressão
 **Competência:** organizar o fluxo digital básico.  
-**Tarefa:** “Organize a sequência necessária para fabricar um objeto a partir de um modelo digital.”  
-**Ordem correta:** **modelo digital → preparação das instruções no fatiador → impressora/fabricação da peça**.  
+**Tarefa:** “Organize a sequência necessária para imprimir um objeto a partir de um modelo digital.”  
+**Ordem correta:** **modelo digital → preparação das instruções no fatiador → impressão da peça na impressora**.  
 **Regra de correção:** a questão é considerada certa **somente quando a sequência inteira estiver correta**.  
-**Feedback ao final:** esclarecer que a impressora necessita de instruções adequadas antes de fabricar.
+**Feedback ao final:** esclarecer que a impressora necessita de instruções adequadas antes de imprimir.
 
 ### Q03 — Aplicação prática
 **Competência:** escolher uma solução que atenda a uma necessidade.  
@@ -83,7 +83,7 @@ A nova tentativa pode alterar **cenário, ordem de alternativas e imagens ilustr
 Exemplos de variação dentro do mesmo objetivo:
 
 - Q01: comparar diferentes ilustrações de deposição, fresagem e moldagem.
-- Q02: substituir o objeto ilustrado, mantendo a ordem modelo → preparação → fabricação.
+- Q02: substituir o objeto ilustrado, mantendo a ordem modelo → preparação → impressão.
 - Q03: propor organizar outros itens, desde que uma alternativa resolva claramente a necessidade.
 - Q04: variar os recursos visuais de carretel/FDM e resina/fotopolimerização.
 - Q05: usar outra imagem de stringing com característica inequívoca, sem introduzir causa técnica específica.

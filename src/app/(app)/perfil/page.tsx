@@ -35,7 +35,7 @@ async function Perfil() {
     { icon: "🔑", title: "Primeira impressão", desc: "Passar na avaliação do Mundo 3", done: snap.passedAssessments.has("BOBI-M03-AV03") },
     { icon: "streak", title: "Embalado", desc: "Sequência de 3 dias", done: snap.streak >= 3 },
     { icon: "📏", title: "Mesa no prumo", desc: "Nivelar a mesa na oficina", done: ws.leveled },
-    { icon: "📦", title: "Colecionador", desc: "Fabricar 3 peças", done: printed >= 3 },
+    { icon: "📦", title: "Colecionador", desc: "Imprimir 3 peças", done: printed >= 3 },
   ];
 
   return (
@@ -53,7 +53,7 @@ async function Perfil() {
         <Stat icon={<UiIcon name="streak" size={36} />} value={snap.streak} label="dias de sequência" />
         <Stat icon={<UiIcon name="xp" size={36} />} value={snap.xp} label="XP total" />
         <Stat icon={<UiIcon name="fios" size={36} />} value={snap.fios} label="Fios" />
-        <Stat icon="📦" value={printed} label="peças fabricadas" />
+        <Stat icon="📦" value={printed} label="peças impressas" />
       </section>
 
       <section aria-labelledby="conquistas" className="flex flex-col gap-3">
