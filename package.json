@@ -10,6 +10,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "db:push": "node scripts/db-push.mjs",
     "admin:create": "node scripts/admin-create.mjs",
+    "tester:create": "node scripts/tester-create.mjs",
     "test": "vitest run",
     "e2e": "playwright test",
     "e2e:session": "node scripts/dev-session.mjs --reset",

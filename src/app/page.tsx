@@ -5,6 +5,7 @@ import { GoogleButton } from "@/components/google-button";
 import { Logo } from "@/components/logo";
 import { signInLocal } from "@/app/auth/actions";
 import { devLoginEnabled } from "@/lib/dev-login";
+import { demoTesterEnabled } from "@/lib/tester";
 
 /** DD012: boas-vindas com login Google antes de qualquer lição. */
 export default function WelcomePage({ searchParams }: PageProps<"/">) {
@@ -42,9 +43,16 @@ export default function WelcomePage({ searchParams }: PageProps<"/">) {
         <p className="text-center text-xs text-structure-soft-text">
           Ao entrar, você usa sua conta Google só para acessar o bobi. Seu nome e sua foto não aparecem para ninguém.
         </p>
-        <Link href="/admin/entrar" className="text-center text-xs font-bold text-structure-purple underline underline-offset-2">
-          Área administrativa (relatórios)
-        </Link>
+        <nav aria-label="Acessos de avaliação" className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs font-bold">
+          {demoTesterEnabled() && (
+            <Link href="/teste" className="text-structure-purple underline underline-offset-2">
+              Conta de teste (avaliação)
+            </Link>
+          )}
+          <Link href="/admin/entrar" className="text-structure-purple underline underline-offset-2">
+            Área administrativa (relatórios)
+          </Link>
+        </nav>
       </footer>
     </main>
   );
