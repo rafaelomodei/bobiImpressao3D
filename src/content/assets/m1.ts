@@ -176,6 +176,7 @@ export const ASSETS: AssetInput[] = [
       frames: 5,
       fps: 2,
       loop: true,
+      reducedMotionFile: "bobi-l02-torre-estagios-01.png",
     },
     usedIn: ["BOBI-M01-L02 S00"],
     file: "bobi-l02-torre-estagios.png",

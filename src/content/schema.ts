@@ -193,6 +193,8 @@ export const assetEntry = z.object({
     frames: z.number().int().optional(),
     fps: z.number().optional(),
     loop: z.boolean().optional(),
+    /** Quadro estático alternativo quando a pessoa prefere movimento reduzido. */
+    reducedMotionFile: z.string().regex(/^bobi-[a-z0-9-]+\.(png|webp|svg)$/).optional(),
   }),
   usedIn: z.array(z.string()).min(1),
   file: z.string().regex(/^bobi-[a-z0-9-]+\.(png|webp|svg)$/),

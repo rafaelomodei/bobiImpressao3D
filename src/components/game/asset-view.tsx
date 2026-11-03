@@ -16,8 +16,19 @@ export function AssetView({
   if (!asset) return null;
   const h = size === "sm" ? "h-20" : size === "lg" ? "h-44" : "h-28";
   if (asset.src) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img src={asset.src} alt={asset.label} className={`${h} w-full object-contain ${className}`} />;
+    const image = (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={asset.src} alt={asset.label} className={`${h} w-full object-contain ${className}`} />
+    );
+    if (asset.reducedMotionSrc) {
+      return (
+        <picture>
+          <source media="(prefers-reduced-motion: reduce)" srcSet={asset.reducedMotionSrc} />
+          {image}
+        </picture>
+      );
+    }
+    return image;
   }
   return (
     <div
